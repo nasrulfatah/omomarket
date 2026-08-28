@@ -196,7 +196,7 @@ export default function JualForm() {
             <p className={`flex justify-between text-base font-bold ${
               hargaModalNum >= 3000000 ? "text-green-600" : "text-red-600"
             }`}>
-              <span>Selisih keuntungan/kerugian</span>
+              <span>Selisih {hargaModalNum >= 3000000 ? "keuntungan" : "kerugian"}</span>
               <span>{hargaModalNum >= 3000000 ? "+" : ""}{formatRupiah(hargaModalNum - 3000000)}</span>
             </p>
           </div>
