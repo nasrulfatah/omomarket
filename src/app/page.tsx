@@ -52,16 +52,14 @@ export default async function Home() {
           <div className="relative hidden lg:block">
             <div className="absolute inset-0 rounded-full bg-accent/35 blur-[80px]" />
             <div className="absolute inset-8 rounded-full bg-accent/25 blur-2xl" />
-            <div className="relative overflow-hidden rounded-3xl shadow-[0_0_45px_-4px_rgba(163,230,53,0.55)]">
-              <Image
-                src="/omoway/colors/aurora-green.jpg"
-                alt="Omo Aurora Green"
-                width={1920}
-                height={1080}
-                className="w-full"
-                priority
-              />
-            </div>
+            <Image
+              src="/omoway/colors/aurora-green.jpg"
+              alt="Omo Aurora Green"
+              width={930}
+              height={620}
+              className="relative w-full drop-shadow-[0_0_45px_rgba(163,230,53,0.55)]"
+              priority
+            />
           </div>
         </div>
       </section>
