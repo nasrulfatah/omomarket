@@ -53,11 +53,11 @@ export default async function Home() {
             <div className="absolute inset-0 rounded-full bg-accent/35 blur-[80px]" />
             <div className="absolute inset-8 rounded-full bg-accent/25 blur-2xl" />
             <Image
-              src="/omoway/colors/aurora-green.jpg"
+              src="/omoway/aurora-green-hero.png"
               alt="Omo Aurora Green"
-              width={930}
-              height={620}
-              className="relative w-full drop-shadow-[0_0_45px_rgba(163,230,53,0.55)]"
+              width={1839}
+              height={1473}
+              className="relative w-full scale-125 drop-shadow-[0_0_45px_rgba(163,230,53,0.55)]"
               priority
             />
           </div>
