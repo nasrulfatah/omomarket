@@ -14,12 +14,28 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const siteTitle = "Omomarket — Marketplace Pre Order Omo";
+const siteDescription =
+  "Katalog Pre Order Omo — listing PO, lihat katalog, dan chat langsung via WhatsApp.";
+
 export const metadata: Metadata = {
-  title: "Omomarket — Marketplace Pre Order Omo",
-  description:
-    "Omomarket adalah platform katalog Pre Order Omo. Penjual bisa listing PO, calon pembeli bisa lihat katalog dan chat langsung via WhatsApp.",
+  metadataBase: new URL("https://omomarket.vercel.app"),
+  title: siteTitle,
+  description: siteDescription,
   icons: {
     icon: "/favicon.svg",
+  },
+  openGraph: {
+    title: siteTitle,
+    description: siteDescription,
+    siteName: "Omomarket",
+    locale: "id_ID",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteTitle,
+    description: siteDescription,
   },
 };
 
