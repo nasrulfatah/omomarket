@@ -24,6 +24,10 @@ export const metadata: Metadata = {
   description: siteDescription,
   icons: {
     icon: "/favicon.svg",
+    apple: "/apple-touch-icon.png",
+  },
+  alternates: {
+    canonical: "/",
   },
   openGraph: {
     title: siteTitle,
