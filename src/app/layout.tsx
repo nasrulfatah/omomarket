@@ -19,7 +19,7 @@ const siteDescription =
   "Katalog Pre Order Omo — listing PO, lihat katalog, dan chat langsung via WhatsApp.";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://omomarket.vercel.app"),
+  metadataBase: new URL("https://omomarket.shop"),
   title: siteTitle,
   description: siteDescription,
   icons: {
@@ -31,6 +31,7 @@ export const metadata: Metadata = {
     siteName: "Omomarket",
     locale: "id_ID",
     type: "website",
+    url: "/",
   },
   twitter: {
     card: "summary_large_image",
