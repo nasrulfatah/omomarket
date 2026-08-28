@@ -49,7 +49,7 @@ export default async function ProdukDetail({
 
         <div className="mt-6 grid grid-cols-1 gap-8 lg:grid-cols-12">
         <div className="flex items-center justify-center rounded-2xl border border-line bg-white p-4 overflow-hidden lg:p-8 lg:col-span-7">
-          <div className="w-full relative h-80 lg:h-[1200px]">
+          <div className="w-full relative h-80 lg:h-auto aspect-[5/3]">
             <OmowayImage warna={listing.warna} className="w-full" showLabel={false} />
             {isSold && (
               <div className="absolute inset-0 bg-gray-400 opacity-20 rounded-lg" />
