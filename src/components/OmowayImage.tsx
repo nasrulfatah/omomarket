@@ -22,7 +22,7 @@ export default function OmowayImage({
   const imageFile = warnaToImageFile[warna];
 
   return (
-    <div className="relative h-full w-full">
+    <div className="relative h-full w-full aspect-[5/3]">
       <Image
         src={`/omoway/colors/${imageFile}.jpg`}
         alt={`Omo ${warna}`}
