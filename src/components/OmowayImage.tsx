@@ -26,9 +26,9 @@ export default function OmowayImage({
       <Image
         src={`/omoway/colors/${imageFile}.jpg`}
         alt={`Omo ${warna}`}
-        width={930}
-        height={620}
-        className={className ? `${className} object-cover object-center` : "h-full w-full object-cover object-center"}
+        fill
+        sizes="(min-width: 1024px) 60vw, 100vw"
+        className="object-cover object-center"
         priority
       />
       {showLabel && (
