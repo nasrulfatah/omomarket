@@ -42,9 +42,10 @@ export async function POST(request: NextRequest) {
       { status: 201 }
     );
   } catch (error) {
-    console.error("Error in jual API:", error);
+    const errorMsg = error instanceof Error ? error.message : String(error);
+    console.error("Error in jual API:", errorMsg, error);
     return NextResponse.json(
-      { error: "Gagal menyimpan listing. Silahkan coba lagi." },
+      { error: errorMsg || "Gagal menyimpan listing. Silahkan coba lagi." },
       { status: 500 }
     );
   }
