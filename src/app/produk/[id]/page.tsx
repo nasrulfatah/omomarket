@@ -47,9 +47,9 @@ export default async function ProdukDetail({
           ← Kembali ke katalog
         </Link>
 
-        <div className="mt-6 grid grid-cols-1 gap-8 lg:grid-cols-2">
-        <div className="flex items-center justify-center rounded-2xl border border-line bg-white p-4 overflow-hidden lg:p-8">
-          <div className="w-full relative h-80 lg:h-screen lg:max-h-[600px]">
+        <div className="mt-6 grid grid-cols-1 gap-8 lg:grid-cols-12">
+        <div className="flex items-center justify-center rounded-2xl border border-line bg-white p-4 overflow-hidden lg:p-8 lg:col-span-7">
+          <div className="w-full relative h-80 lg:h-[1200px]">
             <OmowayImage warna={listing.warna} className="w-full" showLabel={false} />
             {isSold && (
               <div className="absolute inset-0 bg-gray-400 opacity-20 rounded-lg" />
@@ -57,7 +57,7 @@ export default async function ProdukDetail({
           </div>
         </div>
 
-        <div className="flex flex-col gap-5">
+        <div className="flex flex-col gap-5 lg:col-span-5">
           <div>
             <div className="flex flex-wrap items-center gap-2">
               {isSold && (
