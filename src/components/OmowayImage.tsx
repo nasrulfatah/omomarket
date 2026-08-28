@@ -22,13 +22,14 @@ export default function OmowayImage({
   const imageFile = warnaToImageFile[warna];
 
   return (
-    <div className="relative h-full w-full">
+    <div className="relative h-full w-full overflow-hidden">
       <Image
         src={`/omoway/colors/${imageFile}.jpg`}
         alt={`Omo ${warna}`}
         width={930}
         height={620}
-        className={className ? `${className} object-cover object-center` : "h-full w-full object-cover object-center"}
+        className={className ? `${className} object-cover object-center h-full w-full` : "h-full w-full object-cover object-center"}
+        style={{ objectPosition: "50% 50%", transform: "scale(1.15)" }}
         priority
       />
       {showLabel && (
