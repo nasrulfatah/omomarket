@@ -18,6 +18,9 @@ export const metadata: Metadata = {
   title: "Omomarket — Marketplace Pre Order Omo",
   description:
     "Omomarket adalah platform katalog Pre Order Omo. Penjual bisa listing PO, calon pembeli bisa lihat katalog dan chat langsung via WhatsApp.",
+  icons: {
+    icon: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
