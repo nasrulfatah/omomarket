@@ -16,7 +16,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Append to Google Sheets with Draft status
+    // Append to Google Sheets — auto-published, not yet verified by admin
     const timestamp = new Date().toLocaleString("id-ID");
     const values = [
       [
@@ -28,7 +28,7 @@ export async function POST(request: NextRequest) {
         warna,
         dealer,
         formatRupiah(hargaModal),
-        "Draft",
+        "Publish",
         "No",
       ],
     ];

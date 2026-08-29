@@ -64,7 +64,7 @@ export interface Listing {
   dealer: string;
   hargaModal: number;
   screenshotPO?: string;
-  status?: "Draft" | "Live" | "Sold";
+  status?: "Draft" | "Publish" | "Live" | "Sold";
   verified?: boolean;
   createdAt: string;
 }
