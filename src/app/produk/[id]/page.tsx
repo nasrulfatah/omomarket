@@ -71,7 +71,6 @@ export default async function ProdukDetail({
                   PIONEER
                 </span>
               )}
-              {listing.verified && <VerifiedBadge />}
             </div>
             <h1 className="mt-3 text-3xl font-extrabold">
               Omo {listing.tipe} — {listing.warna}
@@ -103,7 +102,10 @@ export default async function ProdukDetail({
             </div>
             <div>
               <p className="text-black/50">No. PO</p>
-              <p className="font-mono font-semibold">{censorPO(listing.noPO)}</p>
+              <p className="flex items-center gap-1.5 font-mono font-semibold">
+                {censorPO(listing.noPO)}
+                {listing.verified && <VerifiedBadge />}
+              </p>
             </div>
           </div>
 

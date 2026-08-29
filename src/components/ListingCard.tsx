@@ -51,7 +51,6 @@ export default function ListingCard({ listing }: { listing: Listing }) {
                 PIONEER
               </span>
             )}
-            {listing.verified && <VerifiedBadge />}
           </div>
           <span
             className="inline-block rounded-full px-2.5 py-1 text-xs font-semibold text-white"
@@ -66,8 +65,9 @@ export default function ListingCard({ listing }: { listing: Listing }) {
         <p className="text-sm text-black/70">
           Dealer: <span className="font-medium text-black">{listing.dealer}</span>
         </p>
-        <p className="text-sm text-black/70">
+        <p className="flex items-center gap-1.5 text-sm text-black/70">
           No. PO: <span className="font-mono font-medium text-black">{censorPO(listing.noPO)}</span>
+          {listing.verified && <VerifiedBadge />}
         </p>
         <div className="mt-auto flex items-end justify-between pt-2">
           <p className="text-lg font-bold text-black">{formatRupiah(hargaJual)}</p>
