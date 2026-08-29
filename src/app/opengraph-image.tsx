@@ -1,4 +1,6 @@
 import { ImageResponse } from "next/og";
+import { readFileSync } from "fs";
+import { join } from "path";
 
 export const alt = "Omomarket — Marketplace Pre Order Omo";
 export const size = {
@@ -8,6 +10,11 @@ export const size = {
 export const contentType = "image/png";
 
 export default async function Image() {
+  const imageBuffer = readFileSync(
+    join(process.cwd(), "public/omoway/aurora-green-og.png")
+  );
+  const imageSrc = `data:image/png;base64,${imageBuffer.toString("base64")}`;
+
   return new ImageResponse(
     (
       <div
@@ -15,75 +22,53 @@ export default async function Image() {
           width: "100%",
           height: "100%",
           display: "flex",
-          flexDirection: "column",
           alignItems: "center",
-          justifyContent: "center",
+          justifyContent: "space-between",
           backgroundColor: "#000000",
           backgroundImage:
-            "radial-gradient(circle at 75% 50%, rgba(163,230,53,0.35), rgba(0,0,0,0) 60%)",
+            "radial-gradient(circle at 78% 55%, rgba(163,230,53,0.35), rgba(0,0,0,0) 60%)",
           fontFamily: "sans-serif",
+          padding: "0 64px",
         }}
       >
         <div
           style={{
             display: "flex",
-            alignItems: "center",
+            flexDirection: "column",
             gap: 20,
-            marginBottom: 36,
+            maxWidth: 640,
           }}
         >
           <div
             style={{
               display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              width: 88,
-              height: 88,
-              borderRadius: 20,
-              backgroundColor: "#000000",
-              border: "3px solid #a3e635",
-              color: "#a3e635",
-              fontSize: 34,
+              alignSelf: "flex-start",
+              backgroundColor: "#a3e635",
+              color: "#000000",
+              fontSize: 20,
               fontWeight: 800,
-              letterSpacing: -1,
+              padding: "8px 18px",
+              borderRadius: 999,
             }}
           >
-            -O-
+            Katalog Pre Order Omo
           </div>
           <div
             style={{
               display: "flex",
-              fontSize: 56,
+              flexWrap: "wrap",
+              fontSize: 52,
               fontWeight: 800,
+              lineHeight: 1.15,
               color: "#ffffff",
             }}
           >
-            Omomarket
+            <span>Cari Unit&nbsp;</span>
+            <span style={{ color: "#a3e635" }}>Omo&nbsp;</span>
+            <span>Pre Order, lebih cepat dapatnya, banyak benefitnya.</span>
           </div>
         </div>
-        <div
-          style={{
-            display: "flex",
-            fontSize: 40,
-            fontWeight: 700,
-            color: "#ffffff",
-            textAlign: "center",
-            maxWidth: 900,
-          }}
-        >
-          Cari Unit <span style={{ color: "#a3e635", margin: "0 12px" }}>Omo</span> Pre Order
-        </div>
-        <div
-          style={{
-            display: "flex",
-            fontSize: 26,
-            color: "rgba(255,255,255,0.65)",
-            marginTop: 20,
-            textAlign: "center",
-          }}
-        >
-          Katalog PO Omo — tipe, warna, dealer lengkap
-        </div>
+        <img src={imageSrc} width={560} height={449} />
       </div>
     ),
     {
