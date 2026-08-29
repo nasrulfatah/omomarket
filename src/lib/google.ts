@@ -77,3 +77,64 @@ export async function getSheetData(): Promise<any[][]> {
     return [];
   }
 }
+
+async function ensureSheetTabExists(
+  sheetName: string,
+  headerRow?: string[]
+): Promise<void> {
+  const meta = await sheets.spreadsheets.get({
+    spreadsheetId: process.env.GOOGLE_SHEETS_ID!,
+  });
+  const exists = meta.data.sheets?.some(
+    (s) => s.properties?.title === sheetName
+  );
+  if (exists) return;
+
+  await sheets.spreadsheets.batchUpdate({
+    spreadsheetId: process.env.GOOGLE_SHEETS_ID!,
+    requestBody: {
+      requests: [{ addSheet: { properties: { title: sheetName } } }],
+    },
+  });
+
+  if (headerRow) {
+    await sheets.spreadsheets.values.append({
+      spreadsheetId: process.env.GOOGLE_SHEETS_ID!,
+      range: `'${sheetName}'!A:Z`,
+      valueInputOption: "USER_ENTERED",
+      requestBody: { values: [headerRow] },
+    });
+  }
+}
+
+// Generic append to any tab in the same spreadsheet. Auto-creates the tab
+// (with an optional header row) if it doesn't exist yet, so a renamed or
+// missing tab doesn't hard-fail the request.
+export async function appendToSheetTab(
+  sheetName: string,
+  values: (string | number | null)[][],
+  headerRow?: string[]
+): Promise<void> {
+  try {
+    await sheets.spreadsheets.values.append({
+      spreadsheetId: process.env.GOOGLE_SHEETS_ID!,
+      range: `'${sheetName}'!A:Z`,
+      valueInputOption: "USER_ENTERED",
+      requestBody: { values },
+    });
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    if (message.includes("Unable to parse range")) {
+      await ensureSheetTabExists(sheetName, headerRow);
+      await sheets.spreadsheets.values.append({
+        spreadsheetId: process.env.GOOGLE_SHEETS_ID!,
+        range: `'${sheetName}'!A:Z`,
+        valueInputOption: "USER_ENTERED",
+        requestBody: { values },
+      });
+      return;
+    }
+    console.error(`Error appending to Sheet tab "${sheetName}":`, error);
+    throw error;
+  }
+}

@@ -26,6 +26,12 @@ export default function Navbar() {
             S&amp;K
           </Link>
           <Link
+            href="/request-po"
+            className="rounded-full border border-black/15 px-3 py-2 text-black/80 hover:bg-black/5 hover:text-black"
+          >
+            Request PO
+          </Link>
+          <Link
             href="/jual"
             className="rounded-full bg-accent px-4 py-2 font-semibold text-black transition hover:bg-accent-dark"
           >
