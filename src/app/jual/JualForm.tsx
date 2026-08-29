@@ -186,6 +186,7 @@ export default function JualForm() {
               <span className="text-black/60">Deposit PO 3jt</span>
               <span className="font-medium">{formatRupiah(3000000)}</span>
             </p>
+            <div className="my-2 border-t border-line" />
             <p className="flex justify-between">
               <span className="text-black/60">Harga Takeover sbg pengganti</span>
               <span className="font-medium">{formatRupiah(hargaModalNum)}</span>
@@ -198,13 +199,6 @@ export default function JualForm() {
             <p className="flex justify-between font-semibold">
               <span>Uang yang kamu terima</span>
               <span>{formatRupiah(hargaModalNum - sharingFee)}</span>
-            </p>
-            <div className="my-2 border-t border-line" />
-            <p className={`flex justify-between text-base font-bold ${
-              hargaModalNum - sharingFee >= 3000000 ? "text-green-600" : "text-red-600"
-            }`}>
-              <span>Selisih {hargaModalNum - sharingFee >= 3000000 ? "keuntungan" : "kerugian"}</span>
-              <span>{hargaModalNum - sharingFee >= 3000000 ? "+" : ""}{formatRupiah(hargaModalNum - sharingFee - 3000000)}</span>
             </p>
           </div>
 
