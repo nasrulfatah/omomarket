@@ -18,6 +18,16 @@ export const WARNA_OPTIONS = [
 
 export type OmowayWarna = (typeof WARNA_OPTIONS)[number];
 
+// Nama file JPG produk (di public/omoway/colors/) untuk tiap warna.
+export const WARNA_TO_IMAGE_FILE: Record<OmowayWarna, string> = {
+  "Aurora Green": "aurora-green",
+  "Liquid Silver": "liquid-silver",
+  "Meteorite Grey": "meteorite-grey",
+  "Turquoise Green": "turquoise-green",
+  "Lunar White": "lunar-white",
+  "Morning Sun Gold": "morning-sun-gold",
+};
+
 export const DEALER_OPTIONS = [
   "Depok",
   "Jakarta Barat",

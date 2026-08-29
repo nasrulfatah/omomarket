@@ -1,14 +1,5 @@
 import Image from "next/image";
-import { type OmowayWarna } from "@/lib/types";
-
-const warnaToImageFile: Record<OmowayWarna, string> = {
-  "Aurora Green": "aurora-green",
-  "Liquid Silver": "liquid-silver",
-  "Meteorite Grey": "meteorite-grey",
-  "Turquoise Green": "turquoise-green",
-  "Lunar White": "lunar-white",
-  "Morning Sun Gold": "morning-sun-gold",
-};
+import { WARNA_TO_IMAGE_FILE, type OmowayWarna } from "@/lib/types";
 
 export default function OmowayImage({
   warna,
@@ -19,7 +10,7 @@ export default function OmowayImage({
   className?: string;
   showLabel?: boolean;
 }) {
-  const imageFile = warnaToImageFile[warna];
+  const imageFile = WARNA_TO_IMAGE_FILE[warna];
 
   return (
     <div className="relative h-full w-full">
