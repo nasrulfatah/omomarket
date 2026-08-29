@@ -7,7 +7,6 @@ import {
   WARNA_OPTIONS,
   DEALER_OPTIONS,
   HARGA_OPTIONS,
-  getHargaJual,
   getSharingFee,
   formatRupiah,
   type OmowayTipe,
@@ -39,7 +38,6 @@ export default function JualForm() {
 
   const hargaModalNum = typeof hargaModal === "number" ? hargaModal : 0;
   const sharingFee = getSharingFee(tipe);
-  const hargaJual = hargaModalNum > 0 ? getHargaJual({ tipe, hargaModal: hargaModalNum }) : 0;
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -204,9 +202,11 @@ export default function JualForm() {
           <div className="rounded-xl bg-blue-50 p-4 text-xs text-blue-900">
             <p className="font-semibold mb-1">💡 Catatan harga katalog</p>
             <p>
-              Harga yang tampil di katalog akan berbeda dari harga yang kamu masukkan di sini.
-              Pembeli akan melihat harga lebih tinggi di katalog karena ada sharing fee untuk
-              Omomarket sebagai perantara.
+              Harga yang tampil di katalog akan sesuai dengan yang kamu masukkan di sini. Akan
+              ada potongan biaya Sharing Fee untuk Omomarket sebagai perantara, yaitu{" "}
+              {formatRupiah(500000)} untuk tipe Smart & Smart Long, dan {formatRupiah(1000000)}{" "}
+              untuk tipe Balance & Balance Pilot — untuk PO {tipe} ini, sharing fee-nya{" "}
+              {formatRupiah(sharingFee)}.
             </p>
           </div>
         </div>

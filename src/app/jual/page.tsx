@@ -16,7 +16,7 @@ export default function JualPage() {
         >
           Syarat &amp; Ketentuan
         </Link>{" "}
-        Omomarket, termasuk penambahan Sharing Fee pada harga tampil.
+        Omomarket, termasuk potongan Sharing Fee dari harga yang kamu masukkan.
       </p>
 
       <div className="mt-8 rounded-3xl border border-line bg-white p-6 shadow-sm sm:p-8">

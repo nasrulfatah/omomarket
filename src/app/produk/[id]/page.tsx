@@ -8,7 +8,6 @@ import {
   censorPO,
   formatRupiah,
   getHargaJual,
-  getSharingFee,
   isPioneer,
   warnaToHex,
   type OmowayWarna,
@@ -27,7 +26,6 @@ export default async function ProdukDetail({
   if (!listing) notFound();
 
   const hargaJual = getHargaJual(listing);
-  const sharingFee = getSharingFee(listing.tipe);
   const pioneer = isPioneer(listing.noPO);
   const isSold = listing.status === "Sold";
 

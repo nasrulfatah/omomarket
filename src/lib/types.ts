@@ -70,13 +70,17 @@ export interface Listing {
 }
 
 export function getSharingFee(tipe: OmowayTipe): number {
-  if (tipe === "Smart" || tipe === "Smart Long") return 1_000_000;
-  if (tipe === "Balance" || tipe === "Balance Pilot") return 2_000_000;
+  if (tipe === "Smart" || tipe === "Smart Long") return 500_000;
+  if (tipe === "Balance" || tipe === "Balance Pilot") return 1_000_000;
   return 0;
 }
 
+// Harga yang tampil di katalog sama persis dengan harga yang dimasukkan
+// penjual. Sharing fee adalah potongan komisi Omomarket sebagai
+// perantara, diambil dari harga tersebut — bukan ditambahkan ke harga
+// yang dilihat pembeli.
 export function getHargaJual(listing: Pick<Listing, "tipe" | "hargaModal">): number {
-  return listing.hargaModal + getSharingFee(listing.tipe);
+  return listing.hargaModal;
 }
 
 export function censorPO(noPO: string): string {
