@@ -29,12 +29,15 @@ export default async function ProdukDetail({
   const pioneer = isPioneer(listing.noPO);
   const isSold = listing.status === "Sold";
 
+  const productUrl = `https://omomarket.shop/produk/${listing.id}`;
   const waText = encodeURIComponent(
     `Halo Omomarket, saya mau tanya unit Omo PO berikut:\n\n` +
       `Tipe: ${listing.tipe}\n` +
       `Warna: ${listing.warna}\n` +
       `Dealer: ${listing.dealer}\n` +
-      `Harga: ${formatRupiah(hargaJual)}\n\n` +
+      `No. PO: ${censorPO(listing.noPO)}\n` +
+      `Harga: ${formatRupiah(hargaJual)}\n` +
+      `Link: ${productUrl}\n\n` +
       `Apakah unit ini masih tersedia?`
   );
   const waLink = `https://wa.me/${ADMIN_WA}?text=${waText}`;
