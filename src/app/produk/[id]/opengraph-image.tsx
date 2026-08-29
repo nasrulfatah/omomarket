@@ -152,12 +152,7 @@ export default async function Image({ params }: { params: Promise<{ id: string }
             backgroundColor: "#ffffff",
           }}
         >
-          <img
-            src={imageSrc}
-            width={540}
-            height={432}
-            style={{ objectFit: "cover" }}
-          />
+          <img src={imageSrc} width={540} height={432} />
         </div>
       </div>
     ),
