@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import {
   TIPE_OPTIONS,
   WARNA_OPTIONS,
@@ -12,6 +13,7 @@ import {
 } from "@/lib/types";
 
 export default function RequestPOForm() {
+  const router = useRouter();
   const [nama, setNama] = useState("");
   const [noWa, setNoWa] = useState("");
   const [tipe, setTipe] = useState<OmowayTipe | "">("");
@@ -56,13 +58,10 @@ export default function RequestPOForm() {
       }
 
       setSuccess(true);
-      setNama("");
-      setNoWa("");
-      setTipe("");
-      setWarna("");
-      setDealer("");
-      setBudgetMax("");
-      setCatatan("");
+      setTimeout(() => {
+        router.push("/request-po/success");
+        router.refresh();
+      }, 900);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Terjadi kesalahan.");
     } finally {
@@ -173,8 +172,7 @@ export default function RequestPOForm() {
       )}
       {success && (
         <p className="rounded-lg bg-accent/20 px-4 py-3 text-sm font-medium text-black">
-          Request kamu berhasil dikirim! Omomarket akan menghubungi kamu via WhatsApp
-          begitu ada PO yang cocok.
+          Request berhasil dikirim! Mengarahkan ke halaman berikutnya...
         </p>
       )}
 
