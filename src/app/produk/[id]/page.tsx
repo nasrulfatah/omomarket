@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getListingById } from "@/lib/store";
 import OmowayImage from "@/components/OmowayImage";
 import POBenefits from "@/components/POBenefits";
+import VerifiedBadge from "@/components/VerifiedBadge";
 import {
   censorPO,
   formatRupiah,
@@ -70,6 +71,7 @@ export default async function ProdukDetail({
                   PIONEER
                 </span>
               )}
+              {listing.verified && <VerifiedBadge />}
             </div>
             <h1 className="mt-3 text-3xl font-extrabold">
               Omo {listing.tipe} — {listing.warna}

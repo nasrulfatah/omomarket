@@ -65,6 +65,7 @@ export interface Listing {
   hargaModal: number;
   screenshotPO?: string;
   status?: "Draft" | "Live" | "Sold";
+  verified?: boolean;
   createdAt: string;
 }
 

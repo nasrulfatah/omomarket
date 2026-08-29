@@ -8,7 +8,7 @@ export async function getAllListings(): Promise<Listing[]> {
 
     const listings: Listing[] = rows
       .map((row, index) => {
-        const [timestamp, nama, noWa, noPO, tipe, warna, dealer, hargaStr, status] = row;
+        const [timestamp, nama, noWa, noPO, tipe, warna, dealer, hargaStr, status, verifiedStr] = row;
 
         return {
           id: `${noPO}-${index}`,
@@ -20,6 +20,7 @@ export async function getAllListings(): Promise<Listing[]> {
           dealer: dealer || "",
           hargaModal: parseInt(hargaStr?.replace(/[^\d]/g, "") || "0") || 0,
           status: status || "Draft",
+          verified: (verifiedStr || "").trim().toLowerCase() === "yes",
           createdAt: timestamp || new Date().toISOString(),
         };
       })

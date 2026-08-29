@@ -1,5 +1,6 @@
 import Link from "next/link";
 import OmowayImage from "./OmowayImage";
+import VerifiedBadge from "./VerifiedBadge";
 import {
   censorPO,
   formatRupiah,
@@ -50,6 +51,7 @@ export default function ListingCard({ listing }: { listing: Listing }) {
                 PIONEER
               </span>
             )}
+            {listing.verified && <VerifiedBadge />}
           </div>
           <span
             className="inline-block rounded-full px-2.5 py-1 text-xs font-semibold text-white"

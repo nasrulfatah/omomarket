@@ -29,6 +29,7 @@ export async function POST(request: NextRequest) {
         dealer,
         formatRupiah(hargaModal),
         "Draft",
+        "No",
       ],
     ];
 
