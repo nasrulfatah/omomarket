@@ -11,23 +11,30 @@ export async function getAllListings(): Promise<Listing[]> {
         const [timestamp, nama, noWa, noPO, tipe, warna, dealer, hargaStr, status, verifiedStr] = row;
 
         return {
-          id: `${noPO}-${index}`,
-          nama: nama || "",
-          noWa: noWa || "",
-          noPO: noPO || "",
-          tipe: tipe || "",
-          warna: warna || "",
-          dealer: dealer || "",
-          hargaModal: parseInt(hargaStr?.replace(/[^\d]/g, "") || "0") || 0,
-          status: status || "Draft",
-          verified: (verifiedStr || "").trim().toLowerCase() === "yes",
-          createdAt: timestamp || new Date().toISOString(),
+          index,
+          listing: {
+            id: `${noPO}-${index}`,
+            nama: nama || "",
+            noWa: noWa || "",
+            noPO: noPO || "",
+            tipe: tipe || "",
+            warna: warna || "",
+            dealer: dealer || "",
+            hargaModal: parseInt(hargaStr?.replace(/[^\d]/g, "") || "0") || 0,
+            status: status || "Draft",
+            verified: (verifiedStr || "").trim().toLowerCase() === "yes",
+            createdAt: timestamp || new Date().toISOString(),
+          },
         };
       })
-      .filter((l) => l.status !== "Draft")
-      .sort(
-        (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-      );
+      .filter(({ listing }) => listing.status !== "Draft")
+      // Rows are appended to the Sheet in chronological order (oldest
+      // first), so sorting by row index descending gives newest-first.
+      // The timestamp column is a locale-formatted display string
+      // ("26/8/2026, 23.16.30") that `new Date()` can't reliably parse,
+      // so row order is the trustworthy signal here.
+      .sort((a, b) => b.index - a.index)
+      .map(({ listing }) => listing);
 
     return listings;
   } catch {

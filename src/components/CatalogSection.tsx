@@ -21,13 +21,13 @@ export default function CatalogSection({ listings }: { listings: Listing[] }) {
       return true;
     })
     .sort((a, b) => {
-      // Sold items go to bottom
+      // Sold items go to bottom. `listings` already arrives newest-first
+      // from getAllListings(), and Array.sort is stable, so leaving equal
+      // (both sold or both not-sold) pairs as 0 preserves that order.
       const aIsSold = a.status === "Sold";
       const bIsSold = b.status === "Sold";
       if (aIsSold !== bIsSold) return aIsSold ? 1 : -1;
-
-      // Newest first
-      return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+      return 0;
     });
 
   const handleFilterChange = (newFilters: typeof filters) => {
