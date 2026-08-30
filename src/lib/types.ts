@@ -28,6 +28,16 @@ export const WARNA_TO_IMAGE_FILE: Record<OmowayWarna, string> = {
   "Morning Sun Gold": "morning-sun-gold",
 };
 
+// Singkatan warna untuk slug URL produk
+export const WARNA_TO_ABBR: Record<OmowayWarna, string> = {
+  "Aurora Green": "ag",
+  "Liquid Silver": "ls",
+  "Meteorite Grey": "mg",
+  "Turquoise Green": "tg",
+  "Lunar White": "lw",
+  "Morning Sun Gold": "msg",
+};
+
 export const DEALER_OPTIONS = [
   "Depok",
   "Jakarta Barat",
@@ -91,6 +101,18 @@ export function getSharingFee(tipe: OmowayTipe): number {
 // yang dilihat pembeli.
 export function getHargaJual(listing: Pick<Listing, "tipe" | "hargaModal">): number {
   return listing.hargaModal;
+}
+
+// Generate URL slug for product: tipe-warna-abbr-id
+// Example: "Smart Long", "Turquoise Green", 500 → "smart-long-tg-500"
+export function generateProductSlug(
+  tipe: OmowayTipe,
+  warna: OmowayWarna,
+  id: string | number
+): string {
+  const tipeSlug = tipe.toLowerCase().replace(/\s+/g, "-");
+  const warnaAbbr = WARNA_TO_ABBR[warna];
+  return `${tipeSlug}-${warnaAbbr}-${id}`;
 }
 
 export function censorPO(noPO: string): string {

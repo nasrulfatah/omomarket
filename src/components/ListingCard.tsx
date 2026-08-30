@@ -5,6 +5,7 @@ import {
   censorPO,
   formatRupiah,
   getHargaJual,
+  generateProductSlug,
   isPioneer,
   warnaToHex,
   type Listing,
@@ -13,12 +14,16 @@ import {
 export default function ListingCard({ listing }: { listing: Listing }) {
   const hargaJual = getHargaJual(listing);
   const pioneer = isPioneer(listing.noPO);
-
   const isSold = listing.status === "Sold";
+
+  // Extract index from id (format: "noPO-index")
+  const idParts = listing.id.split("-");
+  const index = idParts[idParts.length - 1];
+  const productSlug = generateProductSlug(listing.tipe, listing.warna, index);
 
   return (
     <Link
-      href={`/produk/${listing.id}`}
+      href={`/${productSlug}`}
       className={`group flex flex-col overflow-hidden rounded-2xl border border-line bg-white transition hover:-translate-y-1 hover:border-accent hover:shadow-xl hover:shadow-black/5 ${
         isSold ? "opacity-70" : ""
       }`}
