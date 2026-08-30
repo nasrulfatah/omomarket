@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 import { readFileSync } from "fs";
 import { join } from "path";
-import { getListingById } from "@/lib/store";
+import { getListingByIndex } from "@/lib/store";
 import {
   censorPO,
   formatRupiah,
@@ -62,7 +62,7 @@ export default async function Image({
   }
 
   const { id } = parsed;
-  const listing = await getListingById(id);
+  const listing = await getListingByIndex(id);
 
   if (!listing) {
     return new ImageResponse(

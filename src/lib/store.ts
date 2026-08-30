@@ -47,6 +47,37 @@ export async function getListingById(id: string): Promise<Listing | undefined> {
   return all.find((l) => l.id === id);
 }
 
+// Get listing by row index (from slug: "/tipe-warna-index")
+export async function getListingByIndex(index: string): Promise<Listing | undefined> {
+  const rows = await getSheetData();
+  const rowIndex = parseInt(index);
+
+  if (isNaN(rowIndex) || rowIndex < 0 || rowIndex >= rows.length) {
+    return undefined;
+  }
+
+  const row = rows[rowIndex];
+  const [timestamp, nama, noWa, noPO, tipe, warna, dealer, hargaStr, status, verifiedStr] = row;
+
+  if ((status || "Draft") === "Draft") {
+    return undefined;
+  }
+
+  return {
+    id: `${noPO}-${rowIndex}`,
+    nama: nama || "",
+    noWa: noWa || "",
+    noPO: noPO || "",
+    tipe: tipe || "",
+    warna: warna || "",
+    dealer: dealer || "",
+    hargaModal: parseInt(hargaStr?.replace(/[^\d]/g, "") || "0") || 0,
+    status: status || "Draft",
+    verified: (verifiedStr || "").trim().toLowerCase() === "yes",
+    createdAt: timestamp || new Date().toISOString(),
+  };
+}
+
 export async function addListing(
   input: Omit<Listing, "id" | "createdAt">
 ): Promise<Listing> {

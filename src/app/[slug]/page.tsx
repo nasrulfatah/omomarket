@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
-import { getListingById } from "@/lib/store";
+import { getListingByIndex } from "@/lib/store";
 import OmowayImage from "@/components/OmowayImage";
 import POBenefits from "@/components/POBenefits";
 import VerifiedBadge from "@/components/VerifiedBadge";
@@ -46,8 +46,8 @@ export default async function ProductDetail({
 
   const { tipeSlug, warnaAbbr, id } = parsed;
 
-  // Try to find the listing by ID (index)
-  const listing = await getListingById(id);
+  // Try to find the listing by row index
+  const listing = await getListingByIndex(id);
 
   if (!listing) notFound();
 
