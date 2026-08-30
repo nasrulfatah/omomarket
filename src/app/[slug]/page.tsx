@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { notFound, redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 import { getListingByIndex } from "@/lib/store";
 import OmowayImage from "@/components/OmowayImage";
 import POBenefits from "@/components/POBenefits";
@@ -10,7 +10,6 @@ import {
   getHargaJual,
   isPioneer,
   warnaToHex,
-  type OmowayWarna,
   WARNA_TO_ABBR,
 } from "@/lib/types";
 
@@ -35,11 +34,6 @@ export default async function ProductDetail({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-
-  // Handle old format /produk/[id] by redirecting
-  if (slug === "produk") {
-    notFound();
-  }
 
   const parsed = parseProductSlug(slug);
   if (!parsed) notFound();
@@ -93,70 +87,88 @@ export default async function ProductDetail({
             </div>
           </div>
 
-          <div className="flex flex-col justify-between lg:col-span-5">
+          <div className="flex flex-col gap-5 lg:col-span-5">
             <div>
-              <div className="flex items-center gap-3 mb-3">
-                <span className="inline-block rounded-full bg-accent px-3 py-1 text-xs font-semibold text-black">
-                  {listing.tipe}
-                </span>
-                {pioneer && (
-                  <span className="inline-block rounded-full border border-yellow-400 px-3 py-1 text-xs font-semibold text-yellow-600">
-                    PIONEER
-                  </span>
-                )}
+              <div className="flex flex-wrap items-center gap-2">
                 {isSold && (
-                  <span className="inline-block rounded-full bg-red-500 px-3 py-1 text-xs font-semibold text-white">
+                  <span className="rounded-full bg-red-600 px-3 py-1 text-xs font-bold text-white">
                     SOLD
                   </span>
                 )}
+                {pioneer && (
+                  <span className="rounded-full bg-black px-3 py-1 text-xs font-bold text-yellow-400">
+                    PIONEER
+                  </span>
+                )}
               </div>
+              <h1 className="mt-3 text-3xl font-extrabold">
+                Omo {listing.tipe} — {listing.warna}
+              </h1>
+            </div>
 
-              <h1 className="text-3xl font-bold text-black">
-                Omo {listing.tipe} <br />
-                <span style={{ color: warnaToHex(listing.warna) }}>
+            <div className="grid grid-cols-2 gap-4 rounded-2xl border border-line p-5 text-sm">
+              <div>
+                <p className="text-black/50">Tipe</p>
+                <span className="inline-block rounded-full bg-accent-soft px-2.5 py-1 text-xs font-semibold text-accent-soft-text">
+                  {listing.tipe}
+                </span>
+              </div>
+              <div>
+                <p className="text-black/50">Warna</p>
+                <span
+                  className="inline-block rounded-full px-2.5 py-1 text-xs font-semibold text-white"
+                  style={{
+                    backgroundColor: warnaToHex(listing.warna),
+                    opacity: 0.9,
+                  }}
+                >
                   {listing.warna}
                 </span>
-              </h1>
-
-              <div className="mt-6 space-y-2">
-                <p className="text-black/70">
-                  <span className="font-medium">Dealer:</span> {listing.dealer}
-                </p>
-                {listing.verified && (
-                  <p className="flex items-center gap-2 text-black/70">
-                    <VerifiedBadge className="h-5 w-5" />
-                    <span className="font-medium">Terverifikasi Omomarket</span>
-                  </p>
-                )}
-                <p className="text-black/70">
-                  <span className="font-medium">No. PO:</span> {censorPO(listing.noPO)}
+              </div>
+              <div>
+                <p className="text-black/50">Dealer</p>
+                <p className="font-semibold">{listing.dealer}</p>
+              </div>
+              <div>
+                <p className="text-black/50">No. PO</p>
+                <p className="flex items-center gap-1.5 font-mono font-semibold">
+                  {censorPO(listing.noPO)}
+                  {listing.verified && <VerifiedBadge />}
                 </p>
               </div>
+            </div>
 
-              <div className="mt-8 rounded-2xl border border-line bg-neutral-50 p-4">
-                <p className="text-sm text-black/60">Harga PO</p>
-                <p className="text-3xl font-bold text-black">
-                  {formatRupiah(hargaJual)}
-                </p>
-              </div>
-
-              <div className="mt-6 space-y-3">
-                <a
-                  href={waLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex w-full items-center justify-center gap-2 rounded-full bg-[#25D366] px-6 py-4 font-bold text-white transition hover:bg-[#20BA5A]"
-                >
-                  <svg className="h-5 w-5" fill="white" viewBox="0 0 24 24">
-                    <path d="M17.6915026,13.4744748 C17.4788064,13.3688035 16.2126844,12.7368421 16.0272231,12.6701581 C15.8417618,12.6034742 15.7128169,12.5702381 15.5274651,12.7906985 C15.3421133,13.0111589 14.880718,13.5500605 14.7228014,13.7041284 C14.565885,13.8581963 14.4088378,13.8645705 14.1961416,13.7589024 C13.2745911,13.2788321 12.08659,12.7171481 11.1274006,11.8962254 C10.3748898,11.2493569 9.82461807,10.4502161 9.66697886,9.52604706 C9.60979104,9.19018146 9.70872121,8.92117662 9.97788349,8.72069819 C10.1868139,8.57784288 10.4324599,8.38192908 10.6437266,8.14138346 C10.8549932,7.90083784 10.9343168,7.6958938 10.8676327,7.46381929 C10.8009486,7.23174478 10.3448285,5.96509869 10.1651204,5.50637197 C9.98975464,5.08187851 9.81099264,5.15201313 9.68211309,5.15201313 C9.55623639,5.15201313 9.42732863,5.15201313 9.29840816,5.15201313 C9.17248601,5.15201313 8.97263791,5.20563469 8.78708662,5.42608102 C8.60153534,5.64652736 8.07351022,6.27848638 8.07351022,7.54513627 C8.07351022,8.81178617 8.80776818,10.0355215 8.91348159,10.1895893 C9.01919501,10.3436572 10.3448285,12.8297869 12.5823644,13.8834217 C13.1224828,14.1271715 13.5426984,14.2747648 13.8621879,14.3632017 C14.4049895,14.5328609 14.9090843,14.5008896 15.3012426,14.4389452 C15.7350773,14.3677853 16.6240988,13.8891314 16.8033975,13.3580305 C16.9826962,12.8269296 16.9826962,12.3870635 16.9160121,12.2788321 C16.8493281,12.1706007 16.7203833,12.1143191 16.5056034,12.0074646 L17.6915026,13.4744748 Z M12,2 C6.47715,2 2,6.47715 2,12 C2,17.52285 6.47715,22 12,22 C17.52285,22 22,17.52285 22,12 C22,6.47715 17.52285,2 12,2 Z" />
-                  </svg>
-                  Tanya via WhatsApp
-                </a>
-              </div>
+            <div className="rounded-2xl border border-line bg-neutral-50 p-5">
+              <p className="text-sm text-black/50">Harga PO</p>
+              <p className="text-3xl font-extrabold">{formatRupiah(hargaJual)}</p>
             </div>
 
             <POBenefits />
           </div>
+        </div>
+      </div>
+
+      <div className="sticky bottom-0 border-t border-line bg-white">
+        <div className="mx-auto w-full max-w-5xl px-4 py-4 sm:px-6">
+          {isSold ? (
+            <div className="rounded-full bg-gray-100 px-6 py-4 text-center">
+              <p className="text-base font-bold text-gray-600">PO ini sudah terjual</p>
+            </div>
+          ) : (
+            <>
+              <a
+                href={waLink}
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center justify-center gap-2 rounded-full bg-accent px-6 py-4 text-center text-base font-bold text-black transition hover:bg-accent-dark"
+              >
+                Saya Minat!
+              </a>
+              <p className="mt-2 text-center text-xs text-black/50">
+                Nomor PO lengkap akan dikonfirmasi oleh admin saat proses berlangsung.
+              </p>
+            </>
+          )}
         </div>
       </div>
     </div>
