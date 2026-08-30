@@ -13,12 +13,22 @@ export default function CatalogSection({ listings }: { listings: Listing[] }) {
     dealer?: OmowayDealer;
   }>({});
 
-  const filteredListings = listings.filter((listing) => {
-    if (filters.tipe && listing.tipe !== filters.tipe) return false;
-    if (filters.warna && listing.warna !== filters.warna) return false;
-    if (filters.dealer && listing.dealer !== filters.dealer) return false;
-    return true;
-  });
+  const filteredListings = listings
+    .filter((listing) => {
+      if (filters.tipe && listing.tipe !== filters.tipe) return false;
+      if (filters.warna && listing.warna !== filters.warna) return false;
+      if (filters.dealer && listing.dealer !== filters.dealer) return false;
+      return true;
+    })
+    .sort((a, b) => {
+      // Sold items go to bottom
+      const aIsSold = a.status === "Sold";
+      const bIsSold = b.status === "Sold";
+      if (aIsSold !== bIsSold) return aIsSold ? 1 : -1;
+
+      // Newest first
+      return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+    });
 
   const handleFilterChange = (newFilters: typeof filters) => {
     setFilters((prev) => ({ ...prev, ...newFilters }));
