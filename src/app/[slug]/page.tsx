@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getListingByIndex } from "@/lib/store";
@@ -14,6 +15,22 @@ import {
 } from "@/lib/types";
 
 const ADMIN_WA = "6289611117575";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const baseUrl = "https://omomarket.shop";
+  const productUrl = `${baseUrl}/${slug}`;
+
+  return {
+    openGraph: {
+      url: productUrl,
+    },
+  };
+}
 
 // Parse slug format: "tipe-warna-abbr-id" (e.g., "smart-long-tg-500")
 // Returns { tipeSlug, warnaAbbr, id } or null if invalid
