@@ -30,23 +30,23 @@ export default async function Home() {
             />
           </div>
 
-          <div className="flex flex-col gap-6">
-            <span className="w-fit rounded-full bg-accent px-3 py-1 text-xs font-bold text-black shadow-[0_0_24px_-4px_var(--accent)]">
+          <div className="flex flex-col gap-6 text-right">
+            <span className="ml-auto w-fit rounded-full bg-accent px-3 py-1 text-xs font-bold text-black shadow-[0_0_24px_-4px_var(--accent)]">
               Katalog Pre Order Omo
             </span>
-            <h1 className="max-w-2xl text-4xl font-extrabold leading-tight sm:text-5xl">
+            <h1 className="text-4xl font-extrabold leading-tight sm:text-5xl">
               Cari Unit <span className="text-accent">Omo</span> Pre Order,
               <br />
               lebih cepat dapatnya,
               <br />
               banyak benefitnya.
             </h1>
-            <p className="max-w-xl text-white/70">
+            <p className="text-white/70">
               Semua listing dari penjual PO Omo ada di sini — tipe, warna,
               dan dealer lengkap. Klik PO yang kamu mau lalu chat via
               WhatsApp untuk lanjut proses.
             </p>
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap gap-3 justify-end">
               <Link
                 href="#katalog"
                 className="rounded-full bg-accent px-5 py-3 text-sm font-bold text-black transition hover:bg-accent-dark"
