@@ -35,7 +35,7 @@ export default async function Home() {
               Katalog Pre-Order Omo
             </span>
             <h1 className="text-4xl font-extrabold leading-tight sm:text-5xl">
-              Cari Unit <span className="text-accent">Omo</span> Pre-Order,
+              Cari Unit <span className="text-accent">Omo</span> <span className="whitespace-nowrap">Pre-Order,</span>
               <br />
               lebih cepat dapatnya,
               <br />
