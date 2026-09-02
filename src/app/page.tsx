@@ -16,7 +16,20 @@ export default async function Home() {
         <div className="pointer-events-none absolute -left-24 -top-24 h-72 w-72 rounded-full bg-accent/30 blur-3xl" />
         <div className="pointer-events-none absolute -right-16 top-1/3 h-96 w-96 rounded-full bg-green-500/15 blur-3xl" />
 
-        <div className="relative mx-auto grid max-w-6xl grid-cols-1 items-center gap-10 px-4 py-16 sm:px-6 sm:py-20 lg:grid-cols-[1.1fr_0.9fr]">
+        <div className="relative mx-auto grid max-w-6xl grid-cols-1 items-center gap-10 px-4 py-16 sm:px-6 sm:py-20 lg:grid-cols-[0.9fr_1.1fr]">
+          <div className="relative hidden lg:block">
+            <div className="absolute inset-0 rounded-full bg-accent/35 blur-[80px]" />
+            <div className="absolute inset-8 rounded-full bg-accent/25 blur-2xl" />
+            <Image
+              src="/omoway/aurora-green-hero.png"
+              alt="Omo Aurora Green"
+              width={1839}
+              height={1473}
+              className="relative w-full scale-125 drop-shadow-[0_0_45px_rgba(163,230,53,0.55)]"
+              priority
+            />
+          </div>
+
           <div className="flex flex-col gap-6">
             <span className="w-fit rounded-full bg-accent px-3 py-1 text-xs font-bold text-black shadow-[0_0_24px_-4px_var(--accent)]">
               Katalog Pre Order Omo
@@ -47,19 +60,6 @@ export default async function Home() {
                 Jual PO Kamu
               </Link>
             </div>
-          </div>
-
-          <div className="relative hidden lg:block">
-            <div className="absolute inset-0 rounded-full bg-accent/35 blur-[80px]" />
-            <div className="absolute inset-8 rounded-full bg-accent/25 blur-2xl" />
-            <Image
-              src="/omoway/aurora-green-hero.png"
-              alt="Omo Aurora Green"
-              width={1839}
-              height={1473}
-              className="relative w-full scale-125 drop-shadow-[0_0_45px_rgba(163,230,53,0.55)]"
-              priority
-            />
           </div>
         </div>
       </section>
