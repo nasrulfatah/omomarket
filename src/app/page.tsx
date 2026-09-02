@@ -25,17 +25,17 @@ export default async function Home() {
               alt="Omo Aurora Green"
               width={1839}
               height={1473}
-              className="relative w-full scale-125 drop-shadow-[0_0_45px_rgba(163,230,53,0.55)]"
+              className="relative w-full scale-100 drop-shadow-[0_0_45px_rgba(163,230,53,0.55)]"
               priority
             />
           </div>
 
           <div className="flex flex-col gap-6 text-right">
             <span className="ml-auto w-fit rounded-full bg-accent px-3 py-1 text-xs font-bold text-black shadow-[0_0_24px_-4px_var(--accent)]">
-              Katalog Pre Order Omo
+              Katalog Pre-Order Omo
             </span>
             <h1 className="text-4xl font-extrabold leading-tight sm:text-5xl">
-              Cari Unit <span className="text-accent">Omo</span> Pre Order,
+              Cari Unit <span className="text-accent">Omo</span> Pre-Order,
               <br />
               lebih cepat dapatnya,
               <br />
@@ -74,7 +74,7 @@ export default async function Home() {
               Ambil alih PO, dapat lebih banyak dari beli baru di dealer
             </h2>
             <p className="mt-1 text-sm text-black/60">
-              Karena statusnya PO (Pre Order) yang diambil alih, PO ini
+              Karena statusnya PO (Pre-Order) yang diambil alih, PO ini
               punya benefit tambahan yang tidak didapat kalau beli PO baru
               langsung di dealer.
             </p>
