@@ -11,10 +11,10 @@ export default async function Home() {
 
   return (
     <div>
-      <section className="relative overflow-hidden border-b border-line bg-gradient-to-br from-black via-black to-[#0c1f08] text-white">
+      <section className="relative overflow-hidden border-b border-line bg-gradient-to-br from-slate-900 via-slate-800 to-green-900 text-white">
         {/* decorative glow orbs */}
-        <div className="pointer-events-none absolute -left-24 -top-24 h-72 w-72 rounded-full bg-accent/25 blur-3xl" />
-        <div className="pointer-events-none absolute -right-16 top-1/3 h-96 w-96 rounded-full bg-accent-dark/20 blur-3xl" />
+        <div className="pointer-events-none absolute -left-24 -top-24 h-72 w-72 rounded-full bg-accent/30 blur-3xl" />
+        <div className="pointer-events-none absolute -right-16 top-1/3 h-96 w-96 rounded-full bg-green-500/15 blur-3xl" />
 
         <div className="relative mx-auto grid max-w-6xl grid-cols-1 items-center gap-10 px-4 py-16 sm:px-6 sm:py-20 lg:grid-cols-[1.1fr_0.9fr]">
           <div className="flex flex-col gap-6">
