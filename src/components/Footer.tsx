@@ -20,7 +20,7 @@ export default function Footer() {
           </p>
         </div>
         <p className="mt-4 text-xs text-black/40">
-          Omomarket adalah platform independen dan tidak terafiliasi dengan Omo/Omoway.
+          Omomarket adalah platform independen dan tidak terafiliasi dengan Omoway atau ORCA.
         </p>
       </div>
     </footer>
