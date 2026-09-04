@@ -33,12 +33,20 @@ export default function PartCard({ part }: PartCardProps) {
     <div className="flex flex-col rounded-2xl border border-line bg-white overflow-hidden hover:shadow-lg transition">
       {/* Image Gallery */}
       <div className="relative w-full aspect-square bg-neutral-100 overflow-hidden group">
-        <img
-          src={isCurrentImageFailed ? "/placeholder.jpg" : currentImage}
-          alt={part.nama}
-          className="w-full h-full object-cover"
-          onError={handleImageError}
-        />
+        {isCurrentImageFailed ? (
+          <div className="w-full h-full bg-neutral-200 flex items-center justify-center">
+            <svg className="w-12 h-12 text-neutral-400" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z" />
+            </svg>
+          </div>
+        ) : (
+          <img
+            src={currentImage}
+            alt={part.nama}
+            className="w-full h-full object-cover"
+            onError={handleImageError}
+          />
+        )}
 
         {/* Navigation Arrows */}
         {hasMultipleImages && (
