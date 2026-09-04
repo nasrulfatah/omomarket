@@ -59,58 +59,54 @@ export default function PartsGrid({ parts }: PartsGridProps) {
           {/* Price Range */}
           <div>
             <label className="block text-xs font-semibold text-black/50 mb-3">Rentang Harga</label>
-            <div className="space-y-3">
-              {/* Dual Range Sliders - Separate container */}
-              <div>
-                {/* Background track container */}
-                <div className="relative pt-2 pb-8">
-                  {/* Static background track */}
-                  <div className="absolute top-2 w-full h-2 bg-line/40 rounded-full pointer-events-none" />
-
-                  {/* Filled track (selected range) */}
-                  <div
-                    className="absolute top-2 h-2 bg-accent rounded-full pointer-events-none"
-                    style={{
-                      left: `${((minPrice - prices.min) / (prices.max - prices.min)) * 100}%`,
-                      right: `${100 - ((maxPrice - prices.min) / (prices.max - prices.min)) * 100}%`
-                    }}
-                  />
-                </div>
-
-                {/* Sliders container - overlaid */}
-                <div className="relative -mt-6 px-0.5">
-                  {/* Min slider - on top for easy dragging */}
-                  <input
-                    type="range"
-                    min={prices.min}
-                    max={prices.max}
-                    value={minPrice}
-                    onChange={(e) => {
-                      const newMin = Number(e.target.value);
-                      if (newMin <= maxPrice) setMinPrice(newMin);
-                    }}
-                    className="absolute w-full h-2 bg-transparent rounded-full cursor-pointer appearance-none pointer-events-auto [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-accent [&::-webkit-slider-thumb]:cursor-grab [&::-webkit-slider-thumb]:active:cursor-grabbing [&::-moz-range-thumb]:w-5 [&::-moz-range-thumb]:h-5 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-accent [&::-moz-range-thumb]:cursor-grab [&::-moz-range-thumb]:active:cursor-grabbing [&::-moz-range-thumb]:border-0"
-                    style={{ zIndex: minPrice > prices.max - (prices.max - prices.min) / 2 ? 6 : 5 }}
-                  />
-
-                  {/* Max slider - behind, less intrusive */}
-                  <input
-                    type="range"
-                    min={prices.min}
-                    max={prices.max}
-                    value={maxPrice}
-                    onChange={(e) => {
-                      const newMax = Number(e.target.value);
-                      if (newMax >= minPrice) setMaxPrice(newMax);
-                    }}
-                    className="absolute w-full h-2 bg-transparent rounded-full cursor-pointer appearance-none pointer-events-auto [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-accent [&::-webkit-slider-thumb]:cursor-grab [&::-webkit-slider-thumb]:active:cursor-grabbing [&::-moz-range-thumb]:w-5 [&::-moz-range-thumb]:h-5 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-accent [&::-moz-range-thumb]:cursor-grab [&::-moz-range-thumb]:active:cursor-grabbing [&::-moz-range-thumb]:border-0"
-                    style={{ zIndex: maxPrice > prices.max - (prices.max - prices.min) / 2 ? 5 : 4 }}
-                  />
-                </div>
+            <div className="space-y-4">
+              {/* Track visualization */}
+              <div className="relative h-2 bg-line/40 rounded-full">
+                {/* Filled range */}
+                <div
+                  className="absolute h-full bg-accent rounded-full"
+                  style={{
+                    left: `${((minPrice - prices.min) / (prices.max - prices.min)) * 100}%`,
+                    right: `${100 - ((maxPrice - prices.min) / (prices.max - prices.min)) * 100}%`
+                  }}
+                />
               </div>
 
-              {/* Price Values */}
-              <div className="flex justify-between text-sm font-semibold text-black/70 px-0.5">
+              {/* Sliders (overlaid exactly) */}
+              <div className="relative -mt-3 h-8">
+                {/* Min slider - FIRST (lower in stacking) */}
+                <input
+                  type="range"
+                  min={prices.min}
+                  max={prices.max}
+                  step="1"
+                  value={minPrice}
+                  onChange={(e) => {
+                    const newMin = Number(e.target.value);
+                    if (newMin <= maxPrice) setMinPrice(newMin);
+                  }}
+                  className="absolute w-full h-8 top-0 bg-transparent rounded-full cursor-pointer appearance-none [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:-mt-1.5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-accent [&::-webkit-slider-thumb]:cursor-grab [&::-webkit-slider-thumb]:active:cursor-grabbing [&::-moz-range-thumb]:w-5 [&::-moz-range-thumb]:h-5 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-accent [&::-moz-range-thumb]:cursor-grab [&::-moz-range-thumb]:active:cursor-grabbing [&::-moz-range-thumb]:border-none"
+                  style={{ zIndex: 3 }}
+                />
+
+                {/* Max slider - SECOND (higher in stacking, but sits on top due to pointerEvents) */}
+                <input
+                  type="range"
+                  min={prices.min}
+                  max={prices.max}
+                  step="1"
+                  value={maxPrice}
+                  onChange={(e) => {
+                    const newMax = Number(e.target.value);
+                    if (newMax >= minPrice) setMaxPrice(newMax);
+                  }}
+                  className="absolute w-full h-8 top-0 bg-transparent rounded-full cursor-pointer appearance-none [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:-mt-1.5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-accent [&::-webkit-slider-thumb]:cursor-grab [&::-webkit-slider-thumb]:active:cursor-grabbing [&::-moz-range-thumb]:w-5 [&::-moz-range-thumb]:h-5 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-accent [&::-moz-range-thumb]:cursor-grab [&::-moz-range-thumb]:active:cursor-grabbing [&::-moz-range-thumb]:border-none"
+                  style={{ zIndex: 4 }}
+                />
+              </div>
+
+              {/* Price display */}
+              <div className="flex justify-between text-sm font-semibold text-black/70">
                 <span>{formatRupiah(minPrice)}</span>
                 <span>{formatRupiah(maxPrice)}</span>
               </div>
