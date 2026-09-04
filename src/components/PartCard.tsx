@@ -97,9 +97,9 @@ export default function PartCard({ part }: PartCardProps) {
             href={part.shopeeLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="block w-full rounded-full bg-accent px-4 py-2.5 text-center text-sm font-bold text-black transition hover:bg-accent-dark"
+            className="block w-full rounded-full bg-orange-500 px-4 py-2.5 text-center text-sm font-bold text-white transition hover:bg-orange-600"
           >
-            Beli di Shopee
+            Beli Sekarang
           </a>
         </div>
       </div>

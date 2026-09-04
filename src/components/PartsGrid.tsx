@@ -33,63 +33,63 @@ export default function PartsGrid({ parts }: PartsGridProps) {
   }, [parts, selectedCategory, maxPrice]);
 
   return (
-    <div className="space-y-8">
-      {/* Filters */}
-      <div className="space-y-6">
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-          {/* Category Filter */}
-          <div>
-            <label className="block text-sm font-semibold text-black mb-3">Kategori</label>
-            <div className="space-y-2 max-h-64 overflow-y-auto">
+    <div className="space-y-6">
+      {/* Modern Filter Bar */}
+      <div className="rounded-lg border border-line bg-neutral-50 p-4 space-y-4">
+        {/* Categories - Horizontal Scroll */}
+        <div>
+          <p className="text-xs font-semibold text-black/60 mb-2 uppercase tracking-wide">Kategori</p>
+          <div className="flex gap-2 overflow-x-auto pb-2">
+            <button
+              onClick={() => setSelectedCategory("all")}
+              className={`shrink-0 px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition ${
+                selectedCategory === "all"
+                  ? "bg-accent text-black"
+                  : "bg-white border border-line text-black hover:bg-neutral-100"
+              }`}
+            >
+              Semua
+            </button>
+            {PARTS_CATEGORIES.map((cat) => (
               <button
-                onClick={() => setSelectedCategory("all")}
-                className={`block w-full text-left px-3 py-2 rounded text-sm transition ${
-                  selectedCategory === "all"
-                    ? "bg-accent text-black font-semibold"
-                    : "bg-neutral-100 text-black hover:bg-neutral-200"
+                key={cat}
+                onClick={() => setSelectedCategory(cat)}
+                className={`shrink-0 px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition ${
+                  selectedCategory === cat
+                    ? "bg-accent text-black"
+                    : "bg-white border border-line text-black hover:bg-neutral-100"
                 }`}
               >
-                Semua Kategori
+                {cat}
               </button>
-              {PARTS_CATEGORIES.map((cat) => (
-                <button
-                  key={cat}
-                  onClick={() => setSelectedCategory(cat)}
-                  className={`block w-full text-left px-3 py-2 rounded text-sm transition ${
-                    selectedCategory === cat
-                      ? "bg-accent text-black font-semibold"
-                      : "bg-neutral-100 text-black hover:bg-neutral-200"
-                  }`}
-                >
-                  {cat}
-                </button>
-              ))}
-            </div>
-            <p className="mt-2 text-xs text-black/50">
-              {filteredParts.length} produk
-            </p>
+            ))}
           </div>
+        </div>
 
-          {/* Price Range Filter */}
+        {/* Price Range - Compact */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-end">
           <div>
-            <label className="block text-sm font-semibold text-black mb-3">Rentang Harga</label>
-            <div className="space-y-4">
-              <input
-                type="range"
-                min={prices.min}
-                max={prices.max}
-                value={maxPrice}
-                onChange={(e) => setMaxPrice(Number(e.target.value))}
-                className="w-full h-2 bg-line rounded accent-accent cursor-pointer"
-              />
-              <div className="text-sm text-black/70">
-                <p>Max: {formatRupiah(maxPrice)}</p>
-                <p className="text-xs text-black/50">hingga {formatRupiah(prices.max)}</p>
-              </div>
-            </div>
+            <p className="text-xs font-semibold text-black/60 mb-2 uppercase tracking-wide">Harga Max</p>
+            <input
+              type="range"
+              min={prices.min}
+              max={prices.max}
+              value={maxPrice}
+              onChange={(e) => setMaxPrice(Number(e.target.value))}
+              className="w-full h-2 bg-line rounded accent-accent cursor-pointer"
+            />
+          </div>
+          <div className="text-right">
+            <p className="text-sm font-bold text-black">{formatRupiah(maxPrice)}</p>
+            <p className="text-xs text-black/50">dari {formatRupiah(prices.max)}</p>
           </div>
         </div>
       </div>
+
+      {/* Product Count */}
+      <p className="text-sm text-black/60">
+        Menampilkan <span className="font-semibold text-black">{filteredParts.length}</span> produk
+      </p>
 
       {/* Parts Grid */}
       {filteredParts.length > 0 ? (
