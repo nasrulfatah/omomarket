@@ -11,9 +11,11 @@ interface PartCardProps {
 export default function PartCard({ part }: PartCardProps) {
   const images = part.gambar.split(",").map((url) => url.trim()).filter(Boolean);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [failedImages, setFailedImages] = useState<Set<number>>(new Set());
 
   const currentImage = images[currentImageIndex] || "/placeholder.jpg";
   const hasMultipleImages = images.length > 1;
+  const isCurrentImageFailed = failedImages.has(currentImageIndex);
 
   const goToPrevious = () => {
     setCurrentImageIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
@@ -23,17 +25,19 @@ export default function PartCard({ part }: PartCardProps) {
     setCurrentImageIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
   };
 
+  const handleImageError = () => {
+    setFailedImages((prev) => new Set([...prev, currentImageIndex]));
+  };
+
   return (
     <div className="flex flex-col rounded-2xl border border-line bg-white overflow-hidden hover:shadow-lg transition">
       {/* Image Gallery */}
       <div className="relative w-full aspect-square bg-neutral-100 overflow-hidden group">
         <img
-          src={currentImage}
+          src={isCurrentImageFailed ? "/placeholder.jpg" : currentImage}
           alt={part.nama}
           className="w-full h-full object-cover"
-          onError={(e) => {
-            e.currentTarget.src = "/placeholder.jpg";
-          }}
+          onError={handleImageError}
         />
 
         {/* Navigation Arrows */}
