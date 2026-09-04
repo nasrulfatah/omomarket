@@ -10,6 +10,7 @@ interface PartsGridProps {
 
 export default function PartsGrid({ parts }: PartsGridProps) {
   const [selectedCategory, setSelectedCategory] = useState<PartCategory | "all">("all");
+  const [minPrice, setMinPrice] = useState<number>(0);
   const [maxPrice, setMaxPrice] = useState<number>(0);
 
   const prices = useMemo(() => {
@@ -21,16 +22,17 @@ export default function PartsGrid({ parts }: PartsGridProps) {
   }, [parts]);
 
   useEffect(() => {
+    setMinPrice(prices.min);
     setMaxPrice(prices.max);
-  }, [prices.max]);
+  }, [prices.min, prices.max]);
 
   const filteredParts = useMemo(() => {
     return parts.filter((part) => {
       const categoryMatch = selectedCategory === "all" || part.kategori === selectedCategory;
-      const priceMatch = part.harga <= maxPrice;
+      const priceMatch = part.harga >= minPrice && part.harga <= maxPrice;
       return categoryMatch && priceMatch;
     });
-  }, [parts, selectedCategory, maxPrice]);
+  }, [parts, selectedCategory, minPrice, maxPrice]);
 
   return (
     <div className="space-y-6">
@@ -54,21 +56,46 @@ export default function PartsGrid({ parts }: PartsGridProps) {
             </select>
           </div>
 
-          {/* Price Range */}
+          {/* Price Range - Dual Slider */}
           <div>
-            <p className="text-xs font-semibold text-black/60 mb-3 uppercase tracking-widest">Harga Max</p>
-            <div className="flex gap-4 items-center">
-              <input
-                type="range"
-                min={prices.min}
-                max={prices.max}
-                value={maxPrice}
-                onChange={(e) => setMaxPrice(Number(e.target.value))}
-                className="flex-1 h-2 bg-line rounded-full accent-accent cursor-pointer"
-              />
-              <div className="text-right shrink-0 min-w-36">
-                <p className="text-sm font-semibold text-black">{formatRupiah(maxPrice)}</p>
-                <p className="text-xs text-black/50">dari {formatRupiah(prices.max)}</p>
+            <p className="text-xs font-semibold text-black/60 mb-4 uppercase tracking-widest">Rentang Harga</p>
+            <div className="space-y-4">
+              {/* Dual Range Sliders */}
+              <div className="relative">
+                <input
+                  type="range"
+                  min={prices.min}
+                  max={prices.max}
+                  value={minPrice}
+                  onChange={(e) => {
+                    const newMin = Number(e.target.value);
+                    if (newMin <= maxPrice) setMinPrice(newMin);
+                  }}
+                  className="absolute w-full h-2 bg-transparent rounded-full accent-accent cursor-pointer appearance-none pointer-events-none [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-accent [&::-moz-range-thumb]:pointer-events-auto [&::-moz-range-thumb]:w-5 [&::-moz-range-thumb]:h-5 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-accent [&::-moz-range-thumb]:border-0"
+                  style={{ zIndex: minPrice > prices.max - (prices.max - prices.min) / 2 ? 5 : 3 }}
+                />
+                <input
+                  type="range"
+                  min={prices.min}
+                  max={prices.max}
+                  value={maxPrice}
+                  onChange={(e) => {
+                    const newMax = Number(e.target.value);
+                    if (newMax >= minPrice) setMaxPrice(newMax);
+                  }}
+                  className="absolute w-full h-2 bg-line rounded-full accent-accent cursor-pointer appearance-none [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-accent [&::-moz-range-thumb]:w-5 [&::-moz-range-thumb]:h-5 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-accent [&::-moz-range-thumb]:border-0"
+                  style={{ zIndex: maxPrice > prices.max - (prices.max - prices.min) / 2 ? 5 : 4 }}
+                />
+              </div>
+
+              {/* Price Values Below Slider */}
+              <div className="flex justify-between pt-2">
+                <div>
+                  <p className="text-sm font-semibold text-black">{formatRupiah(minPrice)}</p>
+                </div>
+                <div className="text-right">
+                  <p className="text-sm font-semibold text-black">{formatRupiah(maxPrice)}</p>
+                </div>
               </div>
             </div>
           </div>
