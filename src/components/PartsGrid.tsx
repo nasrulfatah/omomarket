@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Part, PartCategory, PARTS_CATEGORIES, formatRupiah } from "@/lib/types";
 import PartCard from "./PartCard";
 
@@ -10,15 +10,19 @@ interface PartsGridProps {
 
 export default function PartsGrid({ parts }: PartsGridProps) {
   const [selectedCategory, setSelectedCategory] = useState<PartCategory | "all">("all");
-  const [maxPrice, setMaxPrice] = useState<number>(10_000_000);
+  const [maxPrice, setMaxPrice] = useState<number>(0);
 
   const prices = useMemo(() => {
     const sortedPrices = parts.map((p) => p.harga).sort((a, b) => a - b);
     return {
       min: sortedPrices[0] || 0,
-      max: sortedPrices[sortedPrices.length - 1] || 10_000_000,
+      max: sortedPrices[sortedPrices.length - 1] || 0,
     };
   }, [parts]);
+
+  useEffect(() => {
+    setMaxPrice(prices.max);
+  }, [prices.max]);
 
   const filteredParts = useMemo(() => {
     return parts.filter((part) => {
