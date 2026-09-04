@@ -78,6 +78,20 @@ export async function getSheetData(): Promise<any[][]> {
   }
 }
 
+export async function getPartsSheetData(): Promise<any[][]> {
+  try {
+    const response = await sheets.spreadsheets.values.get({
+      spreadsheetId: process.env.GOOGLE_SHEETS_ID!,
+      range: "'Parts'!A2:H",
+    });
+
+    return response.data.values || [];
+  } catch (error) {
+    console.error("Error reading Parts sheet:", error);
+    return [];
+  }
+}
+
 async function ensureSheetTabExists(
   sheetName: string,
   headerRow?: string[]

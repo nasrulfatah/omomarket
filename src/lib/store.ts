@@ -1,6 +1,6 @@
 import { randomUUID } from "crypto";
-import { getSheetData } from "./google";
-import type { Listing } from "./types";
+import { getSheetData, getPartsSheetData } from "./google";
+import type { Listing, Part, PartCategory } from "./types";
 
 export async function getAllListings(): Promise<Listing[]> {
   try {
@@ -87,4 +87,36 @@ export async function addListing(
     createdAt: new Date().toISOString(),
   };
   return listing;
+}
+
+export async function getAllParts(): Promise<Part[]> {
+  try {
+    const rows = await getPartsSheetData();
+
+    const parts: Part[] = rows
+      .map((row, index) => {
+        const [nama, hargaStr, kategori, deskripsi, gambar, shopeeLink, status, createdAt] = row;
+
+        return {
+          index,
+          part: {
+            id: randomUUID(),
+            nama: nama || "",
+            harga: parseInt(hargaStr?.replace(/[^\d]/g, "") || "0") || 0,
+            kategori: (kategori || "") as PartCategory,
+            deskripsi: deskripsi || "",
+            gambar: gambar || "",
+            shopeeLink: shopeeLink || "",
+            createdAt: createdAt || new Date().toISOString(),
+          },
+        };
+      })
+      .filter(({ part }) => part.nama)
+      .sort((a, b) => b.index - a.index)
+      .map(({ part }) => part);
+
+    return parts;
+  } catch {
+    return [];
+  }
 }

@@ -153,3 +153,30 @@ export function warnaToHex(warna: OmowayWarna): string {
       return "#cccccc";
   }
 }
+
+// Parts/Accessories categories
+export const PARTS_CATEGORIES = [
+  "Battery",
+  "Charger & Cable",
+  "Tires & Wheels",
+  "Lights & Electrical",
+  "Interior Accessories",
+  "Exterior Accessories",
+  "Maintenance & Tools",
+  "Covers & Protection",
+  "Spare Parts",
+  "Cleaning & Care",
+] as const;
+
+export type PartCategory = (typeof PARTS_CATEGORIES)[number];
+
+export interface Part {
+  id: string;
+  nama: string;
+  harga: number;
+  kategori: PartCategory;
+  deskripsi: string;
+  gambar: string; // comma-separated URLs
+  shopeeLink: string;
+  createdAt: string;
+}
