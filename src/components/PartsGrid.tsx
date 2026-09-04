@@ -105,10 +105,33 @@ export default function PartsGrid({ parts }: PartsGridProps) {
                 />
               </div>
 
-              {/* Price display */}
-              <div className="flex justify-between text-sm font-semibold text-black/70">
-                <span>{formatRupiah(minPrice)}</span>
-                <span>{formatRupiah(maxPrice)}</span>
+              {/* Price display with input fields */}
+              <div className="flex items-end gap-3">
+                <div className="flex-1">
+                  <label className="block text-xs text-black/60 mb-1">Min</label>
+                  <input
+                    type="number"
+                    value={minPrice}
+                    onChange={(e) => {
+                      const val = Number(e.target.value);
+                      if (val <= maxPrice) setMinPrice(Math.max(val, prices.min));
+                    }}
+                    className="w-full px-3 py-2 border border-line rounded-lg text-sm font-semibold text-black bg-white focus:outline-none focus:ring-2 focus:ring-accent/40"
+                  />
+                </div>
+                <div className="text-black/30">—</div>
+                <div className="flex-1">
+                  <label className="block text-xs text-black/60 mb-1">Max</label>
+                  <input
+                    type="number"
+                    value={maxPrice}
+                    onChange={(e) => {
+                      const val = Number(e.target.value);
+                      if (val >= minPrice) setMaxPrice(Math.min(val, prices.max));
+                    }}
+                    className="w-full px-3 py-2 border border-line rounded-lg text-sm font-semibold text-black bg-white focus:outline-none focus:ring-2 focus:ring-accent/40"
+                  />
+                </div>
               </div>
             </div>
           </div>
