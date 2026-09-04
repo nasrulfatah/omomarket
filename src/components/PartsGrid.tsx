@@ -36,16 +36,16 @@ export default function PartsGrid({ parts }: PartsGridProps) {
 
   return (
     <div className="space-y-6">
-      {/* Modern Filter Bar */}
-      <div className="bg-white p-6 rounded-xl border border-line/50">
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+      {/* Filter Bar */}
+      <div className="bg-white rounded-xl border border-line/50 p-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           {/* Category Dropdown */}
           <div>
-            <p className="text-xs font-semibold text-black/60 mb-3 uppercase tracking-widest">Kategori</p>
+            <label className="block text-xs font-semibold text-black/50 mb-2">Kategori</label>
             <select
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value as PartCategory | "all")}
-              className="w-full px-4 py-2.5 rounded-lg border border-line bg-white text-black text-sm font-medium cursor-pointer hover:border-black/30 focus:outline-none focus:ring-2 focus:ring-accent/30 transition"
+              className="w-full px-3.5 py-2 rounded-lg border border-line bg-white text-black text-sm font-medium cursor-pointer hover:border-black/20 focus:outline-none focus:ring-2 focus:ring-accent/40 transition"
             >
               <option value="all">Semua Kategori</option>
               {PARTS_CATEGORIES.map((cat) => (
@@ -56,12 +56,12 @@ export default function PartsGrid({ parts }: PartsGridProps) {
             </select>
           </div>
 
-          {/* Price Range - Dual Slider */}
+          {/* Price Range */}
           <div>
-            <p className="text-xs font-semibold text-black/60 mb-4 uppercase tracking-widest">Rentang Harga</p>
-            <div className="space-y-4">
+            <label className="block text-xs font-semibold text-black/50 mb-3">Rentang Harga</label>
+            <div className="space-y-3">
               {/* Dual Range Sliders */}
-              <div className="relative">
+              <div className="relative h-1">
                 <input
                   type="range"
                   min={prices.min}
@@ -71,7 +71,7 @@ export default function PartsGrid({ parts }: PartsGridProps) {
                     const newMin = Number(e.target.value);
                     if (newMin <= maxPrice) setMinPrice(newMin);
                   }}
-                  className="absolute w-full h-2 bg-transparent rounded-full accent-accent cursor-pointer appearance-none pointer-events-none [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-accent [&::-moz-range-thumb]:pointer-events-auto [&::-moz-range-thumb]:w-5 [&::-moz-range-thumb]:h-5 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-accent [&::-moz-range-thumb]:border-0"
+                  className="absolute w-full h-1 bg-transparent rounded-full accent-accent cursor-pointer appearance-none pointer-events-none [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-accent [&::-moz-range-thumb]:pointer-events-auto [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-accent [&::-moz-range-thumb]:border-0"
                   style={{ zIndex: minPrice > prices.max - (prices.max - prices.min) / 2 ? 5 : 3 }}
                 />
                 <input
@@ -83,19 +83,15 @@ export default function PartsGrid({ parts }: PartsGridProps) {
                     const newMax = Number(e.target.value);
                     if (newMax >= minPrice) setMaxPrice(newMax);
                   }}
-                  className="absolute w-full h-2 bg-line rounded-full accent-accent cursor-pointer appearance-none [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-accent [&::-moz-range-thumb]:w-5 [&::-moz-range-thumb]:h-5 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-accent [&::-moz-range-thumb]:border-0"
+                  className="absolute w-full h-1 bg-line rounded-full accent-accent cursor-pointer appearance-none [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-accent [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-accent [&::-moz-range-thumb]:border-0"
                   style={{ zIndex: maxPrice > prices.max - (prices.max - prices.min) / 2 ? 5 : 4 }}
                 />
               </div>
 
-              {/* Price Values Below Slider */}
-              <div className="flex justify-between pt-2">
-                <div>
-                  <p className="text-sm font-semibold text-black">{formatRupiah(minPrice)}</p>
-                </div>
-                <div className="text-right">
-                  <p className="text-sm font-semibold text-black">{formatRupiah(maxPrice)}</p>
-                </div>
+              {/* Price Values */}
+              <div className="flex justify-between text-xs font-semibold text-black/70 px-0.5">
+                <span>{formatRupiah(minPrice)}</span>
+                <span>{formatRupiah(maxPrice)}</span>
               </div>
             </div>
           </div>
