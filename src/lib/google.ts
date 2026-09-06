@@ -52,7 +52,7 @@ export async function appendToSheet(
   try {
     await sheets.spreadsheets.values.append({
       spreadsheetId: process.env.GOOGLE_SHEETS_ID!,
-      range: "'Jual PO'!A:J",
+      range: "'Jual PO'!A:K",
       valueInputOption: "USER_ENTERED",
       requestBody: {
         values,
@@ -68,7 +68,7 @@ export async function getSheetData(): Promise<any[][]> {
   try {
     const response = await sheets.spreadsheets.values.get({
       spreadsheetId: process.env.GOOGLE_SHEETS_ID!,
-      range: "'Jual PO'!A2:J",
+      range: "'Jual PO'!A2:K",
     });
 
     return response.data.values || [];

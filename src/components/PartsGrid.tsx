@@ -72,36 +72,25 @@ export default function PartsGrid({ parts }: PartsGridProps) {
                 />
               </div>
 
-              {/* Sliders (overlaid exactly) */}
+              {/* Price range slider - visual indicator only */}
               <div className="relative -mt-3 h-8">
-                {/* Min slider - FIRST (lower in stacking) */}
                 <input
                   type="range"
                   min={prices.min}
                   max={prices.max}
                   step="1"
                   value={minPrice}
-                  onChange={(e) => {
-                    const newMin = Number(e.target.value);
-                    if (newMin <= maxPrice) setMinPrice(newMin);
-                  }}
-                  className="absolute w-full h-8 top-0 bg-transparent rounded-full cursor-pointer appearance-none [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:-mt-1.5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-accent [&::-webkit-slider-thumb]:cursor-grab [&::-webkit-slider-thumb]:active:cursor-grabbing [&::-moz-range-thumb]:w-5 [&::-moz-range-thumb]:h-5 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-accent [&::-moz-range-thumb]:cursor-grab [&::-moz-range-thumb]:active:cursor-grabbing [&::-moz-range-thumb]:border-none"
-                  style={{ zIndex: 3 }}
+                  disabled
+                  className="absolute w-full h-8 top-0 pointer-events-none bg-transparent rounded-full appearance-none [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:-mt-1.5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-accent [&::-webkit-slider-thumb]:opacity-70 [&::-moz-range-thumb]:w-5 [&::-moz-range-thumb]:h-5 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-accent [&::-moz-range-thumb]:opacity-70 [&::-moz-range-thumb]:border-none"
                 />
-
-                {/* Max slider - SECOND (higher in stacking, but sits on top due to pointerEvents) */}
                 <input
                   type="range"
                   min={prices.min}
                   max={prices.max}
                   step="1"
                   value={maxPrice}
-                  onChange={(e) => {
-                    const newMax = Number(e.target.value);
-                    if (newMax >= minPrice) setMaxPrice(newMax);
-                  }}
-                  className="absolute w-full h-8 top-0 bg-transparent rounded-full cursor-pointer appearance-none [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:-mt-1.5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-accent [&::-webkit-slider-thumb]:cursor-grab [&::-webkit-slider-thumb]:active:cursor-grabbing [&::-moz-range-thumb]:w-5 [&::-moz-range-thumb]:h-5 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-accent [&::-moz-range-thumb]:cursor-grab [&::-moz-range-thumb]:active:cursor-grabbing [&::-moz-range-thumb]:border-none"
-                  style={{ zIndex: 4 }}
+                  disabled
+                  className="absolute w-full h-8 top-0 pointer-events-none bg-transparent rounded-full appearance-none [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:-mt-1.5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-accent [&::-webkit-slider-thumb]:opacity-70 [&::-moz-range-thumb]:w-5 [&::-moz-range-thumb]:h-5 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-accent [&::-moz-range-thumb]:opacity-70 [&::-moz-range-thumb]:border-none"
                 />
               </div>
 

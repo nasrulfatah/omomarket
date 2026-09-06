@@ -8,7 +8,7 @@ export async function getAllListings(): Promise<Listing[]> {
 
     const listings: Listing[] = rows
       .map((row, index) => {
-        const [timestamp, nama, noWa, noPO, tipe, warna, dealer, hargaStr, status, verifiedStr] = row;
+        const [timestamp, nama, noWa, noPO, tipe, warna, dealer, hargaStr, status, verifiedStr, statusUnit] = row;
 
         return {
           index,
@@ -22,6 +22,7 @@ export async function getAllListings(): Promise<Listing[]> {
             dealer: dealer || "",
             hargaModal: parseInt(hargaStr?.replace(/[^\d]/g, "") || "0") || 0,
             status: status || "Draft",
+            statusUnit: (statusUnit || "New") as "New" | "Ready Stock" | "Second" | undefined,
             verified: (verifiedStr || "").trim().toLowerCase() === "yes",
             createdAt: timestamp || new Date().toISOString(),
           },
@@ -57,7 +58,7 @@ export async function getListingByIndex(index: string): Promise<Listing | undefi
   }
 
   const row = rows[rowIndex];
-  const [timestamp, nama, noWa, noPO, tipe, warna, dealer, hargaStr, status, verifiedStr] = row;
+  const [timestamp, nama, noWa, noPO, tipe, warna, dealer, hargaStr, status, verifiedStr, statusUnit] = row;
 
   if ((status || "Draft") === "Draft") {
     return undefined;
@@ -73,6 +74,7 @@ export async function getListingByIndex(index: string): Promise<Listing | undefi
     dealer: dealer || "",
     hargaModal: parseInt(hargaStr?.replace(/[^\d]/g, "") || "0") || 0,
     status: status || "Draft",
+    statusUnit: (statusUnit || "New") as "New" | "Ready Stock" | "Second" | undefined,
     verified: (verifiedStr || "").trim().toLowerCase() === "yes",
     createdAt: timestamp || new Date().toISOString(),
   };

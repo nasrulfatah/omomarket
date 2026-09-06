@@ -7,13 +7,14 @@ import {
   getHargaJual,
   generateProductSlug,
   isPioneer,
+  getBatch,
   warnaToHex,
   type Listing,
 } from "@/lib/types";
 
 export default function ListingCard({ listing }: { listing: Listing }) {
   const hargaJual = getHargaJual(listing);
-  const pioneer = isPioneer(listing.noPO);
+  const batch = getBatch(listing.noPO);
   const isSold = listing.status === "Sold";
 
   // Extract index from id (format: "noPO-index")
@@ -46,17 +47,35 @@ export default function ListingCard({ listing }: { listing: Listing }) {
         )}
       </div>
       <div className="flex flex-1 flex-col gap-2 border-t border-line p-4">
-        <div className="flex items-center justify-between gap-2">
-          <div className="flex flex-wrap items-center gap-1.5">
-            <span className="rounded-full bg-accent-soft px-2.5 py-1 text-xs font-semibold text-accent-soft-text">
-              {listing.tipe}
+        <div className="flex flex-wrap items-center gap-1.5">
+          <span className="rounded-full bg-accent-soft px-2.5 py-1 text-xs font-semibold text-accent-soft-text">
+            {listing.tipe}
+          </span>
+          {batch === "PIONEER" && (
+            <span className="rounded-full bg-black px-2.5 py-1 text-xs font-bold text-yellow-400">
+              PIONEER
             </span>
-            {pioneer && (
-              <span className="rounded-full bg-black px-2.5 py-1 text-xs font-bold text-yellow-400">
-                PIONEER
-              </span>
-            )}
-          </div>
+          )}
+          {batch === "BATCH 1" && (
+            <span className="rounded-full bg-blue-600 px-2.5 py-1 text-xs font-bold text-white">
+              BATCH 1
+            </span>
+          )}
+          {batch === "BATCH 2" && (
+            <span className="rounded-full bg-purple-600 px-2.5 py-1 text-xs font-bold text-white">
+              BATCH 2
+            </span>
+          )}
+          {listing.statusUnit === "Ready Stock" && (
+            <span className="rounded-full bg-green-600 px-2.5 py-1 text-xs font-bold text-white">
+              READY STOCK
+            </span>
+          )}
+          {listing.statusUnit === "Second" && (
+            <span className="rounded-full bg-orange-600 px-2.5 py-1 text-xs font-bold text-white">
+              SECOND
+            </span>
+          )}
           <span
             className="inline-block rounded-full px-2.5 py-1 text-xs font-semibold text-white"
             style={{

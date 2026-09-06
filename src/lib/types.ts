@@ -85,6 +85,7 @@ export interface Listing {
   hargaModal: number;
   screenshotPO?: string;
   status?: "Draft" | "Publish" | "Live" | "Sold";
+  statusUnit?: "New" | "Ready Stock" | "Second";
   verified?: boolean;
   createdAt: string;
 }
@@ -125,6 +126,15 @@ export function censorPO(noPO: string): string {
 export function isPioneer(noPO: string): boolean {
   const num = Number(noPO.trim());
   return Number.isFinite(num) && num > 0 && num < 2000;
+}
+
+export function getBatch(noPO: string): "PIONEER" | "BATCH 1" | "BATCH 2" | null {
+  const num = Number(noPO.trim());
+  if (!Number.isFinite(num)) return null;
+  if (num > 0 && num < 2000) return "PIONEER";
+  if (num >= 2001 && num <= 5000) return "BATCH 1";
+  if (num >= 5001 && num <= 10000) return "BATCH 2";
+  return null;
 }
 
 export function formatRupiah(value: number): string {
