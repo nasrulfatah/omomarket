@@ -91,7 +91,7 @@ export interface Listing {
 }
 
 export function getSharingFee(tipe: OmowayTipe): number {
-  if (tipe === "Smart" || tipe === "Smart Long") return 500_000;
+  if (tipe === "Smart" || tipe === "Smart Long") return 1_000_000;
   if (tipe === "Balance" || tipe === "Balance Pilot") return 1_000_000;
   return 0;
 }
