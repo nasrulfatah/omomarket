@@ -12,6 +12,7 @@ export default function PartsGrid({ parts }: PartsGridProps) {
   const [selectedCategory, setSelectedCategory] = useState<PartCategory | "all">("all");
   const [minPrice, setMinPrice] = useState<number>(0);
   const [maxPrice, setMaxPrice] = useState<number>(0);
+  const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false);
 
   const prices = useMemo(() => {
     const sortedPrices = parts.map((p) => p.harga).sort((a, b) => a - b);
@@ -36,101 +37,116 @@ export default function PartsGrid({ parts }: PartsGridProps) {
 
   return (
     <div className="space-y-6">
-      {/* Filter Bar */}
-      <div className="bg-white rounded-xl border border-line/50 p-5">
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          {/* Category Dropdown */}
-          <div>
-            <label className="block text-xs font-semibold text-black/50 mb-2">Kategori</label>
-            <select
-              value={selectedCategory}
-              onChange={(e) => setSelectedCategory(e.target.value as PartCategory | "all")}
-              className="w-full px-3.5 py-2 rounded-lg border border-line bg-white text-black text-sm font-medium cursor-pointer hover:border-black/20 focus:outline-none focus:ring-2 focus:ring-accent/40 transition"
+      {/* Category Filter - Horizontal Pills */}
+      <div className="space-y-3">
+        <div className="flex items-center justify-between">
+          <h3 className="text-sm font-semibold text-black">Kategori</h3>
+          <button
+            onClick={() => setSelectedCategory("all")}
+            className="text-xs font-medium text-accent hover:text-accent/80 transition"
+          >
+            Reset
+          </button>
+        </div>
+        <div className="flex flex-wrap gap-2">
+          <button
+            onClick={() => setSelectedCategory("all")}
+            className={`px-4 py-2.5 rounded-full font-medium text-sm transition ${
+              selectedCategory === "all"
+                ? "bg-accent text-white"
+                : "bg-black/5 text-black hover:bg-black/10"
+            }`}
+          >
+            Semua
+          </button>
+          {PARTS_CATEGORIES.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => setSelectedCategory(cat)}
+              className={`px-4 py-2.5 rounded-full font-medium text-sm transition whitespace-nowrap ${
+                selectedCategory === cat
+                  ? "bg-accent text-white"
+                  : "bg-black/5 text-black hover:bg-black/10"
+              }`}
             >
-              <option value="all">Semua Kategori</option>
-              {PARTS_CATEGORIES.map((cat) => (
-                <option key={cat} value={cat}>
-                  {cat}
-                </option>
-              ))}
-            </select>
+              {cat}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Price Filter - Collapsible on Mobile */}
+      <div className="space-y-3 border-t border-line/30 pt-6">
+        <div className="flex items-center justify-between">
+          <h3 className="text-sm font-semibold text-black">Rentang Harga</h3>
+          <button
+            onClick={() => setIsFilterOpen(!isFilterOpen)}
+            className="lg:hidden text-xs font-medium text-accent hover:text-accent/80 transition"
+          >
+            {isFilterOpen ? "Tutup" : "Buka"}
+          </button>
+        </div>
+
+        <div className={`space-y-4 ${!isFilterOpen && "hidden lg:block"}`}>
+          {/* Price Input Fields */}
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <label className="block text-xs text-black/60 mb-2 font-medium">Minimum</label>
+              <div className="flex items-center gap-1">
+                <span className="text-xs text-black/50">Rp</span>
+                <input
+                  type="number"
+                  value={minPrice}
+                  onChange={(e) => {
+                    const val = Number(e.target.value);
+                    if (val <= maxPrice) setMinPrice(Math.max(val, prices.min));
+                  }}
+                  className="flex-1 px-3 py-2.5 border border-line/50 rounded-lg text-sm font-semibold text-black bg-white focus:outline-none focus:ring-2 focus:ring-accent/40 transition"
+                />
+              </div>
+            </div>
+            <div>
+              <label className="block text-xs text-black/60 mb-2 font-medium">Maksimum</label>
+              <div className="flex items-center gap-1">
+                <span className="text-xs text-black/50">Rp</span>
+                <input
+                  type="number"
+                  value={maxPrice}
+                  onChange={(e) => {
+                    const val = Number(e.target.value);
+                    if (val >= minPrice) setMaxPrice(Math.min(val, prices.max));
+                  }}
+                  className="flex-1 px-3 py-2.5 border border-line/50 rounded-lg text-sm font-semibold text-black bg-white focus:outline-none focus:ring-2 focus:ring-accent/40 transition"
+                />
+              </div>
+            </div>
           </div>
 
-          {/* Price Range */}
-          <div>
-            <label className="block text-xs font-semibold text-black/50 mb-3">Rentang Harga</label>
-            <div className="space-y-4">
-              {/* Track visualization */}
-              <div className="relative h-2 bg-line/40 rounded-full">
-                {/* Filled range */}
-                <div
-                  className="absolute h-full bg-accent rounded-full"
-                  style={{
-                    left: `${((minPrice - prices.min) / (prices.max - prices.min)) * 100}%`,
-                    right: `${100 - ((maxPrice - prices.min) / (prices.max - prices.min)) * 100}%`
-                  }}
-                />
-              </div>
-
-              {/* Price range slider - visual indicator only */}
-              <div className="relative -mt-3 h-8">
-                <input
-                  type="range"
-                  min={prices.min}
-                  max={prices.max}
-                  step="1"
-                  value={minPrice}
-                  disabled
-                  className="absolute w-full h-8 top-0 pointer-events-none bg-transparent rounded-full appearance-none [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:-mt-1.5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-accent [&::-webkit-slider-thumb]:opacity-70 [&::-moz-range-thumb]:w-5 [&::-moz-range-thumb]:h-5 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-accent [&::-moz-range-thumb]:opacity-70 [&::-moz-range-thumb]:border-none"
-                />
-                <input
-                  type="range"
-                  min={prices.min}
-                  max={prices.max}
-                  step="1"
-                  value={maxPrice}
-                  disabled
-                  className="absolute w-full h-8 top-0 pointer-events-none bg-transparent rounded-full appearance-none [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:-mt-1.5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-accent [&::-webkit-slider-thumb]:opacity-70 [&::-moz-range-thumb]:w-5 [&::-moz-range-thumb]:h-5 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-accent [&::-moz-range-thumb]:opacity-70 [&::-moz-range-thumb]:border-none"
-                />
-              </div>
-
-              {/* Price display with input fields */}
-              <div className="flex items-end gap-3">
-                <div className="flex-1">
-                  <label className="block text-xs text-black/60 mb-1">Min</label>
-                  <input
-                    type="number"
-                    value={minPrice}
-                    onChange={(e) => {
-                      const val = Number(e.target.value);
-                      if (val <= maxPrice) setMinPrice(Math.max(val, prices.min));
-                    }}
-                    className="w-full px-3 py-2 border border-line rounded-lg text-sm font-semibold text-black bg-white focus:outline-none focus:ring-2 focus:ring-accent/40"
-                  />
-                </div>
-                <div className="text-black/30">—</div>
-                <div className="flex-1">
-                  <label className="block text-xs text-black/60 mb-1">Max</label>
-                  <input
-                    type="number"
-                    value={maxPrice}
-                    onChange={(e) => {
-                      const val = Number(e.target.value);
-                      if (val >= minPrice) setMaxPrice(Math.min(val, prices.max));
-                    }}
-                    className="w-full px-3 py-2 border border-line rounded-lg text-sm font-semibold text-black bg-white focus:outline-none focus:ring-2 focus:ring-accent/40"
-                  />
-                </div>
-              </div>
+          {/* Price Range Visualization */}
+          <div className="space-y-2 pt-1">
+            <div className="relative h-2 bg-line/20 rounded-full overflow-hidden">
+              <div
+                className="absolute h-full bg-accent transition-all"
+                style={{
+                  left: `${((minPrice - prices.min) / (prices.max - prices.min)) * 100}%`,
+                  right: `${100 - ((maxPrice - prices.min) / (prices.max - prices.min)) * 100}%`
+                }}
+              />
+            </div>
+            <div className="flex items-center justify-between text-xs text-black/50">
+              <span>{formatRupiah(prices.min)}</span>
+              <span>{formatRupiah(prices.max)}</span>
             </div>
           </div>
         </div>
       </div>
 
       {/* Product Count */}
-      <p className="text-sm text-black/60">
-        Menampilkan <span className="font-semibold text-black">{filteredParts.length}</span> produk
-      </p>
+      <div className="flex items-center justify-between border-t border-line/30 pt-6">
+        <p className="text-sm text-black/60">
+          Menampilkan <span className="font-semibold text-black">{filteredParts.length}</span> produk
+        </p>
+      </div>
 
       {/* Parts Grid */}
       {filteredParts.length > 0 ? (
@@ -140,7 +156,7 @@ export default function PartsGrid({ parts }: PartsGridProps) {
           ))}
         </div>
       ) : (
-        <div className="py-12 text-center">
+        <div className="py-16 text-center">
           <p className="text-black/60">Tidak ada produk yang sesuai dengan filter Anda</p>
         </div>
       )}
