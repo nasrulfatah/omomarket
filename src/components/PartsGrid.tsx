@@ -13,6 +13,7 @@ export default function PartsGrid({ parts }: PartsGridProps) {
   const [minPrice, setMinPrice] = useState<number>(0);
   const [maxPrice, setMaxPrice] = useState<number>(0);
   const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false);
+  const [activeThumb, setActiveThumb] = useState<'min' | 'max' | null>(null);
 
   const prices = useMemo(() => {
     const sortedPrices = parts.map((p) => p.harga).sort((a, b) => a - b);
@@ -26,6 +27,7 @@ export default function PartsGrid({ parts }: PartsGridProps) {
     setMinPrice(prices.min);
     setMaxPrice(prices.max);
   }, [prices.min, prices.max]);
+
 
   const filteredParts = useMemo(() => {
     return parts.filter((part) => {
@@ -124,7 +126,10 @@ export default function PartsGrid({ parts }: PartsGridProps) {
 
           {/* Interactive Price Range Slider */}
           <div className="space-y-2 pt-2">
-            <div className="relative h-8 flex items-center">
+            <div
+              className="relative h-8 flex items-center"
+              onMouseLeave={() => setActiveThumb(null)}
+            >
               {/* Track background */}
               <div className="absolute w-full h-2 bg-line/20 rounded-full pointer-events-none" />
 
@@ -148,7 +153,13 @@ export default function PartsGrid({ parts }: PartsGridProps) {
                   const val = Number(e.target.value);
                   if (val <= maxPrice) setMinPrice(val);
                 }}
-                className="absolute w-full h-8 top-0 pointer-events-auto appearance-none bg-transparent cursor-pointer z-40 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-accent [&::-webkit-slider-thumb]:shadow-md [&::-webkit-slider-thumb]:cursor-pointer [&::-moz-range-thumb]:w-5 [&::-moz-range-thumb]:h-5 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-accent [&::-moz-range-thumb]:shadow-md [&::-moz-range-thumb]:cursor-pointer [&::-moz-range-thumb]:border-none"
+                onMouseDown={() => setActiveThumb('min')}
+                onMouseUp={() => setActiveThumb(null)}
+                onTouchStart={() => setActiveThumb('min')}
+                onTouchEnd={() => setActiveThumb(null)}
+                className={`absolute w-full h-8 top-0 pointer-events-auto appearance-none bg-transparent cursor-pointer transition-all ${
+                  activeThumb === 'min' ? 'z-50' : activeThumb === 'max' ? 'z-30' : 'z-40'
+                } [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-accent [&::-webkit-slider-thumb]:shadow-md [&::-webkit-slider-thumb]:cursor-pointer [&::-moz-range-thumb]:w-5 [&::-moz-range-thumb]:h-5 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-accent [&::-moz-range-thumb]:shadow-md [&::-moz-range-thumb]:cursor-pointer [&::-moz-range-thumb]:border-none`}
               />
 
               {/* Max range input */}
@@ -162,7 +173,13 @@ export default function PartsGrid({ parts }: PartsGridProps) {
                   const val = Number(e.target.value);
                   if (val >= minPrice) setMaxPrice(val);
                 }}
-                className="absolute w-full h-8 top-0 pointer-events-auto appearance-none bg-transparent cursor-pointer z-30 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-accent [&::-webkit-slider-thumb]:shadow-md [&::-webkit-slider-thumb]:cursor-pointer [&::-moz-range-thumb]:w-5 [&::-moz-range-thumb]:h-5 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-accent [&::-moz-range-thumb]:shadow-md [&::-moz-range-thumb]:cursor-pointer [&::-moz-range-thumb]:border-none"
+                onMouseDown={() => setActiveThumb('max')}
+                onMouseUp={() => setActiveThumb(null)}
+                onTouchStart={() => setActiveThumb('max')}
+                onTouchEnd={() => setActiveThumb(null)}
+                className={`absolute w-full h-8 top-0 pointer-events-auto appearance-none bg-transparent cursor-pointer transition-all ${
+                  activeThumb === 'max' ? 'z-50' : activeThumb === 'min' ? 'z-30' : 'z-30'
+                } [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-accent [&::-webkit-slider-thumb]:shadow-md [&::-webkit-slider-thumb]:cursor-pointer [&::-moz-range-thumb]:w-5 [&::-moz-range-thumb]:h-5 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-accent [&::-moz-range-thumb]:shadow-md [&::-moz-range-thumb]:cursor-pointer [&::-moz-range-thumb]:border-none`}
               />
             </div>
 
