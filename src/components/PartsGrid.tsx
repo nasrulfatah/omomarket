@@ -47,12 +47,18 @@ export default function PartsGrid({ parts }: PartsGridProps) {
     const minDistance = Math.abs(percent - minPercent);
     const maxDistance = Math.abs(percent - maxPercent);
 
-    // Temporarily adjust z-index to match cursor position (will be reset on mouseLeave)
+    // Disable pointer-events on the farther thumb to prevent capturing mouse events
     if (minDistance < maxDistance) {
-      minInputRef.current.style.zIndex = '40';
+      // Min is closer, enable min, disable max
+      minInputRef.current.style.pointerEvents = 'auto';
+      maxInputRef.current.style.pointerEvents = 'none';
+      minInputRef.current.style.zIndex = '50';
       maxInputRef.current.style.zIndex = '30';
     } else {
-      maxInputRef.current.style.zIndex = '40';
+      // Max is closer, enable max, disable min
+      maxInputRef.current.style.pointerEvents = 'auto';
+      minInputRef.current.style.pointerEvents = 'none';
+      maxInputRef.current.style.zIndex = '50';
       minInputRef.current.style.zIndex = '30';
     }
   };
@@ -163,6 +169,8 @@ export default function PartsGrid({ parts }: PartsGridProps) {
                 if (minInputRef.current && maxInputRef.current) {
                   minInputRef.current.style.zIndex = '';
                   maxInputRef.current.style.zIndex = '';
+                  minInputRef.current.style.pointerEvents = '';
+                  maxInputRef.current.style.pointerEvents = '';
                 }
               }}
             >
