@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useEffect, useRef } from "react";
+import { useState, useMemo, useEffect, useRef, useCallback } from "react";
 import { Part, PartCategory, PARTS_CATEGORIES, formatRupiah } from "@/lib/types";
 import PartCard from "./PartCard";
 
@@ -14,8 +14,11 @@ export default function PartsGrid({ parts }: PartsGridProps) {
   const [maxPrice, setMaxPrice] = useState<number>(0);
   const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false);
   const [activeThumb, setActiveThumb] = useState<'min' | 'max' | null>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
   const minInputRef = useRef<HTMLInputElement>(null);
   const maxInputRef = useRef<HTMLInputElement>(null);
+  const categoryScrollRef = useRef<HTMLDivElement>(null);
 
   const prices = useMemo(() => {
     const sortedPrices = parts.map((p) => p.harga).sort((a, b) => a - b);
@@ -29,6 +32,31 @@ export default function PartsGrid({ parts }: PartsGridProps) {
     setMinPrice(prices.min);
     setMaxPrice(prices.max);
   }, [prices.min, prices.max]);
+
+  const checkScroll = useCallback(() => {
+    if (categoryScrollRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = categoryScrollRef.current;
+      setCanScrollLeft(scrollLeft > 0);
+      setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10);
+    }
+  }, []);
+
+  useEffect(() => {
+    checkScroll();
+    window.addEventListener('resize', checkScroll);
+    return () => window.removeEventListener('resize', checkScroll);
+  }, [checkScroll]);
+
+  const scroll = (direction: 'left' | 'right') => {
+    if (categoryScrollRef.current) {
+      const scrollAmount = 150;
+      categoryScrollRef.current.scrollBy({
+        left: direction === 'left' ? -scrollAmount : scrollAmount,
+        behavior: 'smooth',
+      });
+      setTimeout(checkScroll, 100);
+    }
+  };
 
   const handleSliderMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     // Only auto-detect which thumb to prioritize when NOT actively dragging
@@ -74,7 +102,7 @@ export default function PartsGrid({ parts }: PartsGridProps) {
 
   return (
     <div className="space-y-6">
-      {/* Category Filter - Horizontal Pills */}
+      {/* Category Filter - Horizontal Scroll with Chevrons */}
       <div className="space-y-2">
         <div className="flex items-center justify-between">
           <h3 className="text-xs sm:text-sm font-semibold text-black">Kategori</h3>
@@ -85,33 +113,64 @@ export default function PartsGrid({ parts }: PartsGridProps) {
             Reset
           </button>
         </div>
-        <div
-          style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-          className="flex flex-nowrap gap-1.5 sm:gap-2 pb-2 sm:flex-wrap sm:overflow-visible sm:pb-0"
-        >
-          <button
-            onClick={() => setSelectedCategory("all")}
-            className={`flex-shrink-0 px-3 sm:px-4 py-1.5 sm:py-2.5 rounded-full font-medium text-xs sm:text-sm transition whitespace-nowrap ${
-              selectedCategory === "all"
-                ? "bg-accent text-white"
-                : "bg-black/5 text-black hover:bg-black/10"
-            }`}
-          >
-            Semua
-          </button>
-          {PARTS_CATEGORIES.map((cat) => (
+        <div className="relative flex items-center gap-2">
+          {/* Left Chevron */}
+          {canScrollLeft && (
             <button
-              key={cat}
-              onClick={() => setSelectedCategory(cat)}
-              className={`flex-shrink-0 px-3 sm:px-4 py-1.5 sm:py-2.5 rounded-full font-medium text-xs sm:text-sm transition whitespace-nowrap ${
-                selectedCategory === cat
+              onClick={() => scroll('left')}
+              className="flex-shrink-0 p-1.5 hover:bg-black/5 rounded-lg transition text-black/60 hover:text-black"
+              aria-label="Scroll left"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+          )}
+
+          {/* Scrollable Container */}
+          <div
+            ref={categoryScrollRef}
+            onScroll={checkScroll}
+            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+            className="flex-1 flex gap-2 overflow-x-auto pb-1"
+          >
+            <button
+              onClick={() => setSelectedCategory("all")}
+              className={`flex-shrink-0 px-3 py-1.5 rounded-full font-medium text-sm transition whitespace-nowrap ${
+                selectedCategory === "all"
                   ? "bg-accent text-white"
                   : "bg-black/5 text-black hover:bg-black/10"
               }`}
             >
-              {cat}
+              Semua
             </button>
-          ))}
+            {PARTS_CATEGORIES.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setSelectedCategory(cat)}
+                className={`flex-shrink-0 px-3 py-1.5 rounded-full font-medium text-sm transition whitespace-nowrap ${
+                  selectedCategory === cat
+                    ? "bg-accent text-white"
+                    : "bg-black/5 text-black hover:bg-black/10"
+                }`}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+
+          {/* Right Chevron */}
+          {canScrollRight && (
+            <button
+              onClick={() => scroll('right')}
+              className="flex-shrink-0 p-1.5 hover:bg-black/5 rounded-lg transition text-black/60 hover:text-black"
+              aria-label="Scroll right"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          )}
         </div>
       </div>
 
