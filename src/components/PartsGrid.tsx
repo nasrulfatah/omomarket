@@ -75,9 +75,9 @@ export default function PartsGrid({ parts }: PartsGridProps) {
   return (
     <div className="space-y-6">
       {/* Category Filter - Horizontal Pills */}
-      <div className="space-y-3">
+      <div className="space-y-2">
         <div className="flex items-center justify-between">
-          <h3 className="text-sm font-semibold text-black">Kategori</h3>
+          <h3 className="text-xs sm:text-sm font-semibold text-black">Kategori</h3>
           <button
             onClick={() => setSelectedCategory("all")}
             className="text-xs font-medium text-accent hover:text-accent/80 transition"
@@ -85,10 +85,13 @@ export default function PartsGrid({ parts }: PartsGridProps) {
             Reset
           </button>
         </div>
-        <div className="flex flex-wrap gap-2">
+        <div
+          style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+          className="flex flex-nowrap gap-1.5 sm:gap-2 pb-2 sm:flex-wrap sm:overflow-visible sm:pb-0"
+        >
           <button
             onClick={() => setSelectedCategory("all")}
-            className={`px-4 py-2.5 rounded-full font-medium text-sm transition ${
+            className={`flex-shrink-0 px-3 sm:px-4 py-1.5 sm:py-2.5 rounded-full font-medium text-xs sm:text-sm transition whitespace-nowrap ${
               selectedCategory === "all"
                 ? "bg-accent text-white"
                 : "bg-black/5 text-black hover:bg-black/10"
@@ -100,7 +103,7 @@ export default function PartsGrid({ parts }: PartsGridProps) {
             <button
               key={cat}
               onClick={() => setSelectedCategory(cat)}
-              className={`px-4 py-2.5 rounded-full font-medium text-sm transition whitespace-nowrap ${
+              className={`flex-shrink-0 px-3 sm:px-4 py-1.5 sm:py-2.5 rounded-full font-medium text-xs sm:text-sm transition whitespace-nowrap ${
                 selectedCategory === cat
                   ? "bg-accent text-white"
                   : "bg-black/5 text-black hover:bg-black/10"
