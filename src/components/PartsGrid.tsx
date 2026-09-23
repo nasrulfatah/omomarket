@@ -19,6 +19,7 @@ export default function PartsGrid({ parts }: PartsGridProps) {
   const minInputRef = useRef<HTMLInputElement>(null);
   const maxInputRef = useRef<HTMLInputElement>(null);
   const categoryScrollRef = useRef<HTMLDivElement>(null);
+  const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const prices = useMemo(() => {
     const sortedPrices = parts.map((p) => p.harga).sort((a, b) => a - b);
@@ -36,25 +37,48 @@ export default function PartsGrid({ parts }: PartsGridProps) {
   const checkScroll = useCallback(() => {
     if (categoryScrollRef.current) {
       const { scrollLeft, scrollWidth, clientWidth } = categoryScrollRef.current;
-      setCanScrollLeft(scrollLeft > 0);
-      setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10);
+      // Show left chevron only if there's content to scroll to on the left
+      setCanScrollLeft(scrollLeft > 1);
+      // Show right chevron only if there's content to scroll to on the right
+      setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 1);
     }
   }, []);
 
   useEffect(() => {
     checkScroll();
     window.addEventListener('resize', checkScroll);
-    return () => window.removeEventListener('resize', checkScroll);
+    return () => {
+      window.removeEventListener('resize', checkScroll);
+      if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
+    };
   }, [checkScroll]);
 
   const scroll = (direction: 'left' | 'right') => {
     if (categoryScrollRef.current) {
+      // Clear existing timeout
+      if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
+
       const scrollAmount = 150;
-      categoryScrollRef.current.scrollBy({
+      const container = categoryScrollRef.current;
+
+      // Before scroll: hide the chevron in scroll direction, show only opposite
+      if (direction === 'left') {
+        setCanScrollLeft(false);
+        setCanScrollRight(true);
+      } else {
+        setCanScrollRight(false);
+        setCanScrollLeft(true);
+      }
+
+      container.scrollBy({
         left: direction === 'left' ? -scrollAmount : scrollAmount,
         behavior: 'smooth',
       });
-      setTimeout(checkScroll, 100);
+
+      // After scroll completes, check actual scroll position
+      scrollTimeoutRef.current = setTimeout(() => {
+        checkScroll();
+      }, 600); // Match smooth scroll duration
     }
   };
 
