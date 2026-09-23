@@ -122,18 +122,52 @@ export default function PartsGrid({ parts }: PartsGridProps) {
             </div>
           </div>
 
-          {/* Price Range Visualization */}
-          <div className="space-y-2 pt-1">
-            <div className="relative h-2 bg-line/20 rounded-full overflow-hidden">
+          {/* Interactive Price Range Slider */}
+          <div className="space-y-2 pt-2">
+            <div className="relative h-8 flex items-center">
+              {/* Track background */}
+              <div className="absolute w-full h-2 bg-line/20 rounded-full pointer-events-none" />
+
+              {/* Filled range track */}
               <div
-                className="absolute h-full bg-accent transition-all"
+                className="absolute h-2 bg-accent rounded-full pointer-events-none"
                 style={{
                   left: `${((minPrice - prices.min) / (prices.max - prices.min)) * 100}%`,
                   right: `${100 - ((maxPrice - prices.min) / (prices.max - prices.min)) * 100}%`
                 }}
               />
+
+              {/* Min range input */}
+              <input
+                type="range"
+                min={prices.min}
+                max={prices.max}
+                step="1"
+                value={minPrice}
+                onChange={(e) => {
+                  const val = Number(e.target.value);
+                  if (val <= maxPrice) setMinPrice(val);
+                }}
+                className="absolute w-full h-8 top-0 pointer-events-auto appearance-none bg-transparent cursor-pointer z-40 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-accent [&::-webkit-slider-thumb]:shadow-md [&::-webkit-slider-thumb]:cursor-pointer [&::-moz-range-thumb]:w-5 [&::-moz-range-thumb]:h-5 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-accent [&::-moz-range-thumb]:shadow-md [&::-moz-range-thumb]:cursor-pointer [&::-moz-range-thumb]:border-none"
+              />
+
+              {/* Max range input */}
+              <input
+                type="range"
+                min={prices.min}
+                max={prices.max}
+                step="1"
+                value={maxPrice}
+                onChange={(e) => {
+                  const val = Number(e.target.value);
+                  if (val >= minPrice) setMaxPrice(val);
+                }}
+                className="absolute w-full h-8 top-0 pointer-events-auto appearance-none bg-transparent cursor-pointer z-30 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-accent [&::-webkit-slider-thumb]:shadow-md [&::-webkit-slider-thumb]:cursor-pointer [&::-moz-range-thumb]:w-5 [&::-moz-range-thumb]:h-5 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-accent [&::-moz-range-thumb]:shadow-md [&::-moz-range-thumb]:cursor-pointer [&::-moz-range-thumb]:border-none"
+              />
             </div>
-            <div className="flex items-center justify-between text-xs text-black/50">
+
+            {/* Price range labels */}
+            <div className="flex items-center justify-between text-xs text-black/50 mt-2">
               <span>{formatRupiah(prices.min)}</span>
               <span>{formatRupiah(prices.max)}</span>
             </div>
