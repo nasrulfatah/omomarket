@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import { Part, PartCategory, PARTS_CATEGORIES, formatRupiah } from "@/lib/types";
 import PartCard from "./PartCard";
 
@@ -14,6 +14,8 @@ export default function PartsGrid({ parts }: PartsGridProps) {
   const [maxPrice, setMaxPrice] = useState<number>(0);
   const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false);
   const [activeThumb, setActiveThumb] = useState<'min' | 'max' | null>(null);
+  const minInputRef = useRef<HTMLInputElement>(null);
+  const maxInputRef = useRef<HTMLInputElement>(null);
 
   const prices = useMemo(() => {
     const sortedPrices = parts.map((p) => p.harga).sort((a, b) => a - b);
@@ -27,6 +29,33 @@ export default function PartsGrid({ parts }: PartsGridProps) {
     setMinPrice(prices.min);
     setMaxPrice(prices.max);
   }, [prices.min, prices.max]);
+
+  const handleSliderMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    // Only auto-detect which thumb to prioritize when NOT actively dragging
+    if (activeThumb !== null) return;
+
+    if (!minInputRef.current || !maxInputRef.current) return;
+
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const percent = Math.max(0, Math.min(100, (x / rect.width) * 100));
+
+    // Determine which thumb is closer to mouse position
+    const minPercent = ((minPrice - prices.min) / (prices.max - prices.min)) * 100;
+    const maxPercent = ((maxPrice - prices.min) / (prices.max - prices.min)) * 100;
+
+    const minDistance = Math.abs(percent - minPercent);
+    const maxDistance = Math.abs(percent - maxPercent);
+
+    // Temporarily adjust z-index to match cursor position (will be reset on mouseLeave)
+    if (minDistance < maxDistance) {
+      minInputRef.current.style.zIndex = '40';
+      maxInputRef.current.style.zIndex = '30';
+    } else {
+      maxInputRef.current.style.zIndex = '40';
+      minInputRef.current.style.zIndex = '30';
+    }
+  };
 
 
   const filteredParts = useMemo(() => {
@@ -128,7 +157,14 @@ export default function PartsGrid({ parts }: PartsGridProps) {
           <div className="space-y-2 pt-2">
             <div
               className="relative h-8 flex items-center"
-              onMouseLeave={() => setActiveThumb(null)}
+              onMouseMove={handleSliderMouseMove}
+              onMouseLeave={() => {
+                setActiveThumb(null);
+                if (minInputRef.current && maxInputRef.current) {
+                  minInputRef.current.style.zIndex = '';
+                  maxInputRef.current.style.zIndex = '';
+                }
+              }}
             >
               {/* Track background */}
               <div className="absolute w-full h-2 bg-line/20 rounded-full pointer-events-none" />
@@ -144,6 +180,7 @@ export default function PartsGrid({ parts }: PartsGridProps) {
 
               {/* Min range input */}
               <input
+                ref={minInputRef}
                 type="range"
                 min={prices.min}
                 max={prices.max}
@@ -155,14 +192,14 @@ export default function PartsGrid({ parts }: PartsGridProps) {
                 }}
                 onPointerDown={() => setActiveThumb('min')}
                 onPointerUp={() => setActiveThumb(null)}
-                onPointerLeave={() => setActiveThumb(null)}
                 className={`absolute w-full h-8 top-0 pointer-events-auto appearance-none bg-transparent cursor-pointer transition-all ${
-                  activeThumb === 'min' ? 'z-50' : 'z-30'
+                  activeThumb === 'min' ? 'z-50' : 'z-40'
                 } [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-accent [&::-webkit-slider-thumb]:shadow-md [&::-webkit-slider-thumb]:cursor-pointer [&::-moz-range-thumb]:w-5 [&::-moz-range-thumb]:h-5 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-accent [&::-moz-range-thumb]:shadow-md [&::-moz-range-thumb]:cursor-pointer [&::-moz-range-thumb]:border-none`}
               />
 
               {/* Max range input */}
               <input
+                ref={maxInputRef}
                 type="range"
                 min={prices.min}
                 max={prices.max}
@@ -174,9 +211,8 @@ export default function PartsGrid({ parts }: PartsGridProps) {
                 }}
                 onPointerDown={() => setActiveThumb('max')}
                 onPointerUp={() => setActiveThumb(null)}
-                onPointerLeave={() => setActiveThumb(null)}
                 className={`absolute w-full h-8 top-0 pointer-events-auto appearance-none bg-transparent cursor-pointer transition-all ${
-                  activeThumb === 'max' ? 'z-50' : 'z-40'
+                  activeThumb === 'max' ? 'z-50' : 'z-30'
                 } [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-accent [&::-webkit-slider-thumb]:shadow-md [&::-webkit-slider-thumb]:cursor-pointer [&::-moz-range-thumb]:w-5 [&::-moz-range-thumb]:h-5 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-accent [&::-moz-range-thumb]:shadow-md [&::-moz-range-thumb]:cursor-pointer [&::-moz-range-thumb]:border-none`}
               />
             </div>
