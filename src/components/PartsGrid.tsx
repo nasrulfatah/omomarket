@@ -16,6 +16,7 @@ export default function PartsGrid({ parts }: PartsGridProps) {
   const [activeThumb, setActiveThumb] = useState<'min' | 'max' | null>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
+  const [isChevronHovered, setIsChevronHovered] = useState(false);
   const minInputRef = useRef<HTMLInputElement>(null);
   const maxInputRef = useRef<HTMLInputElement>(null);
   const categoryScrollRef = useRef<HTMLDivElement>(null);
@@ -113,12 +114,16 @@ export default function PartsGrid({ parts }: PartsGridProps) {
             Reset
           </button>
         </div>
-        <div className="relative flex items-center gap-2">
+        <div
+          className="group relative flex items-center gap-2"
+          onMouseEnter={() => setIsChevronHovered(true)}
+          onMouseLeave={() => setIsChevronHovered(false)}
+        >
           {/* Left Chevron */}
           {canScrollLeft && (
             <button
               onClick={() => scroll('left')}
-              className="flex-shrink-0 p-1.5 hover:bg-black/5 rounded-lg transition text-black/60 hover:text-black"
+              className="flex-shrink-0 p-1.5 hover:bg-black/5 rounded-lg transition-all duration-200 text-black/60 hover:text-black opacity-0 group-hover:opacity-100"
               aria-label="Scroll left"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -163,7 +168,7 @@ export default function PartsGrid({ parts }: PartsGridProps) {
           {canScrollRight && (
             <button
               onClick={() => scroll('right')}
-              className="flex-shrink-0 p-1.5 hover:bg-black/5 rounded-lg transition text-black/60 hover:text-black"
+              className="flex-shrink-0 p-1.5 hover:bg-black/5 rounded-lg transition-all duration-200 text-black/60 hover:text-black opacity-0 group-hover:opacity-100"
               aria-label="Scroll right"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
