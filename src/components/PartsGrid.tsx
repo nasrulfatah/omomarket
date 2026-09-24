@@ -115,10 +115,16 @@ export default function PartsGrid({ parts }: PartsGridProps) {
           </button>
         </div>
         <div
-          className="group relative"
+          className="group relative overflow-hidden"
           onMouseEnter={() => setIsChevronHovered(true)}
           onMouseLeave={() => setIsChevronHovered(false)}
         >
+          {/* Left Gradient Overlay */}
+          <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-white via-white/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-5" />
+
+          {/* Right Gradient Overlay */}
+          <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-white via-white/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-5" />
+
           {/* Left Chevron - Absolute positioned */}
           {canScrollLeft && (
             <button
