@@ -115,15 +115,15 @@ export default function PartsGrid({ parts }: PartsGridProps) {
           </button>
         </div>
         <div
-          className="group relative flex items-center gap-2"
+          className="group relative"
           onMouseEnter={() => setIsChevronHovered(true)}
           onMouseLeave={() => setIsChevronHovered(false)}
         >
-          {/* Left Chevron */}
+          {/* Left Chevron - Absolute positioned */}
           {canScrollLeft && (
             <button
               onClick={() => scroll('left')}
-              className="flex-shrink-0 p-1.5 hover:bg-black/5 rounded-lg transition-all duration-200 text-black/60 hover:text-black opacity-0 group-hover:opacity-100"
+              className="absolute left-0 top-1/2 -translate-y-1/2 z-10 p-1.5 hover:bg-black/5 rounded-lg transition-all duration-200 text-black/60 hover:text-black opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto"
               aria-label="Scroll left"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -137,7 +137,7 @@ export default function PartsGrid({ parts }: PartsGridProps) {
             ref={categoryScrollRef}
             onScroll={checkScroll}
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-            className="flex-1 flex gap-2 overflow-x-auto pb-1"
+            className="flex gap-2 overflow-x-auto pb-1"
           >
             <button
               onClick={() => setSelectedCategory("all")}
@@ -164,11 +164,11 @@ export default function PartsGrid({ parts }: PartsGridProps) {
             ))}
           </div>
 
-          {/* Right Chevron */}
+          {/* Right Chevron - Absolute positioned */}
           {canScrollRight && (
             <button
               onClick={() => scroll('right')}
-              className="flex-shrink-0 p-1.5 hover:bg-black/5 rounded-lg transition-all duration-200 text-black/60 hover:text-black opacity-0 group-hover:opacity-100"
+              className="absolute right-0 top-1/2 -translate-y-1/2 z-10 p-1.5 hover:bg-black/5 rounded-lg transition-all duration-200 text-black/60 hover:text-black opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto"
               aria-label="Scroll right"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
