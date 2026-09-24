@@ -115,23 +115,25 @@ export default function PartsGrid({ parts }: PartsGridProps) {
           </button>
         </div>
         <div
-          className="relative overflow-hidden"
+          className="group relative overflow-hidden"
+          onMouseEnter={() => setIsChevronHovered(true)}
+          onMouseLeave={() => setIsChevronHovered(false)}
         >
           {/* Left Gradient Overlay - Only show when can scroll left */}
           {canScrollLeft && (
-            <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-white via-white to-transparent opacity-0 transition-opacity duration-200 pointer-events-none z-5" />
+            <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-white via-white to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-5" />
           )}
 
           {/* Right Gradient Overlay - Only show when can scroll right */}
           {canScrollRight && (
-            <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-white via-white to-transparent opacity-0 transition-opacity duration-200 pointer-events-none z-5" />
+            <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-white via-white to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-5" />
           )}
 
           {/* Left Chevron - Absolute positioned */}
           {canScrollLeft && (
             <button
               onClick={() => scroll('left')}
-              className="peer/left absolute left-0 top-1/2 -translate-y-1/2 z-10 p-1.5 hover:bg-black/5 rounded-lg transition-all duration-200 text-black/60 hover:text-black opacity-0 hover:opacity-100 pointer-events-none hover:pointer-events-auto"
+              className="absolute left-0 top-1/2 -translate-y-1/2 z-10 p-1.5 hover:bg-black/5 rounded-lg transition-all duration-200 text-black/60 hover:text-black opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto"
               aria-label="Scroll left"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -176,7 +178,7 @@ export default function PartsGrid({ parts }: PartsGridProps) {
           {canScrollRight && (
             <button
               onClick={() => scroll('right')}
-              className="peer/right absolute right-0 top-1/2 -translate-y-1/2 z-10 p-1.5 hover:bg-black/5 rounded-lg transition-all duration-200 text-black/60 hover:text-black opacity-0 hover:opacity-100 pointer-events-none hover:pointer-events-auto"
+              className="absolute right-0 top-1/2 -translate-y-1/2 z-10 p-1.5 hover:bg-black/5 rounded-lg transition-all duration-200 text-black/60 hover:text-black opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto"
               aria-label="Scroll right"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
