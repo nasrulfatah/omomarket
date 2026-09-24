@@ -119,11 +119,15 @@ export default function PartsGrid({ parts }: PartsGridProps) {
           onMouseEnter={() => setIsChevronHovered(true)}
           onMouseLeave={() => setIsChevronHovered(false)}
         >
-          {/* Left Gradient Overlay */}
-          <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-white via-white to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-5" />
+          {/* Left Gradient Overlay - Only show when can scroll left */}
+          {canScrollLeft && (
+            <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-white via-white to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-5" />
+          )}
 
-          {/* Right Gradient Overlay */}
-          <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-white via-white to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-5" />
+          {/* Right Gradient Overlay - Only show when can scroll right */}
+          {canScrollRight && (
+            <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-white via-white to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-5" />
+          )}
 
           {/* Left Chevron - Absolute positioned */}
           {canScrollLeft && (
