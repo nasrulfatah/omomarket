@@ -4,6 +4,10 @@ Semua perubahan penting pada project ini dicatat di file ini, supaya mudah melac
 
 Format: `## [versi] - tanggal` diikuti ringkasan perubahan dan commit hash terkait.
 
+## [0.6.0] - 2026-09-25
+- Ubah ukuran font heading "Omo Recommended Parts" di halaman /parts agar fit dalam 1 baris di mobile view.
+- Mobile: text-2xl, Sm: text-3xl, Lg: text-4xl (responsive typography).
+
 ## [0.5.0] - 2026-09-25
 - Update icon kategori "Bags & Storage" dengan 3D icon tas baru dari IconScout (tas berwarna biru & putih).
 

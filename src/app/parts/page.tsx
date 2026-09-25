@@ -16,7 +16,7 @@ export default async function PartsPage() {
             <span className="inline-block rounded-full bg-accent-soft px-3 py-1 text-xs font-bold text-accent-soft-text">
               Katalog Parts
             </span>
-            <h1 className="mt-3 text-3xl font-extrabold leading-tight text-black sm:text-4xl">
+            <h1 className="mt-3 text-2xl font-extrabold leading-tight text-black sm:text-3xl lg:text-4xl">
               Omo Recommended Parts
             </h1>
             <p className="mt-2 text-sm text-black/60 sm:text-base">
