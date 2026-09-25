@@ -9,19 +9,18 @@ export default async function PartsPage() {
 
   return (
     <div>
-      {/* Hero Section */}
-      <section className="border-b border-line bg-gradient-to-br from-accent/5 via-white to-blue-50">
-        <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6">
-          <h1 className="text-2xl font-bold text-black sm:text-3xl">Omo Recommended Parts</h1>
-          <p className="mt-1.5 text-sm text-black/60">
-            Aksesori & suku cadang berkualitas untuk motor listrik Omoway Anda
-          </p>
-        </div>
-      </section>
-
-      {/* Main Content */}
       <section className="bg-white">
         <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:py-8">
+          {/* Page Title */}
+          <div className="mb-4">
+            <span className="inline-block rounded-full bg-accent-soft px-3 py-1 text-xs font-bold text-accent-soft-text">
+              Omo Recommended Parts
+            </span>
+            <p className="mt-2 text-sm text-black/60">
+              Aksesori & suku cadang berkualitas untuk motor listrik Omoway Anda
+            </p>
+          </div>
+
           {/* Banner Carousel */}
           <CategoryBannerCarousel parts={allParts} />
 
