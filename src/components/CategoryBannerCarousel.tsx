@@ -75,31 +75,31 @@ export default function CategoryBannerCarousel() {
         onMouseLeave={() => setShowChevrons(false)}
       >
         {/* Main Carousel Slide - Fixed aspect ratio across all screens */}
-        <div className={`relative aspect-[16/7] rounded-2xl bg-gradient-to-br ${slide.bgGradient} overflow-hidden`}>
+        <div className={`relative aspect-[16/5] rounded-2xl bg-gradient-to-br ${slide.bgGradient} overflow-hidden`}>
           {/* Decorative gradient circles for visual interest */}
           <div className="absolute -top-32 -right-32 w-96 h-96 bg-white/10 rounded-full blur-3xl" />
           <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-white/10 rounded-full blur-3xl" />
 
           {/* Content Container */}
-          <div className="relative h-full flex items-center px-4 sm:px-8 lg:px-12 z-10">
+          <div className="relative h-full flex items-center px-4 sm:px-8 lg:px-12 pb-3 sm:pb-0 z-10">
             {/* Left Content */}
             <div className="flex-1 text-white">
               {/* Tag Badge */}
-              <div className="inline-block bg-white/25 backdrop-blur-sm px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-xs font-bold mb-1.5 sm:mb-4">
+              <div className="inline-block bg-white/25 backdrop-blur-sm px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-[9px] sm:text-xs font-bold mb-1 sm:mb-4">
                 {slide.tag}
               </div>
 
               {/* Main Title */}
-              <h2 className="text-base sm:text-3xl lg:text-5xl font-bold mb-1 sm:mb-4 leading-tight">
+              <h2 className="text-sm sm:text-3xl lg:text-5xl font-bold mb-1 sm:mb-4 leading-tight">
                 {slide.title}
               </h2>
 
               {/* Subtitle + Discount */}
-              <div className="bg-white/20 backdrop-blur-sm rounded-lg sm:rounded-xl px-2 sm:px-6 py-1 sm:py-4 inline-block">
-                <p className="text-[9px] sm:text-base font-medium text-white/90 mb-0 sm:mb-1">
+              <div className="bg-white/20 backdrop-blur-sm rounded-lg sm:rounded-xl px-2 sm:px-6 py-0.5 sm:py-4 inline-block">
+                <p className="text-[8px] sm:text-base font-medium text-white/90 mb-0 sm:mb-1 leading-tight">
                   {slide.subtitle}
                 </p>
-                <p className="text-sm sm:text-3xl lg:text-4xl font-bold text-white">
+                <p className="text-xs sm:text-3xl lg:text-4xl font-bold text-white leading-tight">
                   {slide.discount}
                 </p>
               </div>
