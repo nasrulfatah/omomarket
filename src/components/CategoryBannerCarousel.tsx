@@ -143,7 +143,7 @@ export default function CategoryBannerCarousel() {
         </div>
 
         {/* Dots Indicator - Below banner */}
-        <div className="flex justify-center gap-2 pt-3 pb-0">
+        <div className="flex justify-center gap-2 p-0 -mt-2">
           {BANNER_SLIDES.map((_, idx) => (
             <button
               key={idx}
