@@ -140,23 +140,23 @@ export default function CategoryBannerCarousel() {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
           </button>
-        </div>
 
-        {/* Dots Indicator - Below banner */}
-        <div className="flex justify-center gap-2 p-0 -mt-2">
-          {BANNER_SLIDES.map((_, idx) => (
-            <button
-              key={idx}
-              onClick={() => {
-                setAutoPlay(false);
-                setCurrentIndex(idx);
-              }}
-              className={`h-2.5 rounded-full transition-all duration-300 ${
-                idx === currentIndex ? 'bg-accent w-8' : 'bg-gray-300 w-2.5 hover:bg-accent/60'
-              }`}
-              aria-label={`Go to slide ${idx + 1}`}
-            />
-          ))}
+          {/* Dots Indicator - Inside banner at bottom */}
+          <div className="absolute bottom-2 left-1/2 -translate-x-1/2 z-10 flex justify-center gap-2">
+            {BANNER_SLIDES.map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => {
+                  setAutoPlay(false);
+                  setCurrentIndex(idx);
+                }}
+                className={`h-2.5 rounded-full transition-all duration-300 ${
+                  idx === currentIndex ? 'bg-accent w-8' : 'bg-gray-300 w-2.5 hover:bg-accent/60'
+                }`}
+                aria-label={`Go to slide ${idx + 1}`}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </div>
