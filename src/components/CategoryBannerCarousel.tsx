@@ -82,11 +82,53 @@ export default function CategoryBannerCarousel() {
     <div className="mb-12">
       <div className="relative overflow-hidden rounded-2xl shadow-lg">
         {/* Main Carousel Slide */}
-        <div className={`relative h-56 sm:h-72 lg:h-80 bg-gradient-to-r ${slide.bgColor} flex items-center justify-between px-6 sm:px-8 lg:px-12 py-8`}>
+        <div className={`relative h-60 sm:h-72 lg:h-80 bg-gradient-to-r ${slide.bgColor}`}>
+          <div className="h-full flex items-center px-8 sm:px-10 lg:px-12 py-8">
+            {/* Content Section - Left Side */}
+            <div className="flex-1 z-10 text-white">
+              {/* Tag */}
+              <div className="inline-block bg-white/20 backdrop-blur px-4 py-1.5 rounded-full text-xs sm:text-sm font-semibold mb-4">
+                {slide.tag}
+              </div>
+
+              {/* Title */}
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-2 leading-tight">
+                {slide.title}
+              </h2>
+
+              {/* Subtitle */}
+              <p className="text-base sm:text-lg font-medium mb-6 opacity-95">
+                {slide.subtitle}
+              </p>
+
+              {/* Price */}
+              <p className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-3 leading-none">
+                {slide.price}
+              </p>
+
+              {/* Discount */}
+              <p className="text-sm sm:text-base opacity-90 mb-4">
+                {slide.discount}
+              </p>
+
+              {/* Date */}
+              <p className="text-xs sm:text-sm opacity-80">
+                {slide.dateRange}
+              </p>
+            </div>
+
+            {/* Image Section - Right Side */}
+            <div className="hidden sm:flex flex-1 items-center justify-end pr-8">
+              <div className="text-8xl sm:text-9xl opacity-90 drop-shadow-lg">
+                {slide.image}
+              </div>
+            </div>
+          </div>
+
           {/* Left Navigation */}
           <button
             onClick={handlePrev}
-            className="absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-white/90 hover:bg-white rounded-full p-2 sm:p-3 transition-all shadow-lg"
+            className="absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-white hover:bg-white/90 rounded-full p-2 sm:p-3 transition-all shadow-lg hover:shadow-xl"
             aria-label="Previous"
           >
             <svg className="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -94,50 +136,10 @@ export default function CategoryBannerCarousel() {
             </svg>
           </button>
 
-          {/* Content Section */}
-          <div className="flex-1 z-10 text-white">
-            {/* Tag */}
-            <div className="inline-block bg-white/20 backdrop-blur px-3 py-1 rounded-full text-xs sm:text-sm font-semibold mb-3">
-              {slide.tag}
-            </div>
-
-            {/* Title */}
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-2">
-              {slide.title}
-            </h2>
-
-            {/* Subtitle */}
-            <p className="text-lg sm:text-xl font-semibold mb-4 opacity-95">
-              {slide.subtitle}
-            </p>
-
-            {/* Price */}
-            <div className="mb-4">
-              <p className="text-3xl sm:text-4xl lg:text-5xl font-bold">
-                {slide.price}
-              </p>
-              <p className="text-sm sm:text-base opacity-90 mt-1">
-                {slide.discount}
-              </p>
-            </div>
-
-            {/* Date */}
-            <p className="text-xs sm:text-sm opacity-80">
-              {slide.dateRange}
-            </p>
-          </div>
-
-          {/* Image Section */}
-          <div className="hidden sm:flex flex-1 items-center justify-end">
-            <div className="text-9xl sm:text-8xl lg:text-9xl opacity-80">
-              {slide.image}
-            </div>
-          </div>
-
           {/* Right Navigation */}
           <button
             onClick={handleNext}
-            className="absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-white/90 hover:bg-white rounded-full p-2 sm:p-3 transition-all shadow-lg"
+            className="absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-white hover:bg-white/90 rounded-full p-2 sm:p-3 transition-all shadow-lg hover:shadow-xl"
             aria-label="Next"
           >
             <svg className="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">

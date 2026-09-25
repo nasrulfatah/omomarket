@@ -10,7 +10,7 @@ interface CategoryCardsGridProps {
 const CATEGORY_ICONS: Record<PartCategory, string> = {
   "Battery": "🔋",
   "Charger & Cable": "🔌",
-  "Tires & Wheels": "🛞",
+  "Tires & Wheels": "🏍️",
   "Lights & Electrical": "💡",
   "Interior Accessories": "🎨",
   "Exterior Accessories": "🛡️",
