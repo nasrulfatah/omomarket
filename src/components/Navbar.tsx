@@ -7,9 +7,31 @@ export default function Navbar() {
   const searchInputRef = useRef<HTMLInputElement>(null);
 
   const handleCariPartsClick = () => {
+    const categoryGrid = document.querySelector('[class*="space-y-"]') as HTMLElement;
     const searchInput = document.querySelector('input[placeholder="Ketik nama produk..."]') as HTMLInputElement;
     if (searchInput) {
-      searchInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      const headerHeight = 80;
+      const elementPosition = searchInput.getBoundingClientRect().top + window.scrollY;
+      const categoryElement = document.evaluate(
+        "//h3[contains(text(), 'Telusuri Kategori')]",
+        document,
+        null,
+        XPathResult.FIRST_ORDERED_NODE_TYPE,
+        null
+      ).singleNodeValue as HTMLElement;
+
+      if (categoryElement) {
+        const categoryPosition = categoryElement.getBoundingClientRect().top + window.scrollY;
+        window.scrollTo({
+          top: categoryPosition - headerHeight,
+          behavior: 'smooth'
+        });
+      } else {
+        window.scrollTo({
+          top: elementPosition - headerHeight,
+          behavior: 'smooth'
+        });
+      }
       setTimeout(() => searchInput.focus(), 500);
     }
   };
