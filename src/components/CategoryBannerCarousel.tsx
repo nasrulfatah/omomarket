@@ -6,60 +6,49 @@ interface BannerSlide {
   id: number;
   title: string;
   subtitle: string;
-  price: string;
   discount: string;
-  bgColor: string;
-  image: string;
+  bgGradient: string;
   tag: string;
-  dateRange: string;
 }
 
 const BANNER_SLIDES: BannerSlide[] = [
   {
     id: 1,
-    title: "Harga terbaik!",
-    subtitle: "Battery Premium",
-    price: "Rp450.000",
-    discount: "Diskon hingga 20%",
-    bgColor: "from-blue-500 to-blue-600",
-    image: "🔋",
+    title: "Battery Premium",
+    subtitle: "Diskon s.d.",
+    discount: "600rb",
+    bgGradient: "from-blue-400 via-blue-500 to-blue-600",
     tag: "#BATTERYPROMO",
-    dateRange: "20-22 Oct",
   },
   {
     id: 2,
-    title: "Penawaran spesial!",
-    subtitle: "Charger & Cable Set",
-    price: "Rp280.000",
-    discount: "Diskon hingga 25%",
-    bgColor: "from-yellow-400 to-yellow-500",
-    image: "🔌",
+    title: "Charger & Cable",
+    subtitle: "Diskon s.d.",
+    discount: "500rb",
+    bgGradient: "from-yellow-400 via-yellow-500 to-amber-600",
     tag: "#CHARGERPROMO",
-    dateRange: "20-22 Oct",
   },
   {
     id: 3,
-    title: "Flash Sale!",
-    subtitle: "Tires & Wheels",
-    price: "Rp1.200.000",
-    discount: "Diskon hingga 15%",
-    bgColor: "from-red-500 to-red-600",
-    image: "🛞",
+    title: "Tires & Wheels",
+    subtitle: "Diskon s.d.",
+    discount: "1.2juta",
+    bgGradient: "from-red-400 via-red-500 to-red-600",
     tag: "#TIRESALE",
-    dateRange: "20-22 Oct",
   },
 ];
 
 export default function CategoryBannerCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [autoPlay, setAutoPlay] = useState(true);
+  const [showChevrons, setShowChevrons] = useState(false);
 
   useEffect(() => {
     if (!autoPlay) return;
 
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % BANNER_SLIDES.length);
-    }, 5000); // Change every 5 seconds
+    }, 5000);
 
     return () => clearInterval(interval);
   }, [autoPlay]);
@@ -80,67 +69,72 @@ export default function CategoryBannerCarousel() {
 
   return (
     <div className="mb-12">
-      <div className="relative overflow-hidden rounded-2xl shadow-lg">
-        {/* Main Carousel Slide */}
-        <div className={`relative h-60 sm:h-72 lg:h-80 bg-gradient-to-r ${slide.bgColor}`}>
-          <div className="h-full flex items-center px-8 sm:px-10 lg:px-12 py-8">
-            {/* Content Section - Left Side */}
-            <div className="flex-1 z-10 text-white">
-              {/* Tag */}
-              <div className="inline-block bg-white/20 backdrop-blur px-4 py-1.5 rounded-full text-xs sm:text-sm font-semibold mb-4">
+      <div
+        className="relative overflow-hidden rounded-2xl shadow-lg"
+        onMouseEnter={() => setShowChevrons(true)}
+        onMouseLeave={() => setShowChevrons(false)}
+      >
+        {/* Main Carousel Slide - Full Width with Gradient Background */}
+        <div className={`relative h-64 sm:h-80 lg:h-96 bg-gradient-to-br ${slide.bgGradient} overflow-hidden`}>
+          {/* Decorative gradient circles for visual interest */}
+          <div className="absolute -top-32 -right-32 w-96 h-96 bg-white/10 rounded-full blur-3xl" />
+          <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-white/10 rounded-full blur-3xl" />
+
+          {/* Content Container */}
+          <div className="relative h-full flex items-center px-6 sm:px-8 lg:px-12 z-10">
+            {/* Left Content */}
+            <div className="flex-1 text-white">
+              {/* Tag Badge */}
+              <div className="inline-block bg-white/25 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold mb-4 mb:mb-6">
                 {slide.tag}
               </div>
 
-              {/* Title */}
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-2 leading-tight">
+              {/* Main Title */}
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-2 sm:mb-4 leading-tight">
                 {slide.title}
               </h2>
 
-              {/* Subtitle */}
-              <p className="text-base sm:text-lg font-medium mb-6 opacity-95">
-                {slide.subtitle}
-              </p>
-
-              {/* Price */}
-              <p className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-3 leading-none">
-                {slide.price}
-              </p>
-
-              {/* Discount */}
-              <p className="text-sm sm:text-base opacity-90 mb-4">
-                {slide.discount}
-              </p>
-
-              {/* Date */}
-              <p className="text-xs sm:text-sm opacity-80">
-                {slide.dateRange}
-              </p>
+              {/* Subtitle + Discount */}
+              <div className="bg-white/20 backdrop-blur-sm rounded-xl px-4 sm:px-6 py-3 sm:py-4 inline-block">
+                <p className="text-sm sm:text-base font-medium text-white/90 mb-1">
+                  {slide.subtitle}
+                </p>
+                <p className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white">
+                  {slide.discount}
+                </p>
+              </div>
             </div>
 
-            {/* Image Section - Right Side */}
-            <div className="hidden sm:flex flex-1 items-center justify-end pr-8">
-              <div className="text-8xl sm:text-9xl opacity-90 drop-shadow-lg">
-                {slide.image}
+            {/* Right Decorative Area */}
+            <div className="hidden sm:block flex-1 relative">
+              {/* Geometric shapes for visual design */}
+              <div className="absolute top-1/2 right-0 -translate-y-1/2 space-y-4">
+                <div className="w-32 h-32 rounded-lg bg-white/15 backdrop-blur-sm"></div>
+                <div className="w-24 h-24 rounded-lg bg-white/10 backdrop-blur-sm ml-8"></div>
               </div>
             </div>
           </div>
 
-          {/* Left Navigation */}
+          {/* Left Navigation Button - Hidden by default, shown on hover */}
           <button
             onClick={handlePrev}
-            className="absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-white hover:bg-white/90 rounded-full p-2 sm:p-3 transition-all shadow-lg hover:shadow-xl"
-            aria-label="Previous"
+            className={`absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-white/90 hover:bg-white rounded-full p-2.5 transition-all duration-300 shadow-lg ${
+              showChevrons ? 'opacity-100 scale-100' : 'opacity-0 scale-75 pointer-events-none'
+            }`}
+            aria-label="Previous slide"
           >
             <svg className="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
           </button>
 
-          {/* Right Navigation */}
+          {/* Right Navigation Button - Hidden by default, shown on hover */}
           <button
             onClick={handleNext}
-            className="absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-white hover:bg-white/90 rounded-full p-2 sm:p-3 transition-all shadow-lg hover:shadow-xl"
-            aria-label="Next"
+            className={`absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-white/90 hover:bg-white rounded-full p-2.5 transition-all duration-300 shadow-lg ${
+              showChevrons ? 'opacity-100 scale-100' : 'opacity-0 scale-75 pointer-events-none'
+            }`}
+            aria-label="Next slide"
           >
             <svg className="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -148,8 +142,8 @@ export default function CategoryBannerCarousel() {
           </button>
         </div>
 
-        {/* Dots Indicator */}
-        <div className="flex justify-center gap-2 mt-4">
+        {/* Dots Indicator - Below banner */}
+        <div className="flex justify-center gap-2 pt-4 pb-1">
           {BANNER_SLIDES.map((_, idx) => (
             <button
               key={idx}
@@ -157,8 +151,8 @@ export default function CategoryBannerCarousel() {
                 setAutoPlay(false);
                 setCurrentIndex(idx);
               }}
-              className={`h-2 rounded-full transition-all ${
-                idx === currentIndex ? "bg-accent w-8" : "bg-gray-300 w-2 hover:bg-accent/50"
+              className={`h-2.5 rounded-full transition-all duration-300 ${
+                idx === currentIndex ? 'bg-accent w-8' : 'bg-gray-300 w-2.5 hover:bg-accent/60'
               }`}
               aria-label={`Go to slide ${idx + 1}`}
             />
