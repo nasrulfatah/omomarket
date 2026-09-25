@@ -51,7 +51,7 @@ export default function CategoryCardsGrid({ selectedCategory, onSelectCategory }
             <img
               src="/icons/categories/all.webp"
               alt="Semua"
-              className="h-8 w-8 object-contain transition-transform group-hover:scale-110 sm:h-10 sm:w-10"
+              className="h-8 w-8 object-contain mix-blend-multiply transition-transform group-hover:scale-110 sm:h-10 sm:w-10"
             />
             <h3 className={`text-[11px] font-semibold sm:text-sm ${selectedCategory === "all" ? "text-accent" : "text-black"}`}>
               Semua
@@ -73,7 +73,7 @@ export default function CategoryCardsGrid({ selectedCategory, onSelectCategory }
               <img
                 src={CATEGORY_ICONS[category]}
                 alt={category}
-                className="h-8 w-8 object-contain transition-transform group-hover:scale-110 sm:h-10 sm:w-10"
+                className="h-8 w-8 object-contain mix-blend-multiply transition-transform group-hover:scale-110 sm:h-10 sm:w-10"
               />
               <h3 className={`text-[11px] font-semibold sm:text-sm ${selectedCategory === category ? "text-accent" : "text-black"}`}>
                 {category}
