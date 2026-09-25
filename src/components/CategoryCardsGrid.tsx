@@ -20,59 +20,6 @@ const CATEGORY_ICONS: Record<PartCategory, string> = {
   "Cleaning & Care": "/icons/categories/cleaning-care.webp",
 };
 
-function CategoryCard({
-  icon,
-  label,
-  isSelected,
-  onClick,
-}: {
-  icon: string;
-  label: string;
-  isSelected: boolean;
-  onClick: () => void;
-}) {
-  return (
-    <button
-      onClick={onClick}
-      className={`group relative overflow-hidden rounded-2xl p-3 text-center transition-all duration-300 ease-out sm:p-4 ${
-        isSelected
-          ? "bg-gradient-to-b from-accent/10 to-white shadow-[0_4px_20px_-6px_rgba(163,230,53,0.5)] ring-1 ring-accent/50"
-          : "bg-white shadow-sm ring-1 ring-black/5 hover:-translate-y-0.5 hover:shadow-md hover:ring-black/10"
-      }`}
-    >
-      {/* Selected checkmark badge */}
-      {isSelected && (
-        <span className="absolute right-1.5 top-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-accent shadow-sm sm:h-5 sm:w-5">
-          <svg viewBox="0 0 20 20" fill="currentColor" className="h-2.5 w-2.5 text-black sm:h-3 sm:w-3">
-            <path
-              fillRule="evenodd"
-              d="M16.704 5.29a1 1 0 010 1.415l-7.09 7.09a1 1 0 01-1.414 0L4.296 9.89a1 1 0 111.414-1.414l3.09 3.09 6.383-6.383a1 1 0 011.521.106z"
-              clipRule="evenodd"
-            />
-          </svg>
-        </span>
-      )}
-
-      <div className="flex flex-col items-center gap-1.5 sm:gap-2">
-        <img
-          src={icon}
-          alt={label}
-          className={`h-8 w-8 object-contain mix-blend-multiply transition-transform duration-300 ease-out sm:h-10 sm:w-10 ${
-            isSelected ? "scale-110" : "group-hover:scale-110"
-          }`}
-        />
-        <h3
-          className={`text-[11px] font-semibold leading-tight transition-colors sm:text-sm ${
-            isSelected ? "text-accent-dark" : "text-black/80 group-hover:text-black"
-          }`}
-        >
-          {label}
-        </h3>
-      </div>
-    </button>
-  );
-}
-
 export default function CategoryCardsGrid({ selectedCategory, onSelectCategory }: CategoryCardsGridProps) {
   return (
     <div className="mb-10">
@@ -84,29 +31,55 @@ export default function CategoryCardsGrid({ selectedCategory, onSelectCategory }
         {selectedCategory !== "all" && (
           <button
             onClick={() => onSelectCategory("all")}
-            className="text-xs font-semibold text-accent-dark hover:text-accent-dark/80 transition whitespace-nowrap"
+            className="text-xs font-semibold text-accent hover:text-accent/80 transition whitespace-nowrap"
           >
             Reset
           </button>
         )}
       </div>
 
-      <div className="grid grid-cols-3 gap-2.5 sm:grid-cols-5 sm:gap-3">
-        <CategoryCard
-          icon="/icons/categories/all.webp"
-          label="Semua"
-          isSelected={selectedCategory === "all"}
+      <div className="grid grid-cols-3 gap-2 sm:grid-cols-5 sm:gap-3">
+        <button
           onClick={() => onSelectCategory("all")}
-        />
+          className={`group relative overflow-hidden rounded-xl border-2 p-3 sm:p-4 transition-all duration-300 ${
+            selectedCategory === "all"
+              ? "border-accent bg-accent/10 shadow-md"
+              : "border-transparent bg-gray-50 hover:border-accent/50 hover:bg-accent/5"
+          }`}
+        >
+          <div className="flex flex-col items-center gap-1.5 text-center sm:gap-2">
+            <img
+              src="/icons/categories/all.webp"
+              alt="Semua"
+              className="h-8 w-8 object-contain mix-blend-multiply transition-transform group-hover:scale-110 sm:h-10 sm:w-10"
+            />
+            <h3 className={`text-[11px] font-semibold sm:text-sm ${selectedCategory === "all" ? "text-accent" : "text-black"}`}>
+              Semua
+            </h3>
+          </div>
+        </button>
 
         {PARTS_CATEGORIES.map((category) => (
-          <CategoryCard
+          <button
             key={category}
-            icon={CATEGORY_ICONS[category]}
-            label={category}
-            isSelected={selectedCategory === category}
             onClick={() => onSelectCategory(category)}
-          />
+            className={`group relative overflow-hidden rounded-xl border-2 p-3 sm:p-4 transition-all duration-300 ${
+              selectedCategory === category
+                ? "border-accent bg-accent/10 shadow-md"
+                : "border-transparent bg-gray-50 hover:border-accent/50 hover:bg-accent/5"
+            }`}
+          >
+            <div className="flex flex-col items-center gap-1.5 text-center sm:gap-2">
+              <img
+                src={CATEGORY_ICONS[category]}
+                alt={category}
+                className="h-8 w-8 object-contain mix-blend-multiply transition-transform group-hover:scale-110 sm:h-10 sm:w-10"
+              />
+              <h3 className={`text-[11px] font-semibold sm:text-sm ${selectedCategory === category ? "text-accent" : "text-black"}`}>
+                {category}
+              </h3>
+            </div>
+          </button>
         ))}
       </div>
     </div>
