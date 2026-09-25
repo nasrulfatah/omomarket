@@ -4,6 +4,11 @@ Semua perubahan penting pada project ini dicatat di file ini, supaya mudah melac
 
 Format: `## [versi] - tanggal` diikuti ringkasan perubahan dan commit hash terkait.
 
+## [0.9.5] - 2026-09-26
+- Tambahkan spasi antara "Rp" dan angka di input Minimum & Maksimum.
+- Ubah "Rp" menjadi "Rp " (dengan trailing space) dan increase padding dari `pl-7` menjadi `pl-8`.
+- Hasil: Spacing lebih baik antara prefix "Rp" dan input number.
+
 ## [0.9.4] - 2026-09-26
 - Ubah "Rp" dari text terpisah menjadi prefix default di dalam input box Minimum & Maksimum.
 - Gunakan `position: absolute` dengan `left-3 top-1/2 transform -translate-y-1/2` untuk position "Rp" di dalam box.
