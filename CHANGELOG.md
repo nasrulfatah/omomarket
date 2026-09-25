@@ -4,6 +4,12 @@ Semua perubahan penting pada project ini dicatat di file ini, supaya mudah melac
 
 Format: `## [versi] - tanggal` diikuti ringkasan perubahan dan commit hash terkait.
 
+## [0.9.4] - 2026-09-26
+- Ubah "Rp" dari text terpisah menjadi prefix default di dalam input box Minimum & Maksimum.
+- Gunakan `position: absolute` dengan `left-3 top-1/2 transform -translate-y-1/2` untuk position "Rp" di dalam box.
+- Add `pl-7` (left padding) pada input untuk membuat ruang bagi "Rp" prefix.
+- Hasil: Layout lebih compact dan "Rp" langsung ada di dalam input field.
+
 ## [0.9.3] - 2026-09-26
 - Revert layout kolom Minimum & Maksimum ke vertical (1 kolom) di mobile untuk menghindari tumpang tindih.
 - Gunakan `grid-cols-1 sm:grid-cols-2` agar responsive: 1 kolom di mobile, 2 kolom di tablet/desktop.

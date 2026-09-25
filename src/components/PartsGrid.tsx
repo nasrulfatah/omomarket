@@ -96,8 +96,8 @@ export default function PartsGrid({ parts, selectedCategory, searchQuery, onSear
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
               <label className="block text-xs text-black/60 mb-2 font-medium">Minimum</label>
-              <div className="flex items-center gap-1">
-                <span className="text-xs text-black/50">Rp</span>
+              <div className="relative">
+                <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-xs text-black/50 pointer-events-none">Rp</span>
                 <input
                   type="number"
                   value={minPrice}
@@ -105,14 +105,14 @@ export default function PartsGrid({ parts, selectedCategory, searchQuery, onSear
                     const val = Number(e.target.value);
                     if (val <= maxPrice) setMinPrice(Math.max(val, prices.min));
                   }}
-                  className="flex-1 px-3 py-2.5 border border-line/50 rounded-lg text-sm font-semibold text-black bg-white focus:outline-none focus:ring-2 focus:ring-accent/40 transition"
+                  className="w-full pl-7 pr-3 py-2.5 border border-line/50 rounded-lg text-sm font-semibold text-black bg-white focus:outline-none focus:ring-2 focus:ring-accent/40 transition"
                 />
               </div>
             </div>
             <div>
               <label className="block text-xs text-black/60 mb-2 font-medium">Maksimum</label>
-              <div className="flex items-center gap-1">
-                <span className="text-xs text-black/50">Rp</span>
+              <div className="relative">
+                <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-xs text-black/50 pointer-events-none">Rp</span>
                 <input
                   type="number"
                   value={maxPrice}
@@ -120,7 +120,7 @@ export default function PartsGrid({ parts, selectedCategory, searchQuery, onSear
                     const val = Number(e.target.value);
                     if (val >= minPrice) setMaxPrice(Math.min(val, prices.max));
                   }}
-                  className="flex-1 px-3 py-2.5 border border-line/50 rounded-lg text-sm font-semibold text-black bg-white focus:outline-none focus:ring-2 focus:ring-accent/40 transition"
+                  className="w-full pl-7 pr-3 py-2.5 border border-line/50 rounded-lg text-sm font-semibold text-black bg-white focus:outline-none focus:ring-2 focus:ring-accent/40 transition"
                 />
               </div>
             </div>
