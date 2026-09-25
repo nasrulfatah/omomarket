@@ -19,7 +19,7 @@ const CATEGORY_ICONS: Record<PartCategory, string> = {
   "Covers & Protection": "/icons/categories/covers-protection.webp",
   "Spare Parts": "/icons/categories/spare-parts.webp",
   "Cleaning & Care": "/icons/categories/cleaning-care.webp",
-  "Helm & Riding Gear": "⛑️",
+  "Helm & Riding Gear": "/icons/categories/helm-riding-gear.webp",
   "Gadget Mount": "/icons/categories/gadget-mount.webp",
   "Bags & Storage": "/icons/categories/bags-storage.webp",
   "License Plate": "/icons/categories/license-plate.webp",

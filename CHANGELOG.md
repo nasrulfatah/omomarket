@@ -4,6 +4,10 @@ Semua perubahan penting pada project ini dicatat di file ini, supaya mudah melac
 
 Format: `## [versi] - tanggal` diikuti ringkasan perubahan dan commit hash terkait.
 
+## [0.4.0] - 2026-09-25
+- Ganti icon emoji ⛑️ untuk kategori "Helm & Riding Gear" dengan 3D icon dari IconScout (helm-riding-gear.webp).
+- Icon 3D helmet tersedia dalam format WebP untuk konsistensi dengan icon kategori lainnya.
+
 ## [0.3.0] - 2026-09-25
 - Tambah 4 kategori parts baru berdasarkan analisis daftar produk Shopee: "Helm & Riding Gear", "Gadget Mount", "Bags & Storage", "License Plate".
 - Tambah ikon 3D (CC0, 3dicons.co) untuk Gadget Mount, Bags & Storage, License Plate di `public/icons/categories/`.
