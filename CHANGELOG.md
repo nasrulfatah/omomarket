@@ -4,9 +4,14 @@ Semua perubahan penting pada project ini dicatat di file ini, supaya mudah melac
 
 Format: `## [versi] - tanggal` diikuti ringkasan perubahan dan commit hash terkait.
 
+## [0.9.2] - 2026-09-26
+- Sembunyikan logo text ("Omo marketplace") pada mobile view, hanya tampilkan logo icon ("-O-").
+- Gunakan responsive class `hidden sm:inline` pada logo text span untuk hide di mobile dan show di sm breakpoint ke atas.
+- Hasil: Header mobile lebih compact dan fokus pada logo icon saja.
+
 ## [0.9.1] - 2026-09-26
 - Update scroll positioning untuk "Cari Parts" button agar kategori grid tertutup dan search box terlihat penuh.
-- Scroll ke posisi search input dikurangi header height (80px) dan padding (16px) untuk proper spacing.
+- Scroll ke posisi search input dikurangi header height (80px) dan padding (40px) untuk proper spacing.
 - Hasil: Ketika user klik "Cari Parts", halaman scroll hingga kategori grid tertutup oleh header, search box terlihat penuh dengan auto-focus.
 
 ## [0.9.0] - 2026-09-26

@@ -10,7 +10,7 @@ export default function Navbar() {
     const searchInput = document.querySelector('input[placeholder="Ketik nama produk..."]') as HTMLInputElement;
     if (searchInput) {
       const headerHeight = 80;
-      const padding = 16;
+      const padding = 40;
       const elementPosition = searchInput.getBoundingClientRect().top + window.scrollY;
       window.scrollTo({
         top: elementPosition - headerHeight - padding,
@@ -27,7 +27,7 @@ export default function Navbar() {
           <span className="flex h-8 w-8 items-center justify-center rounded-md bg-black text-sm font-bold text-white">
             -O-
           </span>
-          <span className="text-lg font-bold tracking-tight">
+          <span className="hidden sm:inline text-lg font-bold tracking-tight">
             Omo<span className="text-black">market</span>
           </span>
         </Link>
