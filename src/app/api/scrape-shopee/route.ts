@@ -20,49 +20,119 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Fetch halaman Shopee dengan User-Agent untuk avoid blocking
+    // Fetch halaman Shopee dengan User-Agent & follow redirect
     const response = await fetch(shopeeUrl, {
+      method: "GET",
+      redirect: "follow", // Follow redirect (301, 302, etc)
       headers: {
         "User-Agent":
-          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+        "Accept":
+          "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
+        "Accept-Language": "id-ID,id;q=0.9",
+        "Accept-Encoding": "gzip, deflate",
+        "DNT": "1",
+        "Connection": "keep-alive",
+        "Upgrade-Insecure-Requests": "1",
       },
     });
 
     if (!response.ok) {
       return NextResponse.json(
-        { error: "Gagal fetch halaman Shopee" },
+        { error: `Gagal fetch halaman Shopee (${response.status})` },
         { status: 500 }
       );
     }
 
-    const html = await response.text();
+    let html = await response.text();
+
+    // Check if redirected to mobile version, try desktop version instead
+    if (html.includes("__mobile__=1") || response.url.includes("__mobile__=1")) {
+      const desktopUrl = response.url.replace("__mobile__=1&", "").replace("&__mobile__=1", "");
+      try {
+        const desktopResponse = await fetch(desktopUrl, {
+          method: "GET",
+          redirect: "follow",
+          headers: {
+            "User-Agent":
+              "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+            "Accept":
+              "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
+            "Accept-Language": "id-ID,id;q=0.9",
+            "Accept-Encoding": "gzip, deflate",
+            "DNT": "1",
+            "Connection": "keep-alive",
+            "Upgrade-Insecure-Requests": "1",
+          },
+        });
+        if (desktopResponse.ok) {
+          html = await desktopResponse.text();
+        }
+      } catch (err) {
+        // Fallback ke mobile HTML jika desktop fetch gagal
+        console.log("Desktop fetch failed, using mobile HTML");
+      }
+    }
+
     const $ = cheerio.load(html);
 
-    // Extract gambar
+    // Extract gambar dengan multiple strategy
     const images: string[] = [];
+    const imageUrls = new Set<string>();
+
+    // Strategy 1: Find all img tags dengan data dari minio/shopee CDN
     $("img").each((_, elem) => {
       const src = $(elem).attr("src") || "";
       const dataSrc = $(elem).attr("data-src") || "";
       const srcSet = $(elem).attr("srcset") || "";
 
-      if (src && (src.includes("minio") || src.includes("cf.shopee"))) {
-        if (!images.includes(src)) images.push(src);
-      }
-      if (dataSrc && (dataSrc.includes("minio") || dataSrc.includes("cf.shopee"))) {
-        if (!images.includes(dataSrc)) images.push(dataSrc);
+      // Check src attribute
+      if (src && (src.includes("minio") || src.includes("shopee") || src.includes("cf.shopee"))) {
+        if (!imageUrls.has(src) && src.startsWith("http")) {
+          imageUrls.add(src);
+          images.push(src);
+        }
       }
 
+      // Check data-src attribute
+      if (dataSrc && (dataSrc.includes("minio") || dataSrc.includes("shopee") || dataSrc.includes("cf.shopee"))) {
+        if (!imageUrls.has(dataSrc) && dataSrc.startsWith("http")) {
+          imageUrls.add(dataSrc);
+          images.push(dataSrc);
+        }
+      }
+
+      // Parse srcset
       if (srcSet) {
         const urls = srcSet.split(",").map((s) => s.split(" ")[0].trim());
         urls.forEach((url) => {
           if (
             url &&
-            !images.includes(url) &&
-            (url.includes("minio") || url.includes("cf.shopee"))
+            !imageUrls.has(url) &&
+            (url.includes("minio") || url.includes("shopee") || url.includes("cf.shopee")) &&
+            url.startsWith("http")
           ) {
+            imageUrls.add(url);
             images.push(url);
           }
         });
+      }
+    });
+
+    // Strategy 2: Look for images in picture elements
+    $("picture source").each((_, elem) => {
+      const srcSet = $(elem).attr("srcset") || "";
+      if (srcSet) {
+        const url = srcSet.split(",")[0].split(" ")[0].trim();
+        if (
+          url &&
+          !imageUrls.has(url) &&
+          (url.includes("minio") || url.includes("shopee") || url.includes("cf.shopee")) &&
+          url.startsWith("http")
+        ) {
+          imageUrls.add(url);
+          images.push(url);
+        }
       }
     });
 

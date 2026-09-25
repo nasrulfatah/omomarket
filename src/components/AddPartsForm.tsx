@@ -180,6 +180,15 @@ export default function AddPartsForm() {
         </div>
       )}
 
+      {/* Fallback Info */}
+      {error && error.includes("gambar") && (
+        <div className="rounded-lg bg-blue-50 border border-blue-200 p-4">
+          <p className="text-sm text-blue-800">
+            💡 <strong>Scraping gagal?</strong> Anda bisa manual input image URL di bawah atau coba link Shopee yang berbeda.
+          </p>
+        </div>
+      )}
+
       {/* Shopee Link & Scrape - PERTAMA */}
       <div className="space-y-3">
         <div>
@@ -273,6 +282,65 @@ export default function AddPartsForm() {
           placeholder="Deskripsi produk..."
         />
       </div>
+
+      {/* Manual Image URL - Fallback if scraping fails */}
+      {error && error.includes("gambar") && (
+        <div className="space-y-3 p-4 border border-blue-200 rounded-lg bg-blue-50">
+          <label className="block text-sm font-medium text-black">
+            Atau input image URL manual:
+          </label>
+          <div className="space-y-2">
+            <input
+              type="url"
+              placeholder="Paste image URL dari Shopee atau sumber lain..."
+              className="w-full px-4 py-2 border border-line/50 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-accent/40"
+              onKeyPress={(e) => {
+                if (e.key === "Enter") {
+                  const url = (e.target as HTMLInputElement).value;
+                  if (url) {
+                    handleSelectImage(url);
+                    (e.target as HTMLInputElement).value = "";
+                  }
+                }
+              }}
+            />
+            <p className="text-xs text-black/50">Tekan Enter untuk add image URL ke list</p>
+          </div>
+        </div>
+      )}
+
+      {/* Manual Images Preview */}
+      {selectedImages.length > 0 && (
+        <div className="space-y-3">
+          <p className="text-sm font-medium text-black">
+            Gambar terpilih ({selectedImages.length}):
+          </p>
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+            {selectedImages.map((img, idx) => (
+              <div
+                key={idx}
+                className="relative aspect-square rounded-lg overflow-hidden border-2 border-accent bg-accent/10"
+              >
+                <img
+                  src={img}
+                  alt={`Gambar ${idx + 1}`}
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    e.currentTarget.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect fill='%23f0f0f0' width='100' height='100'/%3E%3Ctext x='50' y='50' font-size='12' text-anchor='middle' dy='.3em' fill='%23999'%3EError%3C/text%3E%3C/svg%3E";
+                  }}
+                />
+                <button
+                  type="button"
+                  onClick={() => handleSelectImage(img)}
+                  className="absolute top-1 right-1 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm hover:bg-red-600"
+                >
+                  ✕
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Scraped Images Preview */}
       {isScraped && scrapedImages.length > 0 && (

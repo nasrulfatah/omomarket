@@ -4,6 +4,15 @@ Semua perubahan penting pada project ini dicatat di file ini, supaya mudah melac
 
 Format: `## [versi] - tanggal` diikuti ringkasan perubahan dan commit hash terkait.
 
+## [1.0.0] - 2026-09-26
+- Improve Shopee scraping untuk handle redirect ke mobile/desktop version.
+- Add fallback untuk manual image URL input jika scraping gagal.
+- Add info box untuk guide user ketika scraping error.
+- Tambahin image URL input field yang muncul saat scraping gagal.
+- User bisa manual paste image URL dari Shopee atau sumber lain sebagai fallback.
+- User bisa remove gambar yang sudah dipilih dengan klik tombol X.
+- Hasil: Fitur scraping lebih robust & user-friendly dengan fallback manual input.
+
 ## [0.9.9] - 2026-09-26
 - Ubah struktur form input produk parts - Shopee Link jadi mandatory & field pertama.
 - Nama Produk, Harga, Deskripsi berubah menjadi optional (auto-fill dari scraping).
