@@ -199,7 +199,7 @@ export default function PartsGrid({ parts, selectedCategory }: PartsGridProps) {
 
       {/* Parts Grid */}
       {filteredParts.length > 0 ? (
-        <div className="grid grid-cols-2 gap-3 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-5 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
           {filteredParts.map((part) => (
             <PartCard key={part.id} part={part} />
           ))}
