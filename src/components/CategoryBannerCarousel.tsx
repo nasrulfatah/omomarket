@@ -74,32 +74,32 @@ export default function CategoryBannerCarousel() {
         onMouseEnter={() => setShowChevrons(true)}
         onMouseLeave={() => setShowChevrons(false)}
       >
-        {/* Main Carousel Slide - Full Width with Gradient Background */}
-        <div className={`relative h-64 sm:h-80 lg:h-96 rounded-2xl bg-gradient-to-br ${slide.bgGradient} overflow-hidden`}>
+        {/* Main Carousel Slide - Fixed aspect ratio across all screens */}
+        <div className={`relative aspect-[16/7] rounded-2xl bg-gradient-to-br ${slide.bgGradient} overflow-hidden`}>
           {/* Decorative gradient circles for visual interest */}
           <div className="absolute -top-32 -right-32 w-96 h-96 bg-white/10 rounded-full blur-3xl" />
           <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-white/10 rounded-full blur-3xl" />
 
           {/* Content Container */}
-          <div className="relative h-full flex items-center px-6 sm:px-8 lg:px-12 z-10">
+          <div className="relative h-full flex items-center px-4 sm:px-8 lg:px-12 z-10">
             {/* Left Content */}
             <div className="flex-1 text-white">
               {/* Tag Badge */}
-              <div className="inline-block bg-white/25 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold mb-4 mb:mb-6">
+              <div className="inline-block bg-white/25 backdrop-blur-sm px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-xs font-bold mb-1.5 sm:mb-4">
                 {slide.tag}
               </div>
 
               {/* Main Title */}
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-2 sm:mb-4 leading-tight">
+              <h2 className="text-base sm:text-3xl lg:text-5xl font-bold mb-1 sm:mb-4 leading-tight">
                 {slide.title}
               </h2>
 
               {/* Subtitle + Discount */}
-              <div className="bg-white/20 backdrop-blur-sm rounded-xl px-4 sm:px-6 py-3 sm:py-4 inline-block">
-                <p className="text-sm sm:text-base font-medium text-white/90 mb-1">
+              <div className="bg-white/20 backdrop-blur-sm rounded-lg sm:rounded-xl px-2 sm:px-6 py-1 sm:py-4 inline-block">
+                <p className="text-[9px] sm:text-base font-medium text-white/90 mb-0 sm:mb-1">
                   {slide.subtitle}
                 </p>
-                <p className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white">
+                <p className="text-sm sm:text-3xl lg:text-4xl font-bold text-white">
                   {slide.discount}
                 </p>
               </div>
@@ -109,14 +109,14 @@ export default function CategoryBannerCarousel() {
             <div className="hidden sm:block flex-1 relative">
               {/* Geometric shapes for visual design */}
               <div className="absolute top-1/2 right-0 -translate-y-1/2 space-y-4">
-                <div className="w-32 h-32 rounded-lg bg-white/15 backdrop-blur-sm"></div>
-                <div className="w-24 h-24 rounded-lg bg-white/10 backdrop-blur-sm ml-8"></div>
+                <div className="w-20 h-20 lg:w-32 lg:h-32 rounded-lg bg-white/15 backdrop-blur-sm"></div>
+                <div className="w-16 h-16 lg:w-24 lg:h-24 rounded-lg bg-white/10 backdrop-blur-sm ml-8"></div>
               </div>
             </div>
           </div>
 
           {/* Dots Indicator - Inside banner at bottom */}
-          <div className="absolute bottom-2 left-1/2 -translate-x-1/2 z-10 flex justify-center gap-2">
+          <div className="absolute bottom-1 sm:bottom-2 left-1/2 -translate-x-1/2 z-10 flex justify-center gap-1 sm:gap-2">
             {BANNER_SLIDES.map((_, idx) => (
               <button
                 key={idx}
@@ -124,8 +124,8 @@ export default function CategoryBannerCarousel() {
                   setAutoPlay(false);
                   setCurrentIndex(idx);
                 }}
-                className={`h-2.5 rounded-full transition-all duration-300 ${
-                  idx === currentIndex ? 'bg-accent w-8' : 'bg-gray-300 w-2.5 hover:bg-accent/60'
+                className={`h-1.5 sm:h-2.5 rounded-full transition-all duration-300 ${
+                  idx === currentIndex ? 'bg-accent w-5 sm:w-8' : 'bg-gray-300 w-1.5 sm:w-2.5 hover:bg-accent/60'
                 }`}
                 aria-label={`Go to slide ${idx + 1}`}
               />
