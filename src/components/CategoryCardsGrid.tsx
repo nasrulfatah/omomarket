@@ -7,6 +7,7 @@ interface CategoryCardsGridProps {
   onSelectCategory: (category: PartCategory | "all") => void;
 }
 
+// Icon path (3D render) or a raw emoji string when no matching 3D icon exists
 const CATEGORY_ICONS: Record<PartCategory, string> = {
   "Battery": "/icons/categories/battery.webp",
   "Charger & Cable": "/icons/categories/charger-cable.webp",
@@ -18,7 +19,29 @@ const CATEGORY_ICONS: Record<PartCategory, string> = {
   "Covers & Protection": "/icons/categories/covers-protection.webp",
   "Spare Parts": "/icons/categories/spare-parts.webp",
   "Cleaning & Care": "/icons/categories/cleaning-care.webp",
+  "Helm & Riding Gear": "⛑️",
+  "Gadget Mount": "/icons/categories/gadget-mount.webp",
+  "Bags & Storage": "/icons/categories/bags-storage.webp",
+  "License Plate": "/icons/categories/license-plate.webp",
 };
+
+function CategoryIcon({ icon, label }: { icon: string; label: string }) {
+  const isImage = icon.startsWith("/");
+  if (isImage) {
+    return (
+      <img
+        src={icon}
+        alt={label}
+        className="h-8 w-8 object-contain mix-blend-multiply transition-transform group-hover:scale-110 sm:h-10 sm:w-10"
+      />
+    );
+  }
+  return (
+    <span className="text-2xl leading-none transition-transform group-hover:scale-110 sm:text-3xl">
+      {icon}
+    </span>
+  );
+}
 
 export default function CategoryCardsGrid({ selectedCategory, onSelectCategory }: CategoryCardsGridProps) {
   return (
@@ -70,11 +93,7 @@ export default function CategoryCardsGrid({ selectedCategory, onSelectCategory }
             }`}
           >
             <div className="flex flex-col items-center gap-1.5 text-center sm:gap-2">
-              <img
-                src={CATEGORY_ICONS[category]}
-                alt={category}
-                className="h-8 w-8 object-contain mix-blend-multiply transition-transform group-hover:scale-110 sm:h-10 sm:w-10"
-              />
+              <CategoryIcon icon={CATEGORY_ICONS[category]} label={category} />
               <h3 className={`text-[11px] font-semibold sm:text-sm ${selectedCategory === category ? "text-accent" : "text-black"}`}>
                 {category}
               </h3>

@@ -176,6 +176,10 @@ export const PARTS_CATEGORIES = [
   "Covers & Protection",
   "Spare Parts",
   "Cleaning & Care",
+  "Helm & Riding Gear",
+  "Gadget Mount",
+  "Bags & Storage",
+  "License Plate",
 ] as const;
 
 export type PartCategory = (typeof PARTS_CATEGORIES)[number];
