@@ -71,16 +71,13 @@ export default function PartsGrid({ parts, selectedCategory, searchQuery, onSear
   return (
     <div className="space-y-6">
       {/* Search Bar */}
-      <div className="space-y-2">
-        <label className="block text-sm font-semibold text-black">Cari Produk</label>
-        <input
-          type="text"
-          placeholder="Ketik nama produk..."
-          value={searchQuery}
-          onChange={(e) => onSearchChange(e.target.value)}
-          className="w-full px-4 py-2.5 border border-line/50 rounded-lg text-sm font-medium text-black bg-white focus:outline-none focus:ring-2 focus:ring-accent/40 transition placeholder:text-black/40"
-        />
-      </div>
+      <input
+        type="text"
+        placeholder="Ketik nama produk..."
+        value={searchQuery}
+        onChange={(e) => onSearchChange(e.target.value)}
+        className="w-full px-4 py-2.5 border border-line/50 rounded-lg text-sm font-medium text-black bg-white focus:outline-none focus:ring-2 focus:ring-accent/40 transition placeholder:text-black/40"
+      />
 
       {/* Price Filter - Collapsible on Mobile */}
       <div className="space-y-3 border-t border-line/30 pt-6">

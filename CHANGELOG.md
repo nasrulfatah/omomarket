@@ -4,6 +4,12 @@ Semua perubahan penting pada project ini dicatat di file ini, supaya mudah melac
 
 Format: `## [versi] - tanggal` diikuti ringkasan perubahan dan commit hash terkait.
 
+## [0.9.0] - 2026-09-26
+- Hilangkan label "Cari Produk" dari search input di halaman /parts.
+- Ubah CTA "Request PO" di navbar menjadi "Cari Parts" (button dengan onClick handler).
+- Ketika "Cari Parts" diklik, page scroll smooth ke search input dan cursor langsung aktif di input.
+- Navbar menjadi Client Component untuk support onClick event handler.
+
 ## [0.8.0] - 2026-09-25
 - Tambahkan fitur pencarian real-time untuk produk parts di halaman /parts.
 - Input pencarian "Cari Produk" ditempatkan di atas filter "Rentang Harga".

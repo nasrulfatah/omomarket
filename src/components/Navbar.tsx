@@ -1,6 +1,19 @@
+"use client";
+
 import Link from "next/link";
+import { useRef } from "react";
 
 export default function Navbar() {
+  const searchInputRef = useRef<HTMLInputElement>(null);
+
+  const handleCariPartsClick = () => {
+    const searchInput = document.querySelector('input[placeholder="Ketik nama produk..."]') as HTMLInputElement;
+    if (searchInput) {
+      searchInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      setTimeout(() => searchInput.focus(), 500);
+    }
+  };
+
   return (
     <header className="sticky top-0 z-30 border-b border-line bg-white/90 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6">
@@ -25,12 +38,12 @@ export default function Navbar() {
           >
             Parts
           </Link>
-          <Link
-            href="/request-po"
-            className="rounded-full border border-black/15 px-3 py-2 text-black/80 hover:bg-black/5 hover:text-black"
+          <button
+            onClick={handleCariPartsClick}
+            className="rounded-full border border-black/15 px-3 py-2 text-black/80 hover:bg-black/5 hover:text-black transition cursor-pointer"
           >
-            Request PO
-          </Link>
+            Cari Parts
+          </button>
         </nav>
       </div>
     </header>
