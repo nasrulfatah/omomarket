@@ -20,7 +20,7 @@ export default async function PartsPage() {
               Omo Recommended Parts
             </h1>
             <p className="mt-2 text-sm text-black/60 sm:text-base">
-              Aksesori & suku cadang berkualitas untuk motor listrik Omoway Anda
+              Rekomendasi parts & aksesoris dari Omoriders lain
             </p>
           </div>
 

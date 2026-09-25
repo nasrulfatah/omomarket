@@ -4,6 +4,9 @@ Semua perubahan penting pada project ini dicatat di file ini, supaya mudah melac
 
 Format: `## [versi] - tanggal` diikuti ringkasan perubahan dan commit hash terkait.
 
+## [0.7.0] - 2026-09-25
+- Ubah teks deskripsi di halaman /parts dari "Aksesori & suku cadang berkualitas untuk motor listrik Omoway Anda" menjadi "Rekomendasi parts & aksesoris dari Omoriders lain".
+
 ## [0.6.0] - 2026-09-25
 - Ubah ukuran font heading "Omo Recommended Parts" di halaman /parts agar fit dalam 1 baris di mobile view.
 - Mobile: text-2xl, Sm: text-3xl, Lg: text-4xl (responsive typography).
