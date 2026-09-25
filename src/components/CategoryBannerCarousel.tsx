@@ -1,108 +1,146 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { PARTS_CATEGORIES, PartCategory } from "@/lib/types";
 
-const CATEGORY_ICONS: Record<PartCategory, string> = {
-  "Battery": "🔋",
-  "Charger & Cable": "🔌",
-  "Tires & Wheels": "🛞",
-  "Lights & Electrical": "💡",
-  "Interior Accessories": "🎨",
-  "Exterior Accessories": "🛡️",
-  "Maintenance & Tools": "🔧",
-  "Covers & Protection": "🏠",
-  "Spare Parts": "⚙️",
-  "Cleaning & Care": "🧹",
-};
+interface BannerSlide {
+  id: number;
+  title: string;
+  subtitle: string;
+  price: string;
+  discount: string;
+  bgColor: string;
+  image: string;
+  tag: string;
+  dateRange: string;
+}
 
-const BANNER_COLORS = [
-  "from-blue-500 to-blue-600",
-  "from-purple-500 to-purple-600",
-  "from-pink-500 to-pink-600",
-  "from-green-500 to-green-600",
-  "from-orange-500 to-orange-600",
+const BANNER_SLIDES: BannerSlide[] = [
+  {
+    id: 1,
+    title: "Harga terbaik!",
+    subtitle: "Battery Premium",
+    price: "Rp450.000",
+    discount: "Diskon hingga 20%",
+    bgColor: "from-blue-500 to-blue-600",
+    image: "🔋",
+    tag: "#BATTERYPROMO",
+    dateRange: "20-22 Oct",
+  },
+  {
+    id: 2,
+    title: "Penawaran spesial!",
+    subtitle: "Charger & Cable Set",
+    price: "Rp280.000",
+    discount: "Diskon hingga 25%",
+    bgColor: "from-yellow-400 to-yellow-500",
+    image: "🔌",
+    tag: "#CHARGERPROMO",
+    dateRange: "20-22 Oct",
+  },
+  {
+    id: 3,
+    title: "Flash Sale!",
+    subtitle: "Tires & Wheels",
+    price: "Rp1.200.000",
+    discount: "Diskon hingga 15%",
+    bgColor: "from-red-500 to-red-600",
+    image: "🛞",
+    tag: "#TIRESALE",
+    dateRange: "20-22 Oct",
+  },
 ];
 
 export default function CategoryBannerCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [autoPlay, setAutoPlay] = useState(true);
 
-  const visibleItems = 3;
-  const itemsPerPage = PARTS_CATEGORIES.length;
-  const totalSlides = Math.ceil(itemsPerPage / visibleItems);
-
   useEffect(() => {
     if (!autoPlay) return;
 
     const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % totalSlides);
+      setCurrentIndex((prev) => (prev + 1) % BANNER_SLIDES.length);
     }, 5000); // Change every 5 seconds
 
     return () => clearInterval(interval);
-  }, [autoPlay, totalSlides]);
+  }, [autoPlay]);
 
   const handleNext = () => {
     setAutoPlay(false);
-    setCurrentIndex((prev) => (prev + 1) % totalSlides);
+    setCurrentIndex((prev) => (prev + 1) % BANNER_SLIDES.length);
+    setAutoPlay(true);
   };
 
   const handlePrev = () => {
     setAutoPlay(false);
-    setCurrentIndex((prev) => (prev - 1 + totalSlides) % totalSlides);
+    setCurrentIndex((prev) => (prev - 1 + BANNER_SLIDES.length) % BANNER_SLIDES.length);
+    setAutoPlay(true);
   };
 
-  const startIndex = currentIndex * visibleItems;
-  const visibleCategories = PARTS_CATEGORIES.slice(startIndex, startIndex + visibleItems);
+  const slide = BANNER_SLIDES[currentIndex];
 
   return (
-    <div className="mb-12 relative">
-      <div className="relative overflow-hidden rounded-xl">
-        {/* Main Carousel Container */}
-        <div className="relative h-48 sm:h-56 lg:h-64 bg-gradient-to-r from-gray-100 to-gray-200">
-          <div className="flex h-full items-stretch gap-3 sm:gap-4">
-            {visibleCategories.map((category, idx) => {
-              const colorClass = BANNER_COLORS[(startIndex + idx) % BANNER_COLORS.length];
-              return (
-                <div
-                  key={category}
-                  className="flex-1 bg-gradient-to-br ${colorClass} rounded-lg p-6 sm:p-8 text-white flex flex-col justify-between transform transition-transform duration-500 hover:scale-105 cursor-pointer"
-                  style={{
-                    backgroundImage: `linear-gradient(135deg, var(--color-start) 0%, var(--color-end) 100%)`,
-                  }}
-                >
-                  {/* Custom inline styles for gradient */}
-                  <div
-                    className={`flex-1 flex flex-col justify-between bg-gradient-to-br ${colorClass} rounded-lg p-6 sm:p-8 text-white transform transition-transform duration-500 hover:scale-105 cursor-pointer`}
-                  >
-                    <div>
-                      <div className="text-4xl sm:text-5xl mb-3">{CATEGORY_ICONS[category]}</div>
-                      <h3 className="text-lg sm:text-xl font-bold">{category}</h3>
-                    </div>
-                    <p className="text-sm opacity-90">Jelajahi sekarang →</p>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-
-          {/* Navigation Buttons */}
+    <div className="mb-12">
+      <div className="relative overflow-hidden rounded-2xl shadow-lg">
+        {/* Main Carousel Slide */}
+        <div className={`relative h-56 sm:h-72 lg:h-80 bg-gradient-to-r ${slide.bgColor} flex items-center justify-between px-6 sm:px-8 lg:px-12 py-8`}>
+          {/* Left Navigation */}
           <button
             onClick={handlePrev}
-            className="absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white rounded-full p-2 sm:p-3 transition-all shadow-lg"
+            className="absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-white/90 hover:bg-white rounded-full p-2 sm:p-3 transition-all shadow-lg"
             aria-label="Previous"
           >
-            <svg className="w-5 h-5 sm:w-6 sm:h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
           </button>
 
+          {/* Content Section */}
+          <div className="flex-1 z-10 text-white">
+            {/* Tag */}
+            <div className="inline-block bg-white/20 backdrop-blur px-3 py-1 rounded-full text-xs sm:text-sm font-semibold mb-3">
+              {slide.tag}
+            </div>
+
+            {/* Title */}
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-2">
+              {slide.title}
+            </h2>
+
+            {/* Subtitle */}
+            <p className="text-lg sm:text-xl font-semibold mb-4 opacity-95">
+              {slide.subtitle}
+            </p>
+
+            {/* Price */}
+            <div className="mb-4">
+              <p className="text-3xl sm:text-4xl lg:text-5xl font-bold">
+                {slide.price}
+              </p>
+              <p className="text-sm sm:text-base opacity-90 mt-1">
+                {slide.discount}
+              </p>
+            </div>
+
+            {/* Date */}
+            <p className="text-xs sm:text-sm opacity-80">
+              {slide.dateRange}
+            </p>
+          </div>
+
+          {/* Image Section */}
+          <div className="hidden sm:flex flex-1 items-center justify-end">
+            <div className="text-9xl sm:text-8xl lg:text-9xl opacity-80">
+              {slide.image}
+            </div>
+          </div>
+
+          {/* Right Navigation */}
           <button
             onClick={handleNext}
-            className="absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white rounded-full p-2 sm:p-3 transition-all shadow-lg"
+            className="absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-white/90 hover:bg-white rounded-full p-2 sm:p-3 transition-all shadow-lg"
             aria-label="Next"
           >
-            <svg className="w-5 h-5 sm:w-6 sm:h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
           </button>
@@ -110,7 +148,7 @@ export default function CategoryBannerCarousel() {
 
         {/* Dots Indicator */}
         <div className="flex justify-center gap-2 mt-4">
-          {Array.from({ length: totalSlides }).map((_, idx) => (
+          {BANNER_SLIDES.map((_, idx) => (
             <button
               key={idx}
               onClick={() => {
