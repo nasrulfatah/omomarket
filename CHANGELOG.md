@@ -4,6 +4,18 @@ Semua perubahan penting pada project ini dicatat di file ini, supaya mudah melac
 
 Format: `## [versi] - tanggal` diikuti ringkasan perubahan dan commit hash terkait.
 
+## [0.9.8] - 2026-09-26
+- Tambahkan fitur scraping gambar dari Shopee link menggunakan Cheerio library.
+- Buat API route `/api/scrape-shopee` untuk extract gambar dari halaman Shopee.
+- Buat UI form halaman `/admin/parts/add` untuk input produk parts baru.
+- Buat component `AddPartsForm` dengan fitur:
+  - Input nama, harga, kategori, deskripsi, Shopee link
+  - Button "Scrape Gambar dari Shopee" untuk extract gambar otomatis
+  - Preview gambar dengan pilihan multiple images
+  - Submit form untuk save ke Google Sheets
+- Buat API route `/api/add-parts` untuk save produk ke Google Sheets.
+- Hasil: User bisa input produk baru via UI dengan scraping gambar otomatis dari Shopee.
+
 ## [0.9.7] - 2026-09-26
 - Ubah layout input Minimum & Maksimum menjadi sebaris di mobile view.
 - Ubah grid dari `grid-cols-1 sm:grid-cols-2` menjadi `grid-cols-2` untuk konsisten di semua breakpoints.
