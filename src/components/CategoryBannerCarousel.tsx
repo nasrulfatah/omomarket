@@ -70,7 +70,7 @@ export default function CategoryBannerCarousel() {
   return (
     <div className="mb-12">
       <div
-        className="relative overflow-hidden rounded-2xl shadow-lg"
+        className="relative rounded-2xl shadow-lg overflow-visible"
         onMouseEnter={() => setShowChevrons(true)}
         onMouseLeave={() => setShowChevrons(false)}
       >
