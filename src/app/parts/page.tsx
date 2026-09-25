@@ -1,7 +1,6 @@
 import { getAllParts } from "@/lib/store";
-import PartsGrid from "@/components/PartsGrid";
-import CategoryCardsGrid from "@/components/CategoryCardsGrid";
 import CategoryBannerCarousel from "@/components/CategoryBannerCarousel";
+import PartsPageClient from "@/components/PartsPageClient";
 
 export const dynamic = "force-dynamic";
 
@@ -12,27 +11,22 @@ export default async function PartsPage() {
     <div>
       {/* Hero Section */}
       <section className="border-b border-line bg-gradient-to-br from-accent/5 via-white to-blue-50">
-        <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:py-16">
-          <div className="text-center">
-            <h1 className="text-4xl font-bold text-black md:text-5xl">Omo Recommended Parts</h1>
-            <p className="mt-4 text-base text-black/70">
-              Temukan aksesori dan suku cadang berkualitas tinggi untuk motor listrik Omoway Anda
-            </p>
-          </div>
+        <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6">
+          <h1 className="text-2xl font-bold text-black sm:text-3xl">Omo Recommended Parts</h1>
+          <p className="mt-1.5 text-sm text-black/60">
+            Aksesori & suku cadang berkualitas untuk motor listrik Omoway Anda
+          </p>
         </div>
       </section>
 
       {/* Main Content */}
       <section className="bg-white">
-        <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:py-12">
+        <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6 lg:py-8">
           {/* Banner Carousel */}
-          <CategoryBannerCarousel />
+          <CategoryBannerCarousel parts={allParts} />
 
-          {/* Category Cards Grid */}
-          <CategoryCardsGrid />
-
-          {/* Filter & Products */}
-          <PartsGrid parts={allParts} />
+          {/* Category Cards + Filtered Products */}
+          <PartsPageClient parts={allParts} />
         </div>
       </section>
     </div>

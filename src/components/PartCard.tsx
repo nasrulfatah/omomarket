@@ -16,6 +16,7 @@ export default function PartCard({ part }: PartCardProps) {
   const currentImage = images[currentImageIndex] || "/placeholder.jpg";
   const hasMultipleImages = images.length > 1;
   const isCurrentImageFailed = failedImages.has(currentImageIndex);
+  const isNew = Date.now() - new Date(part.createdAt).getTime() < 14 * 24 * 60 * 60 * 1000;
 
   const goToPrevious = () => {
     setCurrentImageIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
@@ -30,7 +31,7 @@ export default function PartCard({ part }: PartCardProps) {
   };
 
   return (
-    <div className="flex flex-col rounded-2xl border border-line bg-white overflow-hidden hover:shadow-lg transition">
+    <div className="flex flex-col rounded-2xl border border-line bg-white overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
       {/* Image Gallery */}
       <div className="relative w-full aspect-square bg-neutral-100 overflow-hidden group">
         {isCurrentImageFailed ? (
@@ -94,6 +95,15 @@ export default function PartCard({ part }: PartCardProps) {
             {part.kategori}
           </span>
         </div>
+
+        {/* New Badge */}
+        {isNew && (
+          <div className="absolute top-3 left-3">
+            <span className="inline-flex items-center rounded-full bg-orange-500 px-3 py-1 text-xs font-semibold text-white shadow-sm">
+              Baru
+            </span>
+          </div>
+        )}
       </div>
 
       {/* Content */}
