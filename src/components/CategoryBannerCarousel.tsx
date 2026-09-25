@@ -115,28 +115,28 @@ export default function CategoryBannerCarousel() {
             </div>
           </div>
 
-          {/* Left Navigation Button - Hidden by default, shown on hover */}
+          {/* Left Navigation Button - Half outside banner */}
           <button
             onClick={handlePrev}
-            className={`absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-white/90 hover:bg-white rounded-full p-2.5 transition-all duration-300 shadow-lg ${
+            className={`absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 z-30 bg-white hover:bg-white/95 rounded-full p-3 transition-all duration-300 shadow-xl ${
               showChevrons ? 'opacity-100 scale-100' : 'opacity-0 scale-75 pointer-events-none'
             }`}
             aria-label="Previous slide"
           >
-            <svg className="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-5 h-5 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
           </button>
 
-          {/* Right Navigation Button - Hidden by default, shown on hover */}
+          {/* Right Navigation Button - Half outside banner */}
           <button
             onClick={handleNext}
-            className={`absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-white/90 hover:bg-white rounded-full p-2.5 transition-all duration-300 shadow-lg ${
+            className={`absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 z-30 bg-white hover:bg-white/95 rounded-full p-3 transition-all duration-300 shadow-xl ${
               showChevrons ? 'opacity-100 scale-100' : 'opacity-0 scale-75 pointer-events-none'
             }`}
             aria-label="Next slide"
           >
-            <svg className="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-5 h-5 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
           </button>
