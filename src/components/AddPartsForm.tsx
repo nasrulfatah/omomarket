@@ -57,7 +57,16 @@ export default function AddPartsForm() {
 
       setScrapedImages(data.images || []);
       setIsScraped(true);
-      setSuccess(`Berhasil scrape ${data.count} gambar`);
+
+      // Auto-fill fields jika kosong
+      setFormData((prev) => ({
+        ...prev,
+        nama: prev.nama || data.nama || "",
+        harga: prev.harga || (data.harga > 0 ? data.harga.toString() : ""),
+        deskripsi: prev.deskripsi || data.deskripsi || "",
+      }));
+
+      setSuccess(`Berhasil scrape ${data.count} gambar (${data.nama ? "nama" : ""}${data.harga ? ", harga" : ""}${data.deskripsi ? ", deskripsi" : ""} auto-fill)`);
     } catch (err) {
       setError("Error: " + String(err));
     } finally {
@@ -87,17 +96,18 @@ export default function AddPartsForm() {
     setError("");
     setSuccess("");
 
-    // Validation
-    if (!formData.nama) {
-      setError("Nama produk diperlukan");
-      return;
-    }
-    if (!formData.harga) {
-      setError("Harga diperlukan");
+    // Validation - hanya Shopee Link dan Gambar yang wajib
+    if (!formData.shopeeLink) {
+      setError("Shopee link diperlukan");
       return;
     }
     if (!formData.gambar) {
       setError("Pilih minimal 1 gambar");
+      return;
+    }
+    // Nama produk diperlukan jika tidak auto-fill dari scraping
+    if (!formData.nama) {
+      setError("Nama produk diperlukan (atau bisa auto-fill via scraping)");
       return;
     }
 
@@ -170,10 +180,36 @@ export default function AddPartsForm() {
         </div>
       )}
 
-      {/* Nama Produk */}
+      {/* Shopee Link & Scrape - PERTAMA */}
+      <div className="space-y-3">
+        <div>
+          <label htmlFor="shopeeLink" className="block text-sm font-medium text-black mb-2">
+            Shopee Link * <span className="text-xs text-black/50">(wajib, untuk scraping data)</span>
+          </label>
+          <input
+            type="url"
+            id="shopeeLink"
+            name="shopeeLink"
+            value={formData.shopeeLink}
+            onChange={handleInputChange}
+            className="w-full px-4 py-2 border border-line/50 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-accent/40"
+            placeholder="https://shopee.co.id/..."
+          />
+        </div>
+        <button
+          type="button"
+          onClick={handleScrapeShopee}
+          disabled={isLoading || !formData.shopeeLink}
+          className="w-full px-4 py-2 bg-accent text-white font-medium rounded-lg hover:bg-accent/90 disabled:opacity-50 disabled:cursor-not-allowed transition"
+        >
+          {isLoading ? "Scraping..." : "Scrape Gambar dari Shopee"}
+        </button>
+      </div>
+
+      {/* Nama Produk - auto-fill dari scraping */}
       <div>
         <label htmlFor="nama" className="block text-sm font-medium text-black mb-2">
-          Nama Produk *
+          Nama Produk <span className="text-xs text-black/50">(auto-fill dari scraping)</span>
         </label>
         <input
           type="text"
@@ -186,10 +222,10 @@ export default function AddPartsForm() {
         />
       </div>
 
-      {/* Harga */}
+      {/* Harga - auto-fill dari scraping */}
       <div>
         <label htmlFor="harga" className="block text-sm font-medium text-black mb-2">
-          Harga (Rp) *
+          Harga (Rp) <span className="text-xs text-black/50">(auto-fill dari scraping)</span>
         </label>
         <input
           type="number"
@@ -222,10 +258,10 @@ export default function AddPartsForm() {
         </select>
       </div>
 
-      {/* Deskripsi */}
+      {/* Deskripsi - auto-fill dari scraping */}
       <div>
         <label htmlFor="deskripsi" className="block text-sm font-medium text-black mb-2">
-          Deskripsi
+          Deskripsi <span className="text-xs text-black/50">(auto-fill dari scraping)</span>
         </label>
         <textarea
           id="deskripsi"
@@ -236,32 +272,6 @@ export default function AddPartsForm() {
           className="w-full px-4 py-2 border border-line/50 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-accent/40"
           placeholder="Deskripsi produk..."
         />
-      </div>
-
-      {/* Shopee Link & Scrape */}
-      <div className="space-y-3">
-        <div>
-          <label htmlFor="shopeeLink" className="block text-sm font-medium text-black mb-2">
-            Shopee Link
-          </label>
-          <input
-            type="url"
-            id="shopeeLink"
-            name="shopeeLink"
-            value={formData.shopeeLink}
-            onChange={handleInputChange}
-            className="w-full px-4 py-2 border border-line/50 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-accent/40"
-            placeholder="https://shopee.co.id/..."
-          />
-        </div>
-        <button
-          type="button"
-          onClick={handleScrapeShopee}
-          disabled={isLoading || !formData.shopeeLink}
-          className="w-full px-4 py-2 bg-accent text-white font-medium rounded-lg hover:bg-accent/90 disabled:opacity-50 disabled:cursor-not-allowed transition"
-        >
-          {isLoading ? "Scraping..." : "Scrape Gambar dari Shopee"}
-        </button>
       </div>
 
       {/* Scraped Images Preview */}

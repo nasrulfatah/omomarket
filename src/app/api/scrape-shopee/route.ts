@@ -38,18 +38,13 @@ export async function POST(request: NextRequest) {
     const html = await response.text();
     const $ = cheerio.load(html);
 
-    // Extract gambar dari Shopee product page
-    // Shopee menyimpan gambar di dalam <div> dengan class yang berisi gambar product
+    // Extract gambar
     const images: string[] = [];
-
-    // Try multiple selectors untuk robustness
-    // Shopee image selectors (bisa berubah jika Shopee ubah struktur)
     $("img").each((_, elem) => {
       const src = $(elem).attr("src") || "";
       const dataSrc = $(elem).attr("data-src") || "";
       const srcSet = $(elem).attr("srcset") || "";
 
-      // Filter gambar yang likely gambar produk
       if (src && (src.includes("minio") || src.includes("cf.shopee"))) {
         if (!images.includes(src)) images.push(src);
       }
@@ -57,7 +52,6 @@ export async function POST(request: NextRequest) {
         if (!images.includes(dataSrc)) images.push(dataSrc);
       }
 
-      // Parse srcset untuk multiple resolutions
       if (srcSet) {
         const urls = srcSet.split(",").map((s) => s.split(" ")[0].trim());
         urls.forEach((url) => {
@@ -72,6 +66,62 @@ export async function POST(request: NextRequest) {
       }
     });
 
+    // Extract nama produk dari multiple selector (Shopee structure bisa berubah)
+    let nama = "";
+    // Try common Shopee product name selectors
+    const nameSelectors = [
+      "h1",
+      "[data-testid='pdp-product-title']",
+      ".product-title",
+      ".shopee-product-name",
+    ];
+
+    for (const selector of nameSelectors) {
+      const element = $(selector).first();
+      if (element.length > 0) {
+        nama = element.text().trim();
+        if (nama.length > 0) break;
+      }
+    }
+
+    // Extract harga (format Rp)
+    let harga = 0;
+    const priceSelectors = [
+      "[data-testid='pdp-price']",
+      ".product-price",
+      ".shopee-price",
+      "span:contains('Rp')",
+    ];
+
+    for (const selector of priceSelectors) {
+      const elements = $(selector);
+      if (elements.length > 0) {
+        const priceText = elements.first().text();
+        // Extract angka dari format Rp X.XXX.XXX
+        const match = priceText.replace(/\D/g, "");
+        if (match) {
+          harga = parseInt(match, 10);
+          if (harga > 0) break;
+        }
+      }
+    }
+
+    // Extract deskripsi
+    let deskripsi = "";
+    const descSelectors = [
+      "[data-testid='pdp-product-description']",
+      ".product-description",
+      ".shopee-description",
+    ];
+
+    for (const selector of descSelectors) {
+      const element = $(selector).first();
+      if (element.length > 0) {
+        deskripsi = element.text().trim();
+        if (deskripsi.length > 0) break;
+      }
+    }
+
     if (images.length === 0) {
       return NextResponse.json(
         { error: "Tidak menemukan gambar di halaman Shopee" },
@@ -79,13 +129,16 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Return 5 gambar pertama saja (buat performance)
+    // Return 5 gambar pertama
     const limitedImages = images.slice(0, 5);
 
     return NextResponse.json({
       success: true,
       images: limitedImages,
       count: limitedImages.length,
+      nama: nama || "",
+      harga: harga || 0,
+      deskripsi: deskripsi || "",
     });
   } catch (error) {
     console.error("Scraping error:", error);

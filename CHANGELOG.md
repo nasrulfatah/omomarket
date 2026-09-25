@@ -4,6 +4,16 @@ Semua perubahan penting pada project ini dicatat di file ini, supaya mudah melac
 
 Format: `## [versi] - tanggal` diikuti ringkasan perubahan dan commit hash terkait.
 
+## [0.9.9] - 2026-09-26
+- Ubah struktur form input produk parts - Shopee Link jadi mandatory & field pertama.
+- Nama Produk, Harga, Deskripsi berubah menjadi optional (auto-fill dari scraping).
+- Enhance API /api/scrape-shopee untuk extract: nama produk, harga, deskripsi dari Shopee.
+- Update handleScrapeShopee untuk auto-fill form fields jika kosong dari hasil scraping.
+- Update validasi form - hanya Shopee Link & Gambar yang mandatory.
+- Reorder form fields: Shopee Link → Nama → Harga → Kategori → Deskripsi.
+- Add helper text di form untuk explain auto-fill fields.
+- Hasil: User workflow lebih simpel - cukup input Shopee link, sisanya auto-fill otomatis.
+
 ## [0.9.8] - 2026-09-26
 - Tambahkan fitur scraping gambar dari Shopee link menggunakan Cheerio library.
 - Buat API route `/api/scrape-shopee` untuk extract gambar dari halaman Shopee.
