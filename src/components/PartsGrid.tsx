@@ -6,10 +6,11 @@ import PartCard from "./PartCard";
 
 interface PartsGridProps {
   parts: Part[];
+  initialCategory?: PartCategory | "all";
 }
 
-export default function PartsGrid({ parts }: PartsGridProps) {
-  const [selectedCategory, setSelectedCategory] = useState<PartCategory | "all">("all");
+export default function PartsGrid({ parts, initialCategory = "all" }: PartsGridProps) {
+  const [selectedCategory, setSelectedCategory] = useState<PartCategory | "all">(initialCategory);
   const [minPrice, setMinPrice] = useState<number>(0);
   const [maxPrice, setMaxPrice] = useState<number>(0);
   const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false);
@@ -105,7 +106,7 @@ export default function PartsGrid({ parts }: PartsGridProps) {
   return (
     <div className="space-y-6">
       {/* Category Filter - Horizontal Scroll with Chevrons */}
-      <div className="space-y-2">
+      <div id="kategori-filter" className="space-y-2">
         <div className="flex items-center justify-between">
           <h3 className="text-xs sm:text-sm font-semibold text-black">Kategori</h3>
           <button

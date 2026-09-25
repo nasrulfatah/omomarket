@@ -1,5 +1,6 @@
 import { getAllParts } from "@/lib/store";
 import PartsGrid from "@/components/PartsGrid";
+import CategoryCardsGrid from "@/components/CategoryCardsGrid";
 
 export const dynamic = "force-dynamic";
 
@@ -8,19 +9,25 @@ export default async function PartsPage() {
 
   return (
     <div>
-      <section className="border-b border-line bg-white">
-        <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6">
-          <div className="mb-4">
-            <h1 className="text-3xl font-bold text-black">Rekomendasi Parts Omoway</h1>
-            <p className="mt-2 text-sm text-black/60">
-              Aksesori dan suku cadang berkualitas untuk motor listrik Omoway Anda
+      {/* Hero Section */}
+      <section className="border-b border-line bg-gradient-to-br from-accent/5 via-white to-blue-50">
+        <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:py-16">
+          <div className="mb-2">
+            <h1 className="text-4xl font-bold text-black md:text-5xl">Parts & Accessories</h1>
+            <p className="mt-4 text-base text-black/70">
+              Temukan aksesori dan suku cadang berkualitas tinggi untuk motor listrik Omoway Anda
             </p>
           </div>
         </div>
       </section>
 
-      <section className="bg-white py-8">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+      {/* Main Content */}
+      <section className="bg-white">
+        <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:py-12">
+          {/* Category Cards Grid */}
+          <CategoryCardsGrid />
+
+          {/* Filter & Products */}
           <PartsGrid parts={allParts} />
         </div>
       </section>
