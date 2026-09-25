@@ -4,6 +4,13 @@ Semua perubahan penting pada project ini dicatat di file ini, supaya mudah melac
 
 Format: `## [versi] - tanggal` diikuti ringkasan perubahan dan commit hash terkait.
 
+## [0.9.6] - 2026-09-26
+- Tambahkan format titik ribuan (thousand separator) pada input Minimum & Maksimum.
+- Create formatPrice function untuk format number dengan regex: `/\B(?=(\d{3})+(?!\d))/g` → titik.
+- Create parsePrice function untuk remove titik dan convert string kembali ke number.
+- Ubah input type dari "number" menjadi "text" dan apply formatPrice pada value display.
+- Hasil: Harga di input box tampil dengan format "120.000" dan "2.500.000" untuk better readability.
+
 ## [0.9.5] - 2026-09-26
 - Tambahkan spasi antara "Rp" dan angka di input Minimum & Maksimum.
 - Ubah "Rp" menjadi "Rp " (dengan trailing space) dan increase padding dari `pl-7` menjadi `pl-8`.

@@ -11,6 +11,14 @@ interface PartsGridProps {
   onSearchChange: (query: string) => void;
 }
 
+const formatPrice = (num: number): string => {
+  return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+};
+
+const parsePrice = (str: string): number => {
+  return parseInt(str.replace(/\./g, ''), 10) || 0;
+};
+
 export default function PartsGrid({ parts, selectedCategory, searchQuery, onSearchChange }: PartsGridProps) {
   const [minPrice, setMinPrice] = useState<number>(0);
   const [maxPrice, setMaxPrice] = useState<number>(0);
@@ -99,10 +107,10 @@ export default function PartsGrid({ parts, selectedCategory, searchQuery, onSear
               <div className="relative">
                 <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-xs text-black/50 pointer-events-none">Rp </span>
                 <input
-                  type="number"
-                  value={minPrice}
+                  type="text"
+                  value={formatPrice(minPrice)}
                   onChange={(e) => {
-                    const val = Number(e.target.value);
+                    const val = parsePrice(e.target.value);
                     if (val <= maxPrice) setMinPrice(Math.max(val, prices.min));
                   }}
                   className="w-full pl-8 pr-3 py-2.5 border border-line/50 rounded-lg text-sm font-semibold text-black bg-white focus:outline-none focus:ring-2 focus:ring-accent/40 transition"
@@ -114,10 +122,10 @@ export default function PartsGrid({ parts, selectedCategory, searchQuery, onSear
               <div className="relative">
                 <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-xs text-black/50 pointer-events-none">Rp </span>
                 <input
-                  type="number"
-                  value={maxPrice}
+                  type="text"
+                  value={formatPrice(maxPrice)}
                   onChange={(e) => {
-                    const val = Number(e.target.value);
+                    const val = parsePrice(e.target.value);
                     if (val >= minPrice) setMaxPrice(Math.min(val, prices.max));
                   }}
                   className="w-full pl-8 pr-3 py-2.5 border border-line/50 rounded-lg text-sm font-semibold text-black bg-white focus:outline-none focus:ring-2 focus:ring-accent/40 transition"
