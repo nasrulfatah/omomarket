@@ -4,6 +4,11 @@ Semua perubahan penting pada project ini dicatat di file ini, supaya mudah melac
 
 Format: `## [versi] - tanggal` diikuti ringkasan perubahan dan commit hash terkait.
 
+## [0.9.7] - 2026-09-26
+- Ubah layout input Minimum & Maksimum menjadi sebaris di mobile view.
+- Ubah grid dari `grid-cols-1 sm:grid-cols-2` menjadi `grid-cols-2` untuk konsisten di semua breakpoints.
+- Hasil: Input harga Minimum & Maksimum tampil horizontal (sebaris) di tampilan mobile.
+
 ## [0.9.6] - 2026-09-26
 - Tambahkan format titik ribuan (thousand separator) pada input Minimum & Maksimum.
 - Create formatPrice function untuk format number dengan regex: `/\B(?=(\d{3})+(?!\d))/g` → titik.

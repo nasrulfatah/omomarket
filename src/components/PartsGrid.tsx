@@ -101,7 +101,7 @@ export default function PartsGrid({ parts, selectedCategory, searchQuery, onSear
 
         <div className={`space-y-4 ${!isFilterOpen && "hidden lg:block"}`}>
           {/* Price Input Fields */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-3">
             <div>
               <label className="block text-xs text-black/60 mb-2 font-medium">Minimum</label>
               <div className="relative">
