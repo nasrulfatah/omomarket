@@ -7,9 +7,11 @@ import PartCard from "./PartCard";
 interface PartsGridProps {
   parts: Part[];
   selectedCategory: PartCategory | "all";
+  searchQuery: string;
+  onSearchChange: (query: string) => void;
 }
 
-export default function PartsGrid({ parts, selectedCategory }: PartsGridProps) {
+export default function PartsGrid({ parts, selectedCategory, searchQuery, onSearchChange }: PartsGridProps) {
   const [minPrice, setMinPrice] = useState<number>(0);
   const [maxPrice, setMaxPrice] = useState<number>(0);
   const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false);
@@ -61,12 +63,25 @@ export default function PartsGrid({ parts, selectedCategory }: PartsGridProps) {
     return parts.filter((part) => {
       const categoryMatch = selectedCategory === "all" || part.kategori === selectedCategory;
       const priceMatch = part.harga >= minPrice && part.harga <= maxPrice;
-      return categoryMatch && priceMatch;
+      const searchMatch = part.nama.toLowerCase().includes(searchQuery.toLowerCase());
+      return categoryMatch && priceMatch && searchMatch;
     });
-  }, [parts, selectedCategory, minPrice, maxPrice]);
+  }, [parts, selectedCategory, minPrice, maxPrice, searchQuery]);
 
   return (
     <div className="space-y-6">
+      {/* Search Bar */}
+      <div className="space-y-2">
+        <label className="block text-sm font-semibold text-black">Cari Produk</label>
+        <input
+          type="text"
+          placeholder="Ketik nama produk..."
+          value={searchQuery}
+          onChange={(e) => onSearchChange(e.target.value)}
+          className="w-full px-4 py-2.5 border border-line/50 rounded-lg text-sm font-medium text-black bg-white focus:outline-none focus:ring-2 focus:ring-accent/40 transition placeholder:text-black/40"
+        />
+      </div>
+
       {/* Price Filter - Collapsible on Mobile */}
       <div className="space-y-3 border-t border-line/30 pt-6">
         <div className="flex items-center justify-between">

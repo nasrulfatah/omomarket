@@ -4,6 +4,12 @@ Semua perubahan penting pada project ini dicatat di file ini, supaya mudah melac
 
 Format: `## [versi] - tanggal` diikuti ringkasan perubahan dan commit hash terkait.
 
+## [0.8.0] - 2026-09-25
+- Tambahkan fitur pencarian real-time untuk produk parts di halaman /parts.
+- Input pencarian "Cari Produk" ditempatkan di atas filter "Rentang Harga".
+- Pencarian berdasarkan nama produk (case-insensitive), kombinasi dengan filter kategori dan harga.
+- UI mengikuti design existing dengan styling yang konsisten.
+
 ## [0.7.0] - 2026-09-25
 - Ubah teks deskripsi di halaman /parts dari "Aksesori & suku cadang berkualitas untuk motor listrik Omoway Anda" menjadi "Rekomendasi parts & aksesoris dari Omoriders lain".
 

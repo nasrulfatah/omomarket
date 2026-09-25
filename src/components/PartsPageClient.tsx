@@ -11,11 +11,12 @@ interface PartsPageClientProps {
 
 export default function PartsPageClient({ parts }: PartsPageClientProps) {
   const [selectedCategory, setSelectedCategory] = useState<PartCategory | "all">("all");
+  const [searchQuery, setSearchQuery] = useState<string>("");
 
   return (
     <>
       <CategoryCardsGrid selectedCategory={selectedCategory} onSelectCategory={setSelectedCategory} />
-      <PartsGrid parts={parts} selectedCategory={selectedCategory} />
+      <PartsGrid parts={parts} selectedCategory={selectedCategory} searchQuery={searchQuery} onSearchChange={setSearchQuery} />
     </>
   );
 }
