@@ -8,16 +8,16 @@ interface CategoryCardsGridProps {
 }
 
 const CATEGORY_ICONS: Record<PartCategory, string> = {
-  "Battery": "🔋",
-  "Charger & Cable": "🔌",
-  "Tires & Wheels": "🏍️",
-  "Lights & Electrical": "💡",
-  "Interior Accessories": "🎨",
-  "Exterior Accessories": "🛡️",
-  "Maintenance & Tools": "🔧",
-  "Covers & Protection": "🏠",
-  "Spare Parts": "⚙️",
-  "Cleaning & Care": "🧹",
+  "Battery": "/icons/categories/battery.webp",
+  "Charger & Cable": "/icons/categories/charger-cable.webp",
+  "Tires & Wheels": "/icons/categories/tires-wheels.webp",
+  "Lights & Electrical": "/icons/categories/lights-electrical.webp",
+  "Interior Accessories": "/icons/categories/interior-accessories.webp",
+  "Exterior Accessories": "/icons/categories/exterior-accessories.webp",
+  "Maintenance & Tools": "/icons/categories/maintenance-tools.webp",
+  "Covers & Protection": "/icons/categories/covers-protection.webp",
+  "Spare Parts": "/icons/categories/spare-parts.webp",
+  "Cleaning & Care": "/icons/categories/cleaning-care.webp",
 };
 
 export default function CategoryCardsGrid({ selectedCategory, onSelectCategory }: CategoryCardsGridProps) {
@@ -48,7 +48,11 @@ export default function CategoryCardsGrid({ selectedCategory, onSelectCategory }
           }`}
         >
           <div className="flex flex-col items-center gap-1.5 text-center sm:gap-2">
-            <div className="text-2xl sm:text-3xl">🗂️</div>
+            <img
+              src="/icons/categories/all.webp"
+              alt="Semua"
+              className="h-8 w-8 object-contain transition-transform group-hover:scale-110 sm:h-10 sm:w-10"
+            />
             <h3 className={`text-[11px] font-semibold sm:text-sm ${selectedCategory === "all" ? "text-accent" : "text-black"}`}>
               Semua
             </h3>
@@ -66,9 +70,11 @@ export default function CategoryCardsGrid({ selectedCategory, onSelectCategory }
             }`}
           >
             <div className="flex flex-col items-center gap-1.5 text-center sm:gap-2">
-              <div className="text-2xl transition-transform group-hover:scale-110 sm:text-3xl">
-                {CATEGORY_ICONS[category]}
-              </div>
+              <img
+                src={CATEGORY_ICONS[category]}
+                alt={category}
+                className="h-8 w-8 object-contain transition-transform group-hover:scale-110 sm:h-10 sm:w-10"
+              />
               <h3 className={`text-[11px] font-semibold sm:text-sm ${selectedCategory === category ? "text-accent" : "text-black"}`}>
                 {category}
               </h3>
