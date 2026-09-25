@@ -16,7 +16,8 @@ export default function PartsGrid({ parts }: PartsGridProps) {
   const [activeThumb, setActiveThumb] = useState<'min' | 'max' | null>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
-  const [isChevronHovered, setIsChevronHovered] = useState(false);
+  const [isLeftChevronHovered, setIsLeftChevronHovered] = useState(false);
+  const [isRightChevronHovered, setIsRightChevronHovered] = useState(false);
   const minInputRef = useRef<HTMLInputElement>(null);
   const maxInputRef = useRef<HTMLInputElement>(null);
   const categoryScrollRef = useRef<HTMLDivElement>(null);
@@ -117,27 +118,35 @@ export default function PartsGrid({ parts }: PartsGridProps) {
         <div
           className="relative overflow-hidden"
         >
-          {/* Left Gradient Overlay - Only show when can scroll left */}
-          {canScrollLeft && (
-            <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-white via-white to-transparent opacity-0 transition-opacity duration-200 pointer-events-none z-5" />
+          {/* Left Gradient Overlay - Only show when left chevron hovered */}
+          {canScrollLeft && isLeftChevronHovered && (
+            <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-white via-white to-transparent opacity-100 transition-opacity duration-200 pointer-events-none z-5" />
           )}
 
-          {/* Right Gradient Overlay - Only show when can scroll right */}
-          {canScrollRight && (
-            <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-white via-white to-transparent opacity-0 transition-opacity duration-200 pointer-events-none z-5" />
+          {/* Right Gradient Overlay - Only show when right chevron hovered */}
+          {canScrollRight && isRightChevronHovered && (
+            <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-white via-white to-transparent opacity-100 transition-opacity duration-200 pointer-events-none z-5" />
           )}
 
           {/* Left Chevron - Absolute positioned */}
           {canScrollLeft && (
-            <button
-              onClick={() => scroll('left')}
-              className="peer/left absolute left-0 top-1/2 -translate-y-1/2 z-10 p-1.5 hover:bg-black/5 rounded-lg transition-all duration-200 text-black/60 hover:text-black opacity-0 hover:opacity-100 pointer-events-none hover:pointer-events-auto"
-              aria-label="Scroll left"
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-              </svg>
-            </button>
+            <div className="absolute left-0 top-1/2 -translate-y-1/2 z-10 pointer-events-auto">
+              <button
+                onClick={() => scroll('left')}
+                onMouseOver={() => setIsLeftChevronHovered(true)}
+                onMouseOut={() => setIsLeftChevronHovered(false)}
+                className={`p-1.5 rounded-lg transition-all duration-200 text-black/60 ${
+                  isLeftChevronHovered
+                    ? 'opacity-100 bg-black/5 text-black'
+                    : 'opacity-0'
+                }`}
+                aria-label="Scroll left"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
+            </div>
           )}
 
           {/* Scrollable Container */}
@@ -174,15 +183,23 @@ export default function PartsGrid({ parts }: PartsGridProps) {
 
           {/* Right Chevron - Absolute positioned */}
           {canScrollRight && (
-            <button
-              onClick={() => scroll('right')}
-              className="peer/right absolute right-0 top-1/2 -translate-y-1/2 z-10 p-1.5 hover:bg-black/5 rounded-lg transition-all duration-200 text-black/60 hover:text-black opacity-0 hover:opacity-100 pointer-events-none hover:pointer-events-auto"
-              aria-label="Scroll right"
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </button>
+            <div className="absolute right-0 top-1/2 -translate-y-1/2 z-10 pointer-events-auto">
+              <button
+                onClick={() => scroll('right')}
+                onMouseOver={() => setIsRightChevronHovered(true)}
+                onMouseOut={() => setIsRightChevronHovered(false)}
+                className={`p-1.5 rounded-lg transition-all duration-200 text-black/60 ${
+                  isRightChevronHovered
+                    ? 'opacity-100 bg-black/5 text-black'
+                    : 'opacity-0'
+                }`}
+                aria-label="Scroll right"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+            </div>
           )}
         </div>
       </div>
