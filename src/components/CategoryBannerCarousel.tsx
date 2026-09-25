@@ -68,7 +68,7 @@ export default function CategoryBannerCarousel() {
   const slide = BANNER_SLIDES[currentIndex];
 
   return (
-    <div className="mb-12">
+    <div className="mb-0">
       <div
         className="relative overflow-hidden rounded-2xl shadow-lg"
         onMouseEnter={() => setShowChevrons(true)}
