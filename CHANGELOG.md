@@ -5,9 +5,9 @@ Semua perubahan penting pada project ini dicatat di file ini, supaya mudah melac
 Format: `## [versi] - tanggal` diikuti ringkasan perubahan dan commit hash terkait.
 
 ## [0.9.1] - 2026-09-26
-- Update scroll positioning untuk "Cari Parts" button agar kategori grid tertutup oleh header.
-- Gunakan XPath untuk mencari "Telusuri Kategori" section dan scroll ke posisi top-nya dikurangi header height (80px).
-- Hasil: Ketika user klik "Cari Parts", halaman scroll hingga kategori grid tidak terlihat, hanya search box yang visible di bawah header.
+- Update scroll positioning untuk "Cari Parts" button agar kategori grid tertutup dan search box terlihat penuh.
+- Scroll ke posisi search input dikurangi header height (80px) dan padding (16px) untuk proper spacing.
+- Hasil: Ketika user klik "Cari Parts", halaman scroll hingga kategori grid tertutup oleh header, search box terlihat penuh dengan auto-focus.
 
 ## [0.9.0] - 2026-09-26
 - Hilangkan label "Cari Produk" dari search input di halaman /parts.
