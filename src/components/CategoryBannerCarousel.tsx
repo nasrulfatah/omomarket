@@ -70,12 +70,12 @@ export default function CategoryBannerCarousel() {
   return (
     <div className="mb-12">
       <div
-        className="relative overflow-hidden rounded-2xl shadow-lg"
+        className="relative rounded-2xl shadow-lg"
         onMouseEnter={() => setShowChevrons(true)}
         onMouseLeave={() => setShowChevrons(false)}
       >
         {/* Main Carousel Slide - Full Width with Gradient Background */}
-        <div className={`relative h-64 sm:h-80 lg:h-96 bg-gradient-to-br ${slide.bgGradient} overflow-hidden`}>
+        <div className={`relative h-64 sm:h-80 lg:h-96 rounded-2xl bg-gradient-to-br ${slide.bgGradient} overflow-hidden`}>
           {/* Decorative gradient circles for visual interest */}
           <div className="absolute -top-32 -right-32 w-96 h-96 bg-white/10 rounded-full blur-3xl" />
           <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-white/10 rounded-full blur-3xl" />
@@ -115,32 +115,6 @@ export default function CategoryBannerCarousel() {
             </div>
           </div>
 
-          {/* Left Navigation Button - Half outside banner */}
-          <button
-            onClick={handlePrev}
-            className={`absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 z-30 bg-white hover:bg-white/95 rounded-full p-3 transition-all duration-300 shadow-xl ${
-              showChevrons ? 'opacity-100 scale-100' : 'opacity-0 scale-75 pointer-events-none'
-            }`}
-            aria-label="Previous slide"
-          >
-            <svg className="w-5 h-5 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
-          </button>
-
-          {/* Right Navigation Button - Half outside banner */}
-          <button
-            onClick={handleNext}
-            className={`absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 z-30 bg-white hover:bg-white/95 rounded-full p-3 transition-all duration-300 shadow-xl ${
-              showChevrons ? 'opacity-100 scale-100' : 'opacity-0 scale-75 pointer-events-none'
-            }`}
-            aria-label="Next slide"
-          >
-            <svg className="w-5 h-5 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-          </button>
-
           {/* Dots Indicator - Inside banner at bottom */}
           <div className="absolute bottom-2 left-1/2 -translate-x-1/2 z-10 flex justify-center gap-2">
             {BANNER_SLIDES.map((_, idx) => (
@@ -158,6 +132,32 @@ export default function CategoryBannerCarousel() {
             ))}
           </div>
         </div>
+
+        {/* Left Navigation Button - Layered on top, half outside banner */}
+        <button
+          onClick={handlePrev}
+          className={`absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 z-30 bg-white hover:bg-white/95 rounded-full p-3 transition-all duration-300 shadow-xl ${
+            showChevrons ? 'opacity-100 scale-100' : 'opacity-0 scale-75 pointer-events-none'
+          }`}
+          aria-label="Previous slide"
+        >
+          <svg className="w-5 h-5 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+
+        {/* Right Navigation Button - Layered on top, half outside banner */}
+        <button
+          onClick={handleNext}
+          className={`absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 z-30 bg-white hover:bg-white/95 rounded-full p-3 transition-all duration-300 shadow-xl ${
+            showChevrons ? 'opacity-100 scale-100' : 'opacity-0 scale-75 pointer-events-none'
+          }`}
+          aria-label="Next slide"
+        >
+          <svg className="w-5 h-5 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
       </div>
     </div>
   );
