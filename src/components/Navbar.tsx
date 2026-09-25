@@ -20,22 +20,16 @@ export default function Navbar() {
             Katalog
           </Link>
           <Link
-            href="/syarat-ketentuan"
-            className="hidden rounded-full px-3 py-2 text-black/80 hover:bg-black/5 hover:text-black sm:inline-block"
+            href="/parts"
+            className="rounded-full px-3 py-2 text-black/80 hover:bg-black/5 hover:text-black"
           >
-            S&amp;K
+            Parts
           </Link>
           <Link
             href="/request-po"
             className="rounded-full border border-black/15 px-3 py-2 text-black/80 hover:bg-black/5 hover:text-black"
           >
             Request PO
-          </Link>
-          <Link
-            href="/jual"
-            className="rounded-full bg-accent px-4 py-2 font-semibold text-black transition hover:bg-accent-dark"
-          >
-            Jual PO
           </Link>
         </nav>
       </div>
