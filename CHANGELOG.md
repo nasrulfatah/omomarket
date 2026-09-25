@@ -4,6 +4,11 @@ Semua perubahan penting pada project ini dicatat di file ini, supaya mudah melac
 
 Format: `## [versi] - tanggal` diikuti ringkasan perubahan dan commit hash terkait.
 
+## [0.9.3] - 2026-09-26
+- Ubah layout kolom Minimum & Maksimum di filter range harga menjadi 1 baris (horizontal) pada mobile.
+- Ganti grid dari `grid-cols-1 sm:grid-cols-2` menjadi `grid-cols-2` agar selalu 2 kolom di semua breakpoint.
+- Hasil: Input field Minimum & Maksimum tampil berdampingan di mobile view.
+
 ## [0.9.2] - 2026-09-26
 - Sembunyikan logo text ("Omo marketplace") pada mobile view, hanya tampilkan logo icon ("-O-").
 - Gunakan responsive class `hidden sm:inline` pada logo text span untuk hide di mobile dan show di sm breakpoint ke atas.
