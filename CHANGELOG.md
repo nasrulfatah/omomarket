@@ -4,6 +4,9 @@ Semua perubahan penting pada project ini dicatat di file ini, supaya mudah melac
 
 Format: `## [versi] - tanggal` diikuti ringkasan perubahan dan commit hash terkait.
 
+## [0.5.0] - 2026-09-25
+- Update icon kategori "Bags & Storage" dengan 3D icon tas baru dari IconScout (tas berwarna biru & putih).
+
 ## [0.4.0] - 2026-09-25
 - Ganti icon emoji ⛑️ untuk kategori "Helm & Riding Gear" dengan 3D icon dari IconScout (helm-riding-gear.webp).
 - Icon 3D helmet tersedia dalam format WebP untuk konsistensi dengan icon kategori lainnya.
