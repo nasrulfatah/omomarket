@@ -4,6 +4,12 @@ Semua perubahan penting pada project ini dicatat di file ini, supaya mudah melac
 
 Format: `## [versi] - tanggal` diikuti ringkasan perubahan dan commit hash terkait.
 
+## [1.3.1] - 2026-09-30
+- Update homepage title & badge untuk konsistensi dengan perubahan route v1.3.0.
+- Ubah homepage badge dari "Katalog Parts" menjadi "Katalog Accessories".
+- Ubah homepage title dari "Omo Recommended Parts" menjadi "Omo Recommended Accessories".
+- Hasil: Homepage sekarang konsisten dengan halaman `/parts-accessories`.
+
 ## [1.3.0] - 2026-09-30
 - Rename route `/parts` menjadi `/parts-accessories` untuk lebih spesifik.
 - Ubah title halaman dari "Omo Recommended Parts" menjadi "Omo Recommended Accessories".
