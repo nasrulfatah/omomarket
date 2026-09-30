@@ -4,6 +4,11 @@ Semua perubahan penting pada project ini dicatat di file ini, supaya mudah melac
 
 Format: `## [versi] - tanggal` diikuti ringkasan perubahan dan commit hash terkait.
 
+## [1.2.2] - 2026-09-30
+- Ubah footer description dari "Platform matching PO Omo antara penjual dan calon pembeli" menjadi "Platform marketplace unofficial untuk jual beli unit Omoway, Parts & Aksesoris".
+- Hapus copyright year display (© 2026) dari footer.
+- Hasil: Footer lebih deskriptif menunjukkan offering lengkap (unit motor + parts + aksesoris).
+
 ## [1.2.1] - 2026-09-30
 - Ubah label navbar dari "Katalog" menjadi "Unit Motor" untuk lebih deskriptif.
 - Hasil: Menu bar lebih jelas dan user-friendly, menunjukkan bahwa section adalah untuk melihat daftar unit motor.

@@ -4,8 +4,7 @@ export default function Footer() {
       <div className="mx-auto max-w-6xl px-4 py-10 text-sm text-black/60 sm:px-6">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <p>
-            &copy; {new Date().getFullYear()} <span className="font-semibold text-black">Omomarket</span>.
-            Platform matching PO Omo antara penjual dan calon pembeli.
+            <span className="font-semibold text-black">Omomarket</span>. Platform marketplace unofficial untuk jual beli unit Omoway, Parts & Aksesoris
           </p>
           <p>
             Pertanyaan? Chat{" "}
