@@ -4,6 +4,14 @@ Semua perubahan penting pada project ini dicatat di file ini, supaya mudah melac
 
 Format: `## [versi] - tanggal` diikuti ringkasan perubahan dan commit hash terkait.
 
+## [1.4.0] - 2026-09-30
+- Rename route dari `/parts-accessories` menjadi `/accessories` untuk path yang lebih ringkas.
+- Update navbar link href dari `/parts-accessories` ke `/accessories`.
+- Update badge dari "Katalog Accessories" menjadi "Katalog Aksesoris" (Bahasa Indonesia).
+- Update title dari "Omo Recommended Accessories" menjadi "Omo Recommended Aksesoris" (Bahasa Indonesia).
+- Delete folder lama `/parts-accessories`.
+- Hasil: Route lebih clean dan ringkas, label fully Bahasa Indonesia.
+
 ## [1.3.2] - 2026-09-30
 - Update navbar labels menjadi Bahasa Indonesia untuk konsistensi.
 - Ubah navbar link label dari "Accessories" menjadi "Aksesoris".
