@@ -4,6 +4,13 @@ Semua perubahan penting pada project ini dicatat di file ini, supaya mudah melac
 
 Format: `## [versi] - tanggal` diikuti ringkasan perubahan dan commit hash terkait.
 
+## [1.1.0] - 2026-09-30
+- Buat halaman Home sebagai gabungan antara halaman Parts & halaman Katalog.
+- Parts section ditampilkan paling atas (dengan banner carousel, kategori filter, grid produk).
+- Katalog section ditampilkan di bawah (hero section + product listing pre-order).
+- User bisa lihat kedua konten (parts & katalog pre-order) dalam satu halaman utama tanpa perlu navigasi terpisah.
+- Hasil: Home page lebih komprehensif menampilkan semua offering (parts recommendations + pre-order katalog).
+
 ## [1.0.0] - 2026-09-26
 - Improve Shopee scraping untuk handle redirect ke mobile/desktop version.
 - Add fallback untuk manual image URL input jika scraping gagal.
