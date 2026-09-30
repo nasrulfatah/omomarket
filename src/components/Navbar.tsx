@@ -39,10 +39,10 @@ export default function Navbar() {
             Unit Motor
           </Link>
           <Link
-            href="/parts"
+            href="/parts-accessories"
             className="rounded-full px-3 py-2 text-black/80 hover:bg-black/5 hover:text-black"
           >
-            Parts
+            Accessories
           </Link>
           <button
             onClick={handleCariPartsClick}

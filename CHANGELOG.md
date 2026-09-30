@@ -4,6 +4,13 @@ Semua perubahan penting pada project ini dicatat di file ini, supaya mudah melac
 
 Format: `## [versi] - tanggal` diikuti ringkasan perubahan dan commit hash terkait.
 
+## [1.3.0] - 2026-09-30
+- Rename route `/parts` menjadi `/parts-accessories` untuk lebih spesifik.
+- Ubah title halaman dari "Omo Recommended Parts" menjadi "Omo Recommended Accessories".
+- Update navbar link dari "Parts" menjadi "Accessories" dengan href `/parts-accessories`.
+- Ubah badge dari "Katalog Parts" menjadi "Katalog Accessories".
+- Hasil: Lebih jelas bahwa halaman ini untuk melihat rekomendasi accessories (bukan parts saja).
+
 ## [1.2.2] - 2026-09-30
 - Ubah footer description dari "Platform matching PO Omo antara penjual dan calon pembeli" menjadi "Platform marketplace unofficial untuk jual beli unit Omoway, Parts & Aksesoris".
 - Hapus copyright year display (© 2026) dari footer.
