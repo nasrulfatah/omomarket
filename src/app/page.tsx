@@ -1,17 +1,15 @@
-import { getAllListings, getAllParts } from "@/lib/store";
-import HomeContent from "@/components/HomeContent";
+import { getAllParts } from "@/lib/store";
 import CategoryBannerCarousel from "@/components/CategoryBannerCarousel";
 import PartsPageClient from "@/components/PartsPageClient";
 
 export const dynamic = "force-dynamic";
 
 export default async function Home() {
-  const listings = await getAllListings();
   const allParts = await getAllParts();
 
   return (
     <div>
-      {/* Parts Section - di atas */}
+      {/* Parts Section - sama persis seperti halaman /parts */}
       <section className="bg-white">
         <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:py-8">
           {/* Page Title */}
@@ -34,9 +32,6 @@ export default async function Home() {
           <PartsPageClient parts={allParts} />
         </div>
       </section>
-
-      {/* Katalog Section - di bawah */}
-      <HomeContent listings={listings} />
     </div>
   );
 }

@@ -4,6 +4,13 @@ Semua perubahan penting pada project ini dicatat di file ini, supaya mudah melac
 
 Format: `## [versi] - tanggal` diikuti ringkasan perubahan dan commit hash terkait.
 
+## [1.2.0] - 2026-09-30
+- Ubah halaman Home menjadi sama persis seperti halaman Parts (hanya menampilkan Parts section).
+- Hapus HomeContent (Katalog Pre-Order section) dari halaman Home.
+- Home page sekarang fokus 100% pada Parts: banner carousel, kategori filter, search, & grid produk.
+- Katalog Pre-Order tetap accessible via navbar "Katalog" link.
+- Hasil: Homepage cleaner dan fokus, tidak ada duplikasi content dengan halaman /catalog.
+
 ## [1.1.0] - 2026-09-30
 - Buat halaman Home sebagai gabungan antara halaman Parts & halaman Katalog.
 - Parts section ditampilkan paling atas (dengan banner carousel, kategori filter, grid produk).
