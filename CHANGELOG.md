@@ -4,6 +4,13 @@ Semua perubahan penting pada project ini dicatat di file ini, supaya mudah melac
 
 Format: `## [versi] - tanggal` diikuti ringkasan perubahan dan commit hash terkait.
 
+## [1.4.1] - 2026-09-30
+- Rename route dari `/admin/parts/add` menjadi `/admin/add` untuk path yang lebih ringkas.
+- Update page title menjadi "Tambah Produk Parts & Aksesoris" untuk lebih deskriptif.
+- Update description menjadi menjelaskan scraping dari Shopee link.
+- Delete folder lama `/admin/parts`.
+- Hasil: Admin route lebih clean, title lebih descriptive.
+
 ## [1.4.0] - 2026-09-30
 - Rename route dari `/parts-accessories` menjadi `/accessories` untuk path yang lebih ringkas.
 - Update navbar link href dari `/parts-accessories` ke `/accessories`.
