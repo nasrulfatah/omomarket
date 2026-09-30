@@ -4,6 +4,12 @@ Semua perubahan penting pada project ini dicatat di file ini, supaya mudah melac
 
 Format: `## [versi] - tanggal` diikuti ringkasan perubahan dan commit hash terkait.
 
+## [1.3.2] - 2026-09-30
+- Update navbar labels menjadi Bahasa Indonesia untuk konsistensi.
+- Ubah navbar link label dari "Accessories" menjadi "Aksesoris".
+- Ubah CTA button dari "Cari Parts" menjadi "Cari Aksesoris".
+- Hasil: Navbar sekarang fully dalam Bahasa Indonesia (Unit Motor, Aksesoris, Cari Aksesoris).
+
 ## [1.3.1] - 2026-09-30
 - Update homepage title & badge untuk konsistensi dengan perubahan route v1.3.0.
 - Ubah homepage badge dari "Katalog Parts" menjadi "Katalog Accessories".

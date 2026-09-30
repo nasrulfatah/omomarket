@@ -42,13 +42,13 @@ export default function Navbar() {
             href="/parts-accessories"
             className="rounded-full px-3 py-2 text-black/80 hover:bg-black/5 hover:text-black"
           >
-            Accessories
+            Aksesoris
           </Link>
           <button
             onClick={handleCariPartsClick}
             className="rounded-full border border-black/15 px-3 py-2 text-black/80 hover:bg-black/5 hover:text-black transition cursor-pointer"
           >
-            Cari Parts
+            Cari Aksesoris
           </button>
         </nav>
       </div>
