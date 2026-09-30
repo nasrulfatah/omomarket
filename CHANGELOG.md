@@ -4,6 +4,23 @@ Semua perubahan penting pada project ini dicatat di file ini, supaya mudah melac
 
 Format: `## [versi] - tanggal` diikuti ringkasan perubahan dan commit hash terkait.
 
+## [1.4.2] - 2026-10-01
+- Improve Shopee scraping untuk auto-fill nama, harga, deskripsi produk (bukan hanya gambar).
+- Ubah button text dari "Scrape Gambar dari Shopee" menjadi "Scrape Data dari Shopee" untuk lebih jelas.
+- Enhance API `/api/scrape-shopee`:
+  - Return success: true/false berdasarkan apakah ada gambar atau data yang berhasil di-extract
+  - Tetap return nama, harga, deskripsi bahkan jika gambar tidak ditemukan
+  - Add lebih banyak selectors untuk extract nama, harga, deskripsi (support lebih banyak Shopee HTML structure)
+  - Add JSON-LD structured data parsing untuk harga
+  - Improve image extraction dengan support lazy-load attributes (data-lazy, data-xlazy)
+  - Add noscript tag parsing untuk image fallback
+- Update AddPartsForm.tsx:
+  - Auto-fill form fields (nama, harga, deskripsi) dari hasil scraping bahkan jika gambar gagal
+  - Improve error messages dengan message dari API
+  - Only set isScraped=true jika ada gambar (untuk display image picker)
+- Tambah fallback manual image URL input ketika scraping gagal
+- Hasil: Fitur scraping lebih robust - auto-fill data meskipun gambar tidak bisa di-extract dari Shopee, user dapat manual input gambar URL sebagai fallback.
+
 ## [1.4.1] - 2026-09-30
 - Rename route dari `/admin/parts/add` menjadi `/admin/add` untuk path yang lebih ringkas.
 - Update page title menjadi "Tambah Produk Parts & Aksesoris" untuk lebih deskriptif.

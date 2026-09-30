@@ -80,38 +80,53 @@ export async function POST(request: NextRequest) {
     const images: string[] = [];
     const imageUrls = new Set<string>();
 
-    // Strategy 1: Find all img tags dengan data dari minio/shopee CDN
+    const isCdnUrl = (url: string) => {
+      return url && url.includes("http") && (
+        url.includes("minio") ||
+        url.includes("shopee") ||
+        url.includes("cf.shopee") ||
+        url.includes("oss.") ||
+        url.includes("cdn")
+      );
+    };
+
+    // Strategy 1: Find all img tags dengan data dari Shopee CDN
     $("img").each((_, elem) => {
       const src = $(elem).attr("src") || "";
       const dataSrc = $(elem).attr("data-src") || "";
       const srcSet = $(elem).attr("srcset") || "";
+      const dataLazy = $(elem).attr("data-lazy") || "";
+      const dataXlazy = $(elem).attr("data-xlazy") || "";
 
       // Check src attribute
-      if (src && (src.includes("minio") || src.includes("shopee") || src.includes("cf.shopee"))) {
-        if (!imageUrls.has(src) && src.startsWith("http")) {
-          imageUrls.add(src);
-          images.push(src);
-        }
+      if (isCdnUrl(src) && !imageUrls.has(src)) {
+        imageUrls.add(src);
+        images.push(src);
       }
 
-      // Check data-src attribute
-      if (dataSrc && (dataSrc.includes("minio") || dataSrc.includes("shopee") || dataSrc.includes("cf.shopee"))) {
-        if (!imageUrls.has(dataSrc) && dataSrc.startsWith("http")) {
-          imageUrls.add(dataSrc);
-          images.push(dataSrc);
-        }
+      // Check data-src attribute (lazy loading)
+      if (isCdnUrl(dataSrc) && !imageUrls.has(dataSrc)) {
+        imageUrls.add(dataSrc);
+        images.push(dataSrc);
+      }
+
+      // Check data-lazy attribute
+      if (isCdnUrl(dataLazy) && !imageUrls.has(dataLazy)) {
+        imageUrls.add(dataLazy);
+        images.push(dataLazy);
+      }
+
+      // Check data-xlazy attribute
+      if (isCdnUrl(dataXlazy) && !imageUrls.has(dataXlazy)) {
+        imageUrls.add(dataXlazy);
+        images.push(dataXlazy);
       }
 
       // Parse srcset
       if (srcSet) {
         const urls = srcSet.split(",").map((s) => s.split(" ")[0].trim());
         urls.forEach((url) => {
-          if (
-            url &&
-            !imageUrls.has(url) &&
-            (url.includes("minio") || url.includes("shopee") || url.includes("cf.shopee")) &&
-            url.startsWith("http")
-          ) {
+          if (isCdnUrl(url) && !imageUrls.has(url)) {
             imageUrls.add(url);
             images.push(url);
           }
@@ -120,37 +135,56 @@ export async function POST(request: NextRequest) {
     });
 
     // Strategy 2: Look for images in picture elements
-    $("picture source").each((_, elem) => {
-      const srcSet = $(elem).attr("srcset") || "";
-      if (srcSet) {
-        const url = srcSet.split(",")[0].split(" ")[0].trim();
-        if (
-          url &&
-          !imageUrls.has(url) &&
-          (url.includes("minio") || url.includes("shopee") || url.includes("cf.shopee")) &&
-          url.startsWith("http")
-        ) {
-          imageUrls.add(url);
-          images.push(url);
+    $("picture").each((_, elem) => {
+      $(elem).find("source").each((_, source) => {
+        const srcSet = $(source).attr("srcset") || "";
+        if (srcSet) {
+          const urls = srcSet.split(",").map((s) => s.split(" ")[0].trim());
+          urls.forEach((url) => {
+            if (isCdnUrl(url) && !imageUrls.has(url)) {
+              imageUrls.add(url);
+              images.push(url);
+            }
+          });
         }
-      }
+      });
+    });
+
+    // Strategy 3: Look for noscript tags (sometimes used for fallback images)
+    $("noscript").each((_, elem) => {
+      const content = $(elem).html() || "";
+      const noscriptHtml = $.load(content);
+      noscriptHtml("img").each((_, img) => {
+        const src = noscriptHtml(img).attr("src") || "";
+        if (isCdnUrl(src) && !imageUrls.has(src)) {
+          imageUrls.add(src);
+          images.push(src);
+        }
+      });
     });
 
     // Extract nama produk dari multiple selector (Shopee structure bisa berubah)
     let nama = "";
-    // Try common Shopee product name selectors
     const nameSelectors = [
       "h1",
       "[data-testid='pdp-product-title']",
       ".product-title",
       ".shopee-product-name",
+      "[itemprop='name']",
+      ".qaNwyQp",  // Shopee dynamic class (observed)
+      ".PJXr--",   // Another Shopee class
+      "h1 span",
+      ".shopee--6f7VF",  // More Shopee dynamic classes
     ];
 
     for (const selector of nameSelectors) {
       const element = $(selector).first();
       if (element.length > 0) {
-        nama = element.text().trim();
-        if (nama.length > 0) break;
+        const text = element.text().trim();
+        if (text.length > 10 && text.length < 200) {  // Reasonable length for product name
+          nama = text;
+          break;
+        }
       }
     }
 
@@ -158,9 +192,13 @@ export async function POST(request: NextRequest) {
     let harga = 0;
     const priceSelectors = [
       "[data-testid='pdp-price']",
+      "[data-testid='pdp-price-current']",
       ".product-price",
       ".shopee-price",
-      "span:contains('Rp')",
+      "[itemprop='price']",
+      ".QPUY--",  // Shopee dynamic class for price
+      ".YqFZvj",  // Another price class
+      "span.qaNwyQp",  // Price in span
     ];
 
     for (const selector of priceSelectors) {
@@ -169,11 +207,26 @@ export async function POST(request: NextRequest) {
         const priceText = elements.first().text();
         // Extract angka dari format Rp X.XXX.XXX
         const match = priceText.replace(/\D/g, "");
-        if (match) {
+        if (match && parseInt(match, 10) > 1000) {  // Reasonable price (at least 1k)
           harga = parseInt(match, 10);
-          if (harga > 0) break;
+          break;
         }
       }
+    }
+
+    // Also try to extract from JSON-LD structured data if available
+    if (harga === 0) {
+      const jsonLdScripts = $('script[type="application/ld+json"]');
+      jsonLdScripts.each((_, elem) => {
+        try {
+          const data = JSON.parse($(elem).html() || "");
+          if (data.offers && data.offers[0] && data.offers[0].price) {
+            harga = parseInt(data.offers[0].price, 10);
+          }
+        } catch (e) {
+          // Ignore JSON-LD parsing errors
+        }
+      });
     }
 
     // Extract deskripsi
@@ -182,33 +235,48 @@ export async function POST(request: NextRequest) {
       "[data-testid='pdp-product-description']",
       ".product-description",
       ".shopee-description",
+      "[itemprop='description']",
+      ".shopee--J4v7Q",  // Shopee description class
     ];
 
     for (const selector of descSelectors) {
       const element = $(selector).first();
       if (element.length > 0) {
-        deskripsi = element.text().trim();
-        if (deskripsi.length > 0) break;
+        const text = element.text().trim().substring(0, 500);  // Max 500 chars
+        if (text.length > 10) {
+          deskripsi = text;
+          break;
+        }
       }
     }
 
-    if (images.length === 0) {
-      return NextResponse.json(
-        { error: "Tidak menemukan gambar di halaman Shopee" },
-        { status: 404 }
-      );
-    }
-
-    // Return 5 gambar pertama
+    // Return 5 gambar pertama (bisa kosong)
     const limitedImages = images.slice(0, 5);
+    const hasImages = limitedImages.length > 0;
+    const hasData = nama || harga > 0 || deskripsi;
+
+    // Log untuk debugging
+    console.log("Scrape result:", {
+      url: response.url,
+      hasImages,
+      imageCount: limitedImages.length,
+      hasNama: !!nama,
+      hasHarga: harga > 0,
+      hasDeskripsi: !!deskripsi,
+    });
 
     return NextResponse.json({
-      success: true,
+      success: hasImages || hasData, // true jika ada gambar atau data
       images: limitedImages,
       count: limitedImages.length,
       nama: nama || "",
       harga: harga || 0,
       deskripsi: deskripsi || "",
+      message: hasImages
+        ? `Berhasil scrape ${limitedImages.length} gambar${hasData ? " + data produk" : ""}`
+        : hasData
+        ? "Data produk berhasil di-extract tapi gambar tidak ditemukan"
+        : "Tidak bisa extract data dari link ini. Coba link Shopee desktop yang berbeda.",
     });
   } catch (error) {
     console.error("Scraping error:", error);

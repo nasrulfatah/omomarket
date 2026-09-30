@@ -50,13 +50,10 @@ export default function AddPartsForm() {
       const data = await response.json();
 
       if (!response.ok) {
-        setError(data.error || "Gagal scrape gambar");
+        setError(data.error || "Gagal scrape data");
         setIsLoading(false);
         return;
       }
-
-      setScrapedImages(data.images || []);
-      setIsScraped(true);
 
       // Auto-fill fields jika kosong
       setFormData((prev) => ({
@@ -66,7 +63,23 @@ export default function AddPartsForm() {
         deskripsi: prev.deskripsi || data.deskripsi || "",
       }));
 
-      setSuccess(`Berhasil scrape ${data.count} gambar (${data.nama ? "nama" : ""}${data.harga ? ", harga" : ""}${data.deskripsi ? ", deskripsi" : ""} auto-fill)`);
+      // Show different message berdasarkan apa yang berhasil di-scrape
+      const scrapeResults = [];
+      if (data.count > 0) {
+        scrapeResults.push(`${data.count} gambar`);
+        setScrapedImages(data.images || []);
+        setIsScraped(true);
+      }
+      if (data.nama) scrapeResults.push("nama");
+      if (data.harga > 0) scrapeResults.push("harga");
+      if (data.deskripsi) scrapeResults.push("deskripsi");
+
+      if (scrapeResults.length > 0) {
+        setSuccess(`✓ Berhasil scrape: ${scrapeResults.join(", ")}`);
+      } else {
+        // Tidak ada data yang berhasil, tapi coba lagi dengan pesan helpful
+        setError(data.message || "Tidak ada data yang bisa di-scrape. Coba link Shopee desktop yang berbeda.");
+      }
     } catch (err) {
       setError("Error: " + String(err));
     } finally {
@@ -184,7 +197,7 @@ export default function AddPartsForm() {
       {error && error.includes("gambar") && (
         <div className="rounded-lg bg-blue-50 border border-blue-200 p-4">
           <p className="text-sm text-blue-800">
-            💡 <strong>Scraping gagal?</strong> Anda bisa manual input image URL di bawah atau coba link Shopee yang berbeda.
+            💡 <strong>Scraping data gagal?</strong> Kemungkinan link Shopee invalid atau Shopee blocks scraping. Anda bisa manual input image URL di bawah atau coba link yang berbeda.
           </p>
         </div>
       )}
@@ -193,7 +206,7 @@ export default function AddPartsForm() {
       <div className="space-y-3">
         <div>
           <label htmlFor="shopeeLink" className="block text-sm font-medium text-black mb-2">
-            Shopee Link * <span className="text-xs text-black/50">(wajib, untuk scraping data)</span>
+            Shopee Link * <span className="text-xs text-black/50">(wajib, untuk scrape nama, harga, deskripsi, & gambar)</span>
           </label>
           <input
             type="url"
@@ -211,7 +224,7 @@ export default function AddPartsForm() {
           disabled={isLoading || !formData.shopeeLink}
           className="w-full px-4 py-2 bg-accent text-white font-medium rounded-lg hover:bg-accent/90 disabled:opacity-50 disabled:cursor-not-allowed transition"
         >
-          {isLoading ? "Scraping..." : "Scrape Gambar dari Shopee"}
+          {isLoading ? "Scraping..." : "Scrape Data dari Shopee"}
         </button>
       </div>
 
