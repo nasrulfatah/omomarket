@@ -4,6 +4,14 @@ Semua perubahan penting pada project ini dicatat di file ini, supaya mudah melac
 
 Format: `## [versi] - tanggal` diikuti ringkasan perubahan dan commit hash terkait.
 
+## [1.4.4] - 2026-10-01
+- Scrape & insert 72 produk dari OMOWAY Perks website (https://msha.ke/piet.omoway) ke Google Sheets tab 'Accessories'.
+- Create `/api/batch-add-products` endpoint untuk batch insert multiple products ke Google Sheets.
+- Semua produk di-kategorisasi sesuai kategori yang ada (Bags & Storage, Interior Accessories, Lights & Electrical, Covers & Protection, Exterior Accessories, Helm & Riding Gear, Gadget Mount, License Plate, Cleaning & Care, Maintenance & Tools, Spare Parts).
+- Setiap produk include: Nama, Kategori, Deskripsi, Shopee Link.
+- Harga & gambar kosong (user dapat update manual di Google Sheets atau via form aplikasi).
+- Hasil: 72 produk OMOWAY perks berhasil ditambahkan ke Accessories listing di aplikasi.
+
 ## [1.4.3] - 2026-10-01
 - Update Google Sheets tab reference dari 'Parts' menjadi 'Accessories'.
 - Fungsi `getPartsSheetData()` sekarang read dari tab 'Accessories' di range A2:H.
