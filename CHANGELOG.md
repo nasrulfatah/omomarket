@@ -4,6 +4,16 @@ Semua perubahan penting pada project ini dicatat di file ini, supaya mudah melac
 
 Format: `## [versi] - tanggal` diikuti ringkasan perubahan dan commit hash terkait.
 
+## [1.4.5] - 2026-10-01
+- Tambahkan component `CategoryCarousels.tsx` untuk display produk dalam carousel per kategori.
+- Kategori-kategori ditampilkan dalam horizontal scrollable carousel dengan navigation buttons (← →) untuk kategori dengan >6 produk.
+- "Populer" section tampil paling atas menampilkan 8 produk terbaru (sorted by createdAt).
+- Component terintegrasi ke halaman Accessories & Homepage di bagian PartsGrid, positioned di bawah search box dan di atas filter "Rentang Harga".
+- Carousel hanya tampil saat selectedCategory === "all" (kategori default/semua produk).
+- Setiap product card dalam carousel menampilkan: nama produk, deskripsi, harga, kategori badge, dan tombol "Beli Sekarang".
+- Scrollbar tersembunyi dengan CSS (hide-scrollbar class) untuk UI yang lebih clean.
+- Hasil: Homepage & Accessories page sekarang menampilkan product carousels grouped by category, meningkatkan product discovery dan user engagement.
+
 ## [1.4.4] - 2026-10-01
 - Scrape & insert 72 produk dari OMOWAY Perks website (https://msha.ke/piet.omoway) ke Google Sheets tab 'Accessories'.
 - Create `/api/batch-add-products` endpoint untuk batch insert multiple products ke Google Sheets.

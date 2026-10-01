@@ -3,6 +3,7 @@
 import { useState, useMemo, useEffect, useRef } from "react";
 import { Part, PartCategory, formatRupiah } from "@/lib/types";
 import PartCard from "./PartCard";
+import CategoryCarousels from "./CategoryCarousels";
 
 interface PartsGridProps {
   parts: Part[];
@@ -86,6 +87,9 @@ export default function PartsGrid({ parts, selectedCategory, searchQuery, onSear
         onChange={(e) => onSearchChange(e.target.value)}
         className="w-full px-4 py-2.5 border border-line/50 rounded-lg text-sm font-medium text-black bg-white focus:outline-none focus:ring-2 focus:ring-accent/40 transition placeholder:text-black/40"
       />
+
+      {/* Category Carousels - Only show when "all" category is selected */}
+      <CategoryCarousels parts={parts} selectedCategory={selectedCategory} />
 
       {/* Price Filter - Collapsible on Mobile */}
       <div className="space-y-3 border-t border-line/30 pt-6">
