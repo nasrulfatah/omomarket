@@ -82,12 +82,12 @@ export async function getPartsSheetData(): Promise<any[][]> {
   try {
     const response = await sheets.spreadsheets.values.get({
       spreadsheetId: process.env.GOOGLE_SHEETS_ID!,
-      range: "'Parts'!A2:H",
+      range: "'Accessories'!A2:H",
     });
 
     return response.data.values || [];
   } catch (error) {
-    console.error("Error reading Parts sheet:", error);
+    console.error("Error reading Accessories sheet:", error);
     return [];
   }
 }

@@ -4,6 +4,12 @@ Semua perubahan penting pada project ini dicatat di file ini, supaya mudah melac
 
 Format: `## [versi] - tanggal` diikuti ringkasan perubahan dan commit hash terkait.
 
+## [1.4.3] - 2026-10-01
+- Update Google Sheets tab reference dari 'Parts' menjadi 'Accessories'.
+- Fungsi `getPartsSheetData()` sekarang read dari tab 'Accessories' di range A2:H.
+- Update error message di console dari "Error reading Parts sheet" menjadi "Error reading Accessories sheet".
+- Hasil: Accessories listing sekarang terhubung ke tab 'Accessories' di Google Sheets.
+
 ## [1.4.2] - 2026-10-01
 - Improve Shopee scraping untuk auto-fill nama, harga, deskripsi produk (bukan hanya gambar).
 - Ubah button text dari "Scrape Gambar dari Shopee" menjadi "Scrape Data dari Shopee" untuk lebih jelas.
