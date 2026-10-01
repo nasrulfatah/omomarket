@@ -9,7 +9,7 @@ interface PartCardProps {
 }
 
 export default function PartCard({ part }: PartCardProps) {
-  const images = part.gambar.split(",").map((url) => url.trim()).filter(Boolean);
+  const images = (part.gambar || "").split(",").map((url) => url.trim()).filter(Boolean);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [failedImages, setFailedImages] = useState<Set<number>>(new Set());
 
