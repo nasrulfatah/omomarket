@@ -121,7 +121,7 @@ export default function PartCard({ part }: PartCardProps) {
             rel="noopener noreferrer"
             className="block w-full rounded-full bg-orange-500 px-4 py-2.5 text-center text-sm font-bold text-white transition hover:bg-orange-600"
           >
-            Beli Sekarang
+            Beli
           </a>
         </div>
       </div>
