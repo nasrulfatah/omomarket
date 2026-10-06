@@ -4,6 +4,11 @@ Semua perubahan penting pada project ini dicatat di file ini, supaya mudah melac
 
 Format: `## [versi] - tanggal` diikuti ringkasan perubahan dan commit hash terkait.
 
+## [1.4.6] - 2026-10-07
+- Shorten CTA button text dari "Beli Sekarang" menjadi "Beli" di semua product cards.
+- Membuat button lebih compact dan konsisten di mobile view.
+- Hasil: UI lebih clean, button tidak overflow di tampilan sempit.
+
 ## [1.4.5] - 2026-10-01
 - Tambahkan component `CategoryCarousels.tsx` untuk display produk dalam carousel per kategori.
 - Kategori-kategori ditampilkan dalam horizontal scrollable carousel dengan navigation buttons (← →) untuk kategori dengan >6 produk.
