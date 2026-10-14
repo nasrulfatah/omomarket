@@ -9,7 +9,6 @@ interface PartsGridProps {
   parts: Part[];
   selectedCategory: PartCategory | "all";
   searchQuery: string;
-  onSearchChange: (query: string) => void;
 }
 
 const formatPrice = (num: number): string => {
@@ -20,7 +19,7 @@ const parsePrice = (str: string): number => {
   return parseInt(str.replace(/\./g, ''), 10) || 0;
 };
 
-export default function PartsGrid({ parts, selectedCategory, searchQuery, onSearchChange }: PartsGridProps) {
+export default function PartsGrid({ parts, selectedCategory, searchQuery }: PartsGridProps) {
   const [minPrice, setMinPrice] = useState<number>(0);
   const [maxPrice, setMaxPrice] = useState<number>(0);
   const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false);
@@ -79,15 +78,6 @@ export default function PartsGrid({ parts, selectedCategory, searchQuery, onSear
 
   return (
     <div className="space-y-6">
-      {/* Search Bar */}
-      <input
-        type="text"
-        placeholder="Ketik nama produk..."
-        value={searchQuery}
-        onChange={(e) => onSearchChange(e.target.value)}
-        className="w-full px-4 py-2.5 border border-line/50 rounded-lg text-sm font-medium text-black bg-white focus:outline-none focus:ring-2 focus:ring-accent/40 transition placeholder:text-black/40"
-      />
-
       {/* Category Carousels - Only show when "all" category is selected */}
       <CategoryCarousels parts={parts} selectedCategory={selectedCategory} />
 

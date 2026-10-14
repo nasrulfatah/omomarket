@@ -4,6 +4,11 @@ Semua perubahan penting pada project ini dicatat di file ini, supaya mudah melac
 
 Format: `## [versi] - tanggal` diikuti ringkasan perubahan dan commit hash terkait.
 
+## [1.4.7] - 2026-10-14
+- Sederhanakan header halaman: hapus badge "Katalog Accessories", heading "Telusuri Kategori", dan subtitle petunjuk kategori.
+- Pindahkan search bar ke bawah judul, di atas grid kategori.
+- Search bar sekarang menampilkan overlay hasil pencarian langsung saat diketik (maks 20 hasil, bisa ditutup dengan tombol "Tutup" atau Escape).
+
 ## [1.4.6] - 2026-10-07
 - Shorten CTA button text dari "Beli Sekarang" menjadi "Beli" di semua product cards.
 - Membuat button lebih compact dan konsisten di mobile view.

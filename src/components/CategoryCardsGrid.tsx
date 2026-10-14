@@ -46,11 +46,7 @@ function CategoryIcon({ icon, label }: { icon: string; label: string }) {
 export default function CategoryCardsGrid({ selectedCategory, onSelectCategory }: CategoryCardsGridProps) {
   return (
     <div className="mb-10">
-      <div className="mb-4 flex items-end justify-between">
-        <div>
-          <h2 className="text-xl font-bold text-black sm:text-2xl">Telusuri Kategori</h2>
-          <p className="mt-1 text-sm text-black/60">Pilih kategori untuk melihat parts berkualitas</p>
-        </div>
+      <div className="mb-4 flex items-center justify-end">
         {selectedCategory !== "all" && (
           <button
             onClick={() => onSelectCategory("all")}
