@@ -31,9 +31,9 @@ export default function PartCard({ part }: PartCardProps) {
   };
 
   return (
-    <div className="flex flex-col rounded-2xl border border-line bg-white overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+    <div className="flex flex-col rounded-2xl border border-line/70 bg-white overflow-hidden shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-accent hover:shadow-lg">
       {/* Image Gallery */}
-      <div className="relative w-full aspect-square bg-neutral-100 overflow-hidden group">
+      <div className="relative w-full aspect-square bg-white overflow-hidden group">
         {isCurrentImageFailed ? (
           <div className="w-full h-full bg-neutral-200 flex items-center justify-center">
             <svg className="w-12 h-12 text-neutral-400" fill="currentColor" viewBox="0 0 24 24">
@@ -48,6 +48,8 @@ export default function PartCard({ part }: PartCardProps) {
             onError={handleImageError}
           />
         )}
+
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-t from-white to-transparent" />
 
         {/* Navigation Arrows */}
         {hasMultipleImages && (
@@ -89,17 +91,10 @@ export default function PartCard({ part }: PartCardProps) {
           </div>
         )}
 
-        {/* Category Badge */}
-        <div className="absolute top-3 right-3">
-          <span className="inline-flex items-center rounded-full bg-accent/90 px-3 py-1 text-xs font-semibold text-black">
-            {part.kategori}
-          </span>
-        </div>
-
         {/* New Badge */}
         {isNew && (
           <div className="absolute top-3 left-3">
-            <span className="inline-flex items-center rounded-full bg-orange-500 px-3 py-1 text-xs font-semibold text-white shadow-sm">
+            <span className="inline-flex items-center rounded-full bg-accent-soft px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-wide text-accent-soft-text">
               Baru
             </span>
           </div>
@@ -108,18 +103,18 @@ export default function PartCard({ part }: PartCardProps) {
 
       {/* Content */}
       <div className="flex flex-col flex-1 p-4">
-        <h3 className="font-bold text-black line-clamp-2">{part.nama}</h3>
+        <h3 className="text-[15px] font-semibold leading-snug text-black line-clamp-2">{part.nama}</h3>
 
-        <p className="mt-1 text-sm text-black/70 line-clamp-2">{part.deskripsi}</p>
+        <p className="mt-1.5 text-sm leading-relaxed text-black/55 line-clamp-2">{part.deskripsi}</p>
 
         <div className="mt-auto space-y-3 pt-4">
-          <div className="text-lg font-bold text-accent">{formatRupiah(part.harga)}</div>
+          <div className="text-base font-extrabold tracking-tight text-black">{formatRupiah(part.harga)}</div>
 
           <a
             href={part.shopeeLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="block w-full rounded-full bg-orange-500 px-4 py-2.5 text-center text-sm font-bold text-white transition hover:bg-orange-600"
+            className="block w-full rounded-full bg-accent px-4 py-2.5 text-center text-sm font-bold text-black transition hover:bg-accent-dark"
           >
             Beli
           </a>

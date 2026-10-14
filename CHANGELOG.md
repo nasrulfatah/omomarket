@@ -4,6 +4,16 @@ Semua perubahan penting pada project ini dicatat di file ini, supaya mudah melac
 
 Format: `## [versi] - tanggal` diikuti ringkasan perubahan dan commit hash terkait.
 
+## [1.4.10] - 2026-10-14
+- Area foto product card dibuat putih dengan `object-cover` dan gradien tipis di bagian bawah, supaya transisi ke teks lebih mulus.- Tambahkan foto untuk Ultimate Compound (Meguiars) dan Wax Polish (Nanotech) di folder `public/products/`, dan kolom `gambar` di Sheets diisi path-nya.
+
+## [1.4.9] - 2026-10-14
+- Restyle product card mengikuti tema Omoway: tombol "Beli" memakai accent lime dengan teks hitam, badge "Baru" memakai accent-soft, dan badge oranye dihapus.
+- Harga dibuat tebal hitam (sebelumnya lime, kontras rendah), judul dan deskripsi diberi tipografi dan jarak yang lebih rapi, dan border serta shadow card lebih halus.
+
+## [1.4.8] - 2026-10-14
+- Hapus badge kategori dari product card di homepage dan accessories (badge "Baru" tetap ada).
+
 ## [1.4.7] - 2026-10-14
 - Sederhanakan header halaman: hapus badge "Katalog Accessories", heading "Telusuri Kategori", dan subtitle petunjuk kategori.
 - Pindahkan search bar ke bawah judul, di atas grid kategori.
