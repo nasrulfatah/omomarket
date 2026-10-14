@@ -11,7 +11,7 @@ export default async function AccessoriesPage() {
     <div>
       {/* Accessories Section */}
       <section className="bg-white">
-        <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:py-8">
+        <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-12 lg:py-8">
           {/* Page Title */}
           <div className="mb-5">
             <span className="inline-block rounded-full bg-accent-soft px-3 py-1 text-xs font-bold text-accent-soft-text">

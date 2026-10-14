@@ -11,7 +11,7 @@ export default async function Home() {
     <div>
       {/* Accessories Section */}
       <section className="bg-white">
-        <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:py-8">
+        <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-12 lg:py-8">
           {/* Page Title */}
           <div className="mb-5">
             <h1 className="text-2xl font-extrabold leading-tight text-black sm:text-3xl lg:text-4xl">
