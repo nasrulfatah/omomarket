@@ -4,6 +4,16 @@ Semua perubahan penting pada project ini dicatat di file ini, supaya mudah melac
 
 Format: `## [versi] - tanggal` diikuti ringkasan perubahan dan commit hash terkait.
 
+## [1.4.13] - 2026-10-15
+- Search bar dibungkus form: Enter membuka halaman `/search?q=...` dengan daftar produk yang cocok.
+- Overlay pencarian punya link "Lihat semua hasil" ke halaman yang sama.
+- Panah carousel dan tombol kembali memakai chevron SVG.
+
+## [1.4.12] - 2026-10-15
+- Tambahkan CTA "Lihat Semua" di header setiap carousel kategori (termasuk Populer).
+- Tambahkan halaman `/popular` (8 produk terbaru) dan `/categories/[slug]` (semua produk dalam satu kategori, slug kebab-case seperti `/categories/cleaning-care`).
+- Hilangkan subtitle di header Homepage dan kecilkan judul menjadi 24px di desktop.
+
 ## [1.4.11] - 2026-10-15
 - Lebar card di carousel kategori dinaikkan dari 160px menjadi 200px.
 - Padding samping di desktop (lg ke atas) ditambah menjadi 48px pada halaman Homepage dan Accessories, supaya konten tidak mepet tepi layar.

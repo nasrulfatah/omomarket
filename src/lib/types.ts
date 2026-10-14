@@ -184,6 +184,9 @@ export const PARTS_CATEGORIES = [
 
 export type PartCategory = (typeof PARTS_CATEGORIES)[number];
 
+export const categoryToSlug = (category: string): string =>
+  category.toLowerCase().replace(/&/g, "").replace(/\s+/g, "-").replace(/-+/g, "-");
+
 export interface Part {
   id: string;
   nama: string;

@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Part, PARTS_CATEGORIES } from "@/lib/types";
+import Link from "next/link";
+import { Part, PARTS_CATEGORIES, categoryToSlug } from "@/lib/types";
 import PartCard from "./PartCard";
 
 interface CategoryCarouselsProps {
@@ -72,7 +73,15 @@ export default function CategoryCarousels({ parts, selectedCategory }: CategoryC
 
         return (
           <div key={category} className="space-y-3">
-            <h3 className="text-base font-semibold text-black">{displayName}</h3>
+            <div className="flex items-center justify-between">
+              <h3 className="text-base font-semibold text-black">{displayName}</h3>
+              <Link
+                href={category === "popular" ? "/popular" : `/categories/${categoryToSlug(category as string)}`}
+                className="text-xs font-semibold text-accent-soft-text hover:text-black transition"
+              >
+                Lihat Semua
+              </Link>
+            </div>
 
             {/* Carousel Container */}
             <div className="relative">
@@ -94,13 +103,17 @@ export default function CategoryCarousels({ parts, selectedCategory }: CategoryC
                     onClick={(e) => handlePrevClick(e, carouselId)}
                     className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-3 z-10 bg-white/80 hover:bg-white text-black rounded-full w-7 h-7 flex items-center justify-center shadow-sm transition"
                   >
-                    ←
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+                    </svg>
                   </button>
                   <button
                     onClick={(e) => handleNextClick(e, carouselId)}
                     className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-3 z-10 bg-white/80 hover:bg-white text-black rounded-full w-7 h-7 flex items-center justify-center shadow-sm transition"
                   >
-                    →
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                    </svg>
                   </button>
                 </>
               )}

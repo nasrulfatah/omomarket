@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { Part, PartCategory, formatRupiah } from "@/lib/types";
 import CategoryCardsGrid from "./CategoryCardsGrid";
 import PartsGrid from "./PartsGrid";
@@ -24,9 +25,10 @@ export default function PartsPageClient({ parts }: PartsPageClientProps) {
 
   return (
     <>
-      <div className="relative mb-10">
+      <form action="/search" role="search" className="relative mb-10">
         <input
           type="text"
+          name="q"
           placeholder="Ketik nama produk..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
@@ -43,6 +45,7 @@ export default function PartsPageClient({ parts }: PartsPageClientProps) {
                 <span className="font-semibold text-black">{searchResults.length}</span> hasil untuk &quot;{searchQuery}&quot;
               </p>
               <button
+                type="button"
                 onClick={closeSearch}
                 className="text-xs font-semibold text-accent hover:text-accent/80 transition"
               >
@@ -78,9 +81,17 @@ export default function PartsPageClient({ parts }: PartsPageClientProps) {
                 })}
               </ul>
             )}
+            {searchResults.length > 0 && (
+              <Link
+                href={`/search?q=${encodeURIComponent(searchQuery.trim())}`}
+                className="block border-t border-line/30 px-4 py-3 text-center text-sm font-semibold text-accent-soft-text hover:text-black transition"
+              >
+                Lihat semua hasil
+              </Link>
+            )}
           </div>
         )}
-      </div>
+      </form>
 
       <CategoryCardsGrid selectedCategory={selectedCategory} onSelectCategory={setSelectedCategory} />
       <PartsGrid parts={parts} selectedCategory={selectedCategory} searchQuery={searchQuery} />

@@ -14,12 +14,9 @@ export default async function Home() {
         <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-12 lg:py-8">
           {/* Page Title */}
           <div className="mb-5">
-            <h1 className="text-2xl font-extrabold leading-tight text-black sm:text-3xl lg:text-4xl">
+            <h1 className="text-xl font-extrabold leading-tight text-black sm:text-2xl lg:text-3xl">
               Omo Recommended Accessories
             </h1>
-            <p className="mt-2 text-sm text-black/60 sm:text-base">
-              Rekomendasi parts & aksesoris dari Omoriders lain
-            </p>
           </div>
 
           {/* Banner Carousel */}
