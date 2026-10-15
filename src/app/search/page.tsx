@@ -31,7 +31,10 @@ export default async function SearchPage({
     items = items.filter((p) => p.nama.toLowerCase().includes(query.toLowerCase()));
   }
 
-  const title = [categoryTitle, query ? `"${query}"` : ""].filter(Boolean).join(" · ") || "Semua Produk";
+  const title = query ? `Hasil pencarian "${query}"` : categoryTitle || "Semua Produk";
+  const subtitle = query && categoryTitle ? `di ${categoryTitle}` : undefined;
 
-  return <ProductListPage title={title} items={items} query={query} kategori={kategori} />;
+  return (
+    <ProductListPage title={title} subtitle={subtitle} items={items} query={query} kategori={kategori} />
+  );
 }

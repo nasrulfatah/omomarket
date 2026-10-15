@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Part, PartCategory, formatRupiah } from "@/lib/types";
+import { Part, formatRupiah } from "@/lib/types";
 import CategoryCardsGrid from "./CategoryCardsGrid";
 import PartsGrid from "./PartsGrid";
 
@@ -13,7 +13,6 @@ interface PartsPageClientProps {
 const MAX_SEARCH_RESULTS = 20;
 
 export default function PartsPageClient({ parts }: PartsPageClientProps) {
-  const [selectedCategory, setSelectedCategory] = useState<PartCategory | "all">("all");
   const [searchQuery, setSearchQuery] = useState<string>("");
 
   const query = searchQuery.trim().toLowerCase();
@@ -25,18 +24,26 @@ export default function PartsPageClient({ parts }: PartsPageClientProps) {
 
   return (
     <>
-      <form action="/search" role="search" className="relative mb-10">
-        <input
-          type="text"
-          name="q"
-          placeholder="Ketik nama produk..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === "Escape") closeSearch();
-          }}
-          className="w-full px-4 py-2.5 border border-line/50 rounded-lg text-sm font-medium text-black bg-white focus:outline-none focus:ring-2 focus:ring-accent/40 transition placeholder:text-black/40"
-        />
+      <form action="/search" role="search" className="relative mb-6">
+        <div className="flex gap-2">
+          <input
+            type="text"
+            name="q"
+            placeholder="Ketik nama produk..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Escape") closeSearch();
+            }}
+            className="w-full px-4 py-2.5 border border-line/50 rounded-lg text-sm font-medium text-black bg-white focus:outline-none focus:ring-2 focus:ring-accent/40 transition placeholder:text-black/40"
+          />
+          <button
+            type="submit"
+            className="rounded-lg bg-accent px-5 text-sm font-bold text-black transition hover:bg-accent-dark"
+          >
+            Cari
+          </button>
+        </div>
 
         {query && (
           <div className="absolute left-0 right-0 top-full z-50 mt-2 max-h-[70vh] overflow-y-auto rounded-lg border border-line/50 bg-white shadow-xl">
@@ -93,8 +100,8 @@ export default function PartsPageClient({ parts }: PartsPageClientProps) {
         )}
       </form>
 
-      <CategoryCardsGrid selectedCategory={selectedCategory} onSelectCategory={setSelectedCategory} />
-      <PartsGrid parts={parts} selectedCategory={selectedCategory} searchQuery={searchQuery} />
+      <CategoryCardsGrid />
+      <PartsGrid parts={parts} selectedCategory="all" searchQuery={searchQuery} />
     </>
   );
 }

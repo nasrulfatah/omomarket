@@ -1,9 +1,11 @@
 import Link from "next/link";
 import { Part, PARTS_CATEGORIES, categoryToSlug } from "@/lib/types";
 import PartCard from "./PartCard";
+import CategoryChipRow from "./CategoryChipRow";
 
 interface ProductListPageProps {
   title: string;
+  subtitle?: string;
   items: Part[];
   query: string;
   kategori: string;
@@ -23,7 +25,7 @@ const buildSearchHref = (query: string, kategori: string) => {
   return qs ? `/search?${qs}` : "/search";
 };
 
-export default function ProductListPage({ title, items, query, kategori }: ProductListPageProps) {
+export default function ProductListPage({ title, subtitle, items, query, kategori }: ProductListPageProps) {
   return (
     <div>
       <section className="bg-white">
@@ -41,9 +43,9 @@ export default function ProductListPage({ title, items, query, kategori }: Produ
           <h1 className="mt-4 text-xl font-extrabold leading-tight text-black sm:text-2xl lg:text-3xl">
             {title}
           </h1>
+          {subtitle && <p className="mt-1 text-sm text-black/60">{subtitle}</p>}
 
           <form action="/search" role="search" className="mt-5 flex gap-2">
-            {kategori && <input type="hidden" name="kategori" value={kategori} />}
             <input
               type="text"
               name="q"
@@ -59,22 +61,14 @@ export default function ProductListPage({ title, items, query, kategori }: Produ
             </button>
           </form>
 
-          <div className="mt-4 flex gap-2 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-            {CATEGORY_OPTIONS.map((opt) => {
-              const active = opt.slug === kategori;
-              return (
-                <Link
-                  key={opt.slug || "all"}
-                  href={buildSearchHref(query, opt.slug)}
-                  className={`shrink-0 whitespace-nowrap rounded-full px-3 py-1.5 text-xs font-semibold transition ${
-                    active ? "bg-accent text-black" : "bg-neutral-100 text-black/70 hover:bg-neutral-200"
-                  }`}
-                >
-                  {opt.label}
-                </Link>
-              );
-            })}
-          </div>
+          <CategoryChipRow
+            options={CATEGORY_OPTIONS.map((opt) => ({
+              key: opt.slug || "all",
+              label: opt.label,
+              href: buildSearchHref(query, opt.slug),
+              active: opt.slug === kategori,
+            }))}
+          />
 
           <p className="mt-5 text-sm text-black/60">{items.length} produk</p>
 
