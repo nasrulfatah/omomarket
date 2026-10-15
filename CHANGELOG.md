@@ -4,6 +4,11 @@ Semua perubahan penting pada project ini dicatat di file ini, supaya mudah melac
 
 Format: `## [versi] - tanggal` diikuti ringkasan perubahan dan commit hash terkait.
 
+## [1.4.14] - 2026-10-15
+- Halaman kategori dan hasil pencarian digabung menjadi satu halaman `/search`, dengan parameter `kategori` (slug atau `popular`) dan `q` yang bisa dipakai bersamaan.
+- Hapus route `/categories/[slug]` dan `/popular`; link "Lihat Semua" sekarang mengarah ke `/search?kategori=...`.
+- Halaman `/search` punya search box dan chip filter kategori (Semua, Populer, dan tiap kategori), dengan kata kunci dan kategori yang tetap terbawa saat berpindah filter. Chip kategori tampil dalam satu baris yang bisa di-scroll horizontal.
+
 ## [1.4.13] - 2026-10-15
 - Search bar dibungkus form: Enter membuka halaman `/search?q=...` dengan daftar produk yang cocok.
 - Overlay pencarian punya link "Lihat semua hasil" ke halaman yang sama.

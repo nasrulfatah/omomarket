@@ -76,7 +76,7 @@ export default function CategoryCarousels({ parts, selectedCategory }: CategoryC
             <div className="flex items-center justify-between">
               <h3 className="text-base font-semibold text-black">{displayName}</h3>
               <Link
-                href={category === "popular" ? "/popular" : `/categories/${categoryToSlug(category as string)}`}
+                href={`/search?kategori=${category === "popular" ? "popular" : categoryToSlug(category as string)}`}
                 className="text-xs font-semibold text-accent-soft-text hover:text-black transition"
               >
                 Lihat Semua
