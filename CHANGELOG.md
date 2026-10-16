@@ -8,6 +8,7 @@ Format: `## [versi] - tanggal` diikuti ringkasan perubahan dan commit hash terka
 - Halaman kategori dan hasil pencarian digabung menjadi satu halaman `/search`, dengan parameter `kategori` (slug atau `popular`) dan `q` yang bisa dipakai bersamaan.
 - Hapus route `/categories/[slug]` dan `/popular`; link "Lihat Semua" sekarang mengarah ke `/search?kategori=...`.
 - Halaman `/search` punya search box dan chip filter kategori (Semua, Populer, dan tiap kategori), kata kunci tetap terbawa saat berpindah filter kategori, dan mencari dari search box mereset filter kategori ke Semua.
+- Search box dibuat pill dengan ikon kaca pembesar dan tombol "Cari" di dalamnya, di homepage dan halaman /search.
 - Kartu kategori di homepage langsung membuka `/search?kategori=...` (atau `/search` untuk Semua), tidak lagi memfilter di halaman homepage. Chip kategori tampil dalam satu baris yang bisa di-scroll horizontal, dengan tombol panah di desktop yang muncul saat hover dan otomatis hilang di ujung kiri atau kanan.
 
 ## [1.4.13] - 2026-10-15

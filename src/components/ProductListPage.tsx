@@ -45,20 +45,34 @@ export default function ProductListPage({ title, subtitle, items, query, kategor
           </h1>
           {subtitle && <p className="mt-1 text-sm text-black/60">{subtitle}</p>}
 
-          <form action="/search" role="search" className="mt-5 flex gap-2">
-            <input
-              type="text"
-              name="q"
-              defaultValue={query}
-              placeholder="Ketik nama produk..."
-              className="w-full px-4 py-2.5 border border-line/50 rounded-lg text-sm font-medium text-black bg-white focus:outline-none focus:ring-2 focus:ring-accent/40 transition placeholder:text-black/40"
-            />
-            <button
-              type="submit"
-              className="rounded-lg bg-accent px-5 text-sm font-bold text-black transition hover:bg-accent-dark"
-            >
-              Cari
-            </button>
+          <form action="/search" role="search" className="mt-5">
+            <div className="flex gap-2">
+              <div className="relative flex-1">
+                <svg
+                  className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-black/40"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                  viewBox="0 0 24 24"
+                >
+                  <circle cx="11" cy="11" r="7" />
+                  <path strokeLinecap="round" d="M20 20l-3.5-3.5" />
+                </svg>
+                <input
+                  type="text"
+                  name="q"
+                  defaultValue={query}
+                  placeholder="Ketik nama produk..."
+                  className="w-full rounded-xl border border-line/50 bg-white py-2.5 pl-10 pr-4 text-sm font-medium text-black transition focus:outline-none focus:ring-2 focus:ring-accent/40 placeholder:text-black/40"
+                />
+              </div>
+              <button
+                type="submit"
+                className="rounded-xl bg-accent px-5 text-sm font-bold text-black transition hover:bg-accent-dark"
+              >
+                Cari
+              </button>
+            </div>
           </form>
 
           <CategoryChipRow

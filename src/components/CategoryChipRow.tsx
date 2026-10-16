@@ -48,7 +48,7 @@ export default function CategoryChipRow({ options }: { options: ChipOption[] }) 
           <Link
             key={opt.key}
             href={opt.href}
-            className={`shrink-0 whitespace-nowrap rounded-full px-3 py-1.5 text-xs font-semibold transition ${
+            className={`shrink-0 whitespace-nowrap rounded-full px-4 py-2 text-sm font-semibold transition ${
               opt.active ? "bg-accent text-black" : "bg-neutral-100 text-black/70 hover:bg-neutral-200"
             }`}
           >
