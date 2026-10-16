@@ -46,7 +46,7 @@ export default function PartsPageClient({ parts }: PartsPageClientProps) {
               onKeyDown={(e) => {
                 if (e.key === "Escape") closeSearch();
               }}
-              className="w-full rounded-xl border border-line/50 bg-white py-2.5 pl-10 pr-4 text-sm font-medium text-black transition focus:outline-none focus:ring-2 focus:ring-accent/40 placeholder:text-black/40"
+              className="w-full rounded-xl border border-line/70 bg-white py-2.5 pl-10 pr-4 text-sm font-medium text-black transition focus:outline-none focus:ring-2 focus:ring-accent/40 placeholder:text-black/40"
             />
           </div>
           <button
