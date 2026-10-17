@@ -19,7 +19,7 @@ export default function CategoryCarousels({ parts, selectedCategory }: CategoryC
   // Group products by kategori
   const productsByCategory = PARTS_CATEGORIES.reduce(
     (acc, category) => {
-      acc[category] = parts.filter((p) => p.kategori === category);
+      acc[category] = parts.filter((p) => p.kategori.includes(category));
       return acc;
     },
     {} as Record<string, Part[]>

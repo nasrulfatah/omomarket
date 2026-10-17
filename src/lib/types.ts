@@ -166,20 +166,24 @@ export function warnaToHex(warna: OmowayWarna): string {
 
 // Parts/Accessories categories
 export const PARTS_CATEGORIES = [
-  "Battery",
-  "Charger & Cable",
-  "Tires & Wheels",
-  "Lights & Electrical",
-  "Interior Accessories",
-  "Exterior Accessories",
-  "Maintenance & Tools",
-  "Covers & Protection",
+  "Baterai",
+  "Charger & Kabel",
+  "Ban & Velg",
+  "Lampu & Klakson",
+  "Elektronik",
+  "Aksesoris Interior",
+  "Aksesoris Eksterior",
+  "Bracket & Crashbar",
+  "Perkakas & Alat Servis",
+  "Cover & Protection",
   "Spare Parts",
   "Cleaning & Care",
   "Helm & Riding Gear",
-  "Gadget Mount",
-  "Bags & Storage",
-  "License Plate",
+  "Apparel",
+  "Phone Holder",
+  "Tas & Box",
+  "Plat & Dudukan",
+  "Lainnya",
 ] as const;
 
 export type PartCategory = (typeof PARTS_CATEGORIES)[number];
@@ -191,7 +195,7 @@ export interface Part {
   id: string;
   nama: string;
   harga: number;
-  kategori: PartCategory;
+  kategori: PartCategory[];
   deskripsi: string;
   gambar: string; // comma-separated URLs
   shopeeLink: string;

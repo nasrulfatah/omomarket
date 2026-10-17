@@ -69,7 +69,7 @@ export default function PartsGrid({ parts, selectedCategory, searchQuery }: Part
 
   const filteredParts = useMemo(() => {
     return parts.filter((part) => {
-      const categoryMatch = selectedCategory === "all" || part.kategori === selectedCategory;
+      const categoryMatch = selectedCategory === "all" || part.kategori.includes(selectedCategory as PartCategory);
       const priceMatch = part.harga >= minPrice && part.harga <= maxPrice;
       const searchMatch = part.nama.toLowerCase().includes(searchQuery.toLowerCase());
       return categoryMatch && priceMatch && searchMatch;

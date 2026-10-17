@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="jacket" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#334155"/>
+      <stop offset="1" stop-color="#0f172a"/>
+    </linearGradient>
+  </defs>
+  <path d="M22 8 L12 12 L4 26 L12 30 L16 24 L16 56 L48 56 L48 24 L52 30 L60 26 L52 12 L42 8 Q32 16 22 8 Z" fill="url(#jacket)"/>
+  <path d="M22 8 L28 20 L32 14 L36 20 L42 8" fill="none" stroke="#64748b" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M32 18 L32 56" stroke="#f97316" stroke-width="2.5"/>
+  <rect x="16" y="30" width="32" height="2.5" rx="1" fill="#f97316" opacity="0.9"/>
+  <path d="M12 12 L16 24" stroke="#f97316" stroke-width="2"/>
+  <path d="M52 12 L48 24" stroke="#f97316" stroke-width="2"/>
+  <rect x="20" y="40" width="9" height="5" rx="1" fill="#64748b"/>
+  <rect x="35" y="40" width="9" height="5" rx="1" fill="#64748b"/>
+</svg>

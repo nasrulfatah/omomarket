@@ -4,6 +4,24 @@ Semua perubahan penting pada project ini dicatat di file ini, supaya mudah melac
 
 Format: `## [versi] - tanggal` diikuti ringkasan perubahan dan commit hash terkait.
 
+## [1.4.15] - 2026-10-16
+- Kategori "Lights & Electrical" diganti menjadi "Lights & Sounds", dan kategori baru "Electronics" ditambahkan.
+- Produk di Sheets yang sebelumnya "Lights & Electrical" (intercom dan smart plug) dipindah ke "Electronics".
+- Urutan chip filter kategori di halaman /search mengikuti urutan menu kategori homepage. Semua dan Populer tetap di depan. Logika urutan dipindah ke `src/lib/categoryOrder.ts`.
+- Urutan kartu kategori di homepage sekarang mengikuti jumlah produk terbanyak, dihitung dinamis. "Lainnya" selalu di urutan terakhir.
+- Kategori "Covers & Protection" diganti menjadi "Cover & Protection" (termasuk 26 baris di Sheets).
+- Ikon Apparel diganti menjadi jaket motor, ikon Aksesoris Interior menjadi kursi, dan ikon Aksesoris Eksterior menjadi top box.
+- Ikon kategori Aksesoris Eksterior, Covers & Protection, dan Cleaning & Care diganti dengan SVG khusus.
+- Ikon kategori Ban & Velg, Spare Parts, dan Phone Holder diganti dengan SVG khusus.
+- Ikon kategori Bracket & Crashbar dan Apparel diganti dengan SVG khusus (rangka crashbar dan jaket).
+- Nama kategori diganti ke Bahasa Indonesia: Baterai, Charger & Kabel, Ban & Velg, Lampu & Klakson, Elektronik, Aksesoris Interior, Aksesoris Eksterior, Bracket & Crashbar, Perkakas & Alat Servis, Covers & Protection, Spare Parts, Cleaning & Care, Helm & Riding Gear, Apparel, Phone Holder, Tas & Box, Plat & Dudukan, Lainnya. Data di Sheets (70 baris) ikut diperbarui.
+- Kategori "Others" ditambahkan. Kartu "Semua" di menu kategori homepage dihapus.
+- Kategori baru "Apparel" ditambahkan (belum ada produk; ikon sementara memakai ikon Helm & Riding Gear).
+- Kategori baru "Bracket & Crashbar" ditambahkan. Produk bracket yang sudah ada (10 baris di Sheets) diberi kategori ini sekaligus dengan Exterior Accessories.
+- Ikon kategori Electronics memakai SVG colokan (`public/icons/categories/electronics.svg`) menggantikan emoji sementara.
+- Satu produk sekarang bisa punya beberapa kategori. Di Sheets disimpan dipisah koma, dan form admin memakai checkbox.
+- Filter kategori, carousel, dan hasil pencarian mencocokkan produk yang memiliki kategori tersebut.
+
 ## [1.4.14] - 2026-10-15
 - Halaman kategori dan hasil pencarian digabung menjadi satu halaman `/search`, dengan parameter `kategori` (slug atau `popular`) dan `q` yang bisa dipakai bersamaan.
 - Hapus route `/categories/[slug]` dan `/popular`; link "Lihat Semua" sekarang mengarah ke `/search?kategori=...`.

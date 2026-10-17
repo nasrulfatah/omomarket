@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Part, PARTS_CATEGORIES, categoryToSlug } from "@/lib/types";
+import { Part, PartCategory, categoryToSlug } from "@/lib/types";
 import PartCard from "./PartCard";
 import CategoryChipRow from "./CategoryChipRow";
 
@@ -9,12 +9,13 @@ interface ProductListPageProps {
   items: Part[];
   query: string;
   kategori: string;
+  categoryOrder: PartCategory[];
 }
 
-const CATEGORY_OPTIONS = [
+const buildCategoryOptions = (order: PartCategory[]) => [
   { label: "Semua", slug: "" },
   { label: "Populer", slug: "popular" },
-  ...PARTS_CATEGORIES.map((c) => ({ label: c, slug: categoryToSlug(c) })),
+  ...order.map((c) => ({ label: c, slug: categoryToSlug(c) })),
 ];
 
 const buildSearchHref = (query: string, kategori: string) => {
@@ -25,7 +26,7 @@ const buildSearchHref = (query: string, kategori: string) => {
   return qs ? `/search?${qs}` : "/search";
 };
 
-export default function ProductListPage({ title, subtitle, items, query, kategori }: ProductListPageProps) {
+export default function ProductListPage({ title, subtitle, items, query, kategori, categoryOrder }: ProductListPageProps) {
   return (
     <div>
       <section className="bg-white">
@@ -76,7 +77,7 @@ export default function ProductListPage({ title, subtitle, items, query, kategor
           </form>
 
           <CategoryChipRow
-            options={CATEGORY_OPTIONS.map((opt) => ({
+            options={buildCategoryOptions(categoryOrder).map((opt) => ({
               key: opt.slug || "all",
               label: opt.label,
               href: buildSearchHref(query, opt.slug),

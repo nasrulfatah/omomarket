@@ -105,7 +105,10 @@ export async function getAllParts(): Promise<Part[]> {
             id: randomUUID(),
             nama: nama || "",
             harga: parseInt(hargaStr?.replace(/[^\d]/g, "") || "0") || 0,
-            kategori: (kategori || "") as PartCategory,
+            kategori: (kategori || "")
+              .split(",")
+              .map((c: string) => c.trim())
+              .filter(Boolean) as PartCategory[],
             deskripsi: deskripsi || "",
             gambar: gambar || "",
             shopeeLink: shopeeLink || "",

@@ -1,5 +1,6 @@
 import { getAllParts } from "@/lib/store";
 import { PARTS_CATEGORIES, categoryToSlug, Part } from "@/lib/types";
+import { orderCategories } from "@/lib/categoryOrder";
 import ProductListPage from "@/components/ProductListPage";
 
 export const dynamic = "force-dynamic";
@@ -24,7 +25,7 @@ export default async function SearchPage({
   } else if (kategori) {
     const category = PARTS_CATEGORIES.find((c) => categoryToSlug(c) === kategori);
     categoryTitle = category ?? "";
-    items = category ? allParts.filter((p) => p.kategori === category) : [];
+    items = category ? allParts.filter((p) => p.kategori.includes(category)) : [];
   }
 
   if (query) {
@@ -35,6 +36,13 @@ export default async function SearchPage({
   const subtitle = query && categoryTitle ? `di ${categoryTitle}` : undefined;
 
   return (
-    <ProductListPage title={title} subtitle={subtitle} items={items} query={query} kategori={kategori} />
+    <ProductListPage
+      title={title}
+      subtitle={subtitle}
+      items={items}
+      query={query}
+      kategori={kategori}
+      categoryOrder={orderCategories(allParts)}
+    />
   );
 }

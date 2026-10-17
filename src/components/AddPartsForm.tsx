@@ -7,7 +7,7 @@ export default function AddPartsForm() {
   const [formData, setFormData] = useState({
     nama: "",
     harga: "",
-    kategori: "Battery" as PartCategory,
+    kategori: [] as PartCategory[],
     deskripsi: "",
     shopeeLink: "",
     gambar: "",
@@ -18,6 +18,15 @@ export default function AddPartsForm() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+
+  const toggleKategori = (cat: PartCategory) => {
+    setFormData((prev) => ({
+      ...prev,
+      kategori: prev.kategori.includes(cat)
+        ? prev.kategori.filter((c) => c !== cat)
+        : [...prev.kategori, cat],
+    }));
+  };
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -124,6 +133,11 @@ export default function AddPartsForm() {
       return;
     }
 
+    if (formData.kategori.length === 0) {
+      setError("Pilih minimal satu kategori");
+      return;
+    }
+
     setIsLoading(true);
 
     try {
@@ -135,7 +149,7 @@ export default function AddPartsForm() {
         [
           formData.nama,
           formData.harga,
-          formData.kategori,
+          formData.kategori.join(", "),
           formData.deskripsi,
           formData.gambar,
           formData.shopeeLink,
@@ -163,7 +177,7 @@ export default function AddPartsForm() {
       setFormData({
         nama: "",
         harga: "",
-        kategori: "Battery",
+        kategori: [],
         deskripsi: "",
         shopeeLink: "",
         gambar: "",
@@ -262,22 +276,28 @@ export default function AddPartsForm() {
 
       {/* Kategori */}
       <div>
-        <label htmlFor="kategori" className="block text-sm font-medium text-black mb-2">
-          Kategori *
-        </label>
-        <select
-          id="kategori"
-          name="kategori"
-          value={formData.kategori}
-          onChange={handleInputChange}
-          className="w-full px-4 py-2 border border-line/50 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-accent/40"
-        >
-          {PARTS_CATEGORIES.map((cat) => (
-            <option key={cat} value={cat}>
-              {cat}
-            </option>
-          ))}
-        </select>
+        <p className="block text-sm font-medium text-black mb-2">Kategori * <span className="text-xs text-black/50">(bisa pilih lebih dari satu)</span></p>
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+          {PARTS_CATEGORIES.map((cat) => {
+            const checked = formData.kategori.includes(cat);
+            return (
+              <label
+                key={cat}
+                className={`flex cursor-pointer items-center gap-2 rounded-lg border px-3 py-2 text-sm transition ${
+                  checked ? "border-accent bg-accent/10 font-semibold" : "border-line/50 text-black/70 hover:border-accent/50"
+                }`}
+              >
+                <input
+                  type="checkbox"
+                  checked={checked}
+                  onChange={() => toggleKategori(cat)}
+                  className="accent-accent"
+                />
+                {cat}
+              </label>
+            );
+          })}
+        </div>
       </div>
 
       {/* Deskripsi - auto-fill dari scraping */}

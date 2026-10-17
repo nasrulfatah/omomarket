@@ -22,7 +22,7 @@ export default function PartsFilter({ parts, categories }: PartsFilterProps) {
 
   const filteredParts = useMemo(() => {
     return parts.filter((part) => {
-      const categoryMatch = selectedCategory === "all" || part.kategori === selectedCategory;
+      const categoryMatch = selectedCategory === "all" || part.kategori.includes(selectedCategory as PartCategory);
       const priceMatch = part.harga <= maxPrice;
       return categoryMatch && priceMatch;
     });

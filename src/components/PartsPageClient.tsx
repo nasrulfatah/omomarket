@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { Part, formatRupiah } from "@/lib/types";
 import CategoryCardsGrid from "./CategoryCardsGrid";
+import { orderCategories } from "@/lib/categoryOrder";
 import PartsGrid from "./PartsGrid";
 
 interface PartsPageClientProps {
@@ -91,7 +92,7 @@ export default function PartsPageClient({ parts }: PartsPageClientProps) {
                         </div>
                         <div className="min-w-0 flex-1">
                           <p className="truncate text-sm font-semibold text-black">{part.nama}</p>
-                          <p className="text-xs text-black/50">{part.kategori}</p>
+                          <p className="text-xs text-black/50">{part.kategori.join(", ")}</p>
                         </div>
                         <p className="flex-shrink-0 text-sm font-bold text-accent">{formatRupiah(part.harga)}</p>
                       </a>
@@ -112,7 +113,7 @@ export default function PartsPageClient({ parts }: PartsPageClientProps) {
         )}
       </form>
 
-      <CategoryCardsGrid />
+      <CategoryCardsGrid ordered={orderCategories(parts)} />
       <PartsGrid parts={parts} selectedCategory="all" searchQuery={searchQuery} />
     </>
   );

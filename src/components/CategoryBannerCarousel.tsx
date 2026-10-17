@@ -12,19 +12,19 @@ interface PromoConfig {
 
 const PROMO_CONFIG: PromoConfig[] = [
   {
-    category: "Battery",
+    category: "Baterai",
     tag: "#BATTERYPROMO",
     bgGradient: "from-blue-400 via-blue-500 to-blue-600",
     discount: "600rb",
   },
   {
-    category: "Charger & Cable",
+    category: "Charger & Kabel",
     tag: "#CHARGERPROMO",
     bgGradient: "from-yellow-400 via-yellow-500 to-amber-600",
     discount: "500rb",
   },
   {
-    category: "Tires & Wheels",
+    category: "Ban & Velg",
     tag: "#TIRESALE",
     bgGradient: "from-red-400 via-red-500 to-red-600",
     discount: "1.2juta",
@@ -37,7 +37,7 @@ interface CategoryBannerCarouselProps {
 
 export default function CategoryBannerCarousel({ parts }: CategoryBannerCarouselProps) {
   const slides = PROMO_CONFIG.map((promo) => {
-    const matchingPart = parts.find((p) => p.kategori === promo.category);
+    const matchingPart = parts.find((p) => p.kategori.includes(promo.category));
     return matchingPart ? { ...promo, part: matchingPart } : null;
   }).filter((s): s is PromoConfig & { part: Part } => s !== null);
 
