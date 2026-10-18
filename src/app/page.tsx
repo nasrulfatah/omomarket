@@ -1,5 +1,4 @@
 import { getAllParts } from "@/lib/store";
-import CategoryBannerCarousel from "@/components/CategoryBannerCarousel";
 import PartsPageClient from "@/components/PartsPageClient";
 
 export const dynamic = "force-dynamic";
@@ -18,9 +17,6 @@ export default async function Home() {
               Omo Recommended Accessories
             </h1>
           </div>
-
-          {/* Banner Carousel */}
-          <CategoryBannerCarousel parts={allParts} />
 
           {/* Category Cards + Filtered Products */}
           <PartsPageClient parts={allParts} />

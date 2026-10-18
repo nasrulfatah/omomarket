@@ -4,6 +4,13 @@ Semua perubahan penting pada project ini dicatat di file ini, supaya mudah melac
 
 Format: `## [versi] - tanggal` diikuti ringkasan perubahan dan commit hash terkait.
 
+## [1.4.16] - 2026-10-18
+- Ikon Aksesoris Interior diganti menjadi siluet jok motor.
+- Harga (harga terendah) dan gambar produk di Sheets diperbarui dari OMOWAY_Shopee_Database.xlsx. Link pendek tidak diubah.
+- Posisi homepage diubah: search box sekarang di atas banner promo.
+- Sheets disinkronkan dengan daftar OMOWAY Perks: 72 baris duplikat dihapus sehingga tiap produk unik, dan 12 produk baru ditambahkan (Stopper Dashboard, Cover Port Charger V1, Ceramic Spray Coating (Sonax), Matte Shampoo, Matte Protection, Ultra Matte Treatment, Handle Rem JRP & KYTA, Gear Oil, Tas Depan Jok INZTA & Motowolf, Bar Extender Stang). Harga masih 0.
+- Multikategori diterapkan ke 58 baris di Sheets untuk produk yang cocok di dua kategori (misalnya tas charger, smart plug, intercom, screen protector, blower).
+
 ## [1.4.15] - 2026-10-16
 - Kategori "Lights & Electrical" diganti menjadi "Lights & Sounds", dan kategori baru "Electronics" ditambahkan.
 - Produk di Sheets yang sebelumnya "Lights & Electrical" (intercom dan smart plug) dipindah ke "Electronics".

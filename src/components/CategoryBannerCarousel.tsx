@@ -73,7 +73,7 @@ export default function CategoryBannerCarousel({ parts }: CategoryBannerCarousel
   const image = slide.part.gambar.split(",")[0]?.trim();
 
   return (
-    <div className="mb-10">
+    <div className="mb-6">
       <div
         className="relative rounded-2xl shadow-lg"
         onMouseEnter={() => setShowChevrons(true)}
@@ -112,11 +112,13 @@ export default function CategoryBannerCarousel({ parts }: CategoryBannerCarousel
 
             {/* Right Product Image */}
             <div className="hidden sm:flex flex-1 items-center justify-end h-full py-4">
-              <img
-                src={image}
-                alt={slide.part.nama}
-                className="max-h-full max-w-[85%] object-contain rounded-xl shadow-2xl"
-              />
+              {image && (
+                <img
+                  src={image}
+                  alt={slide.part.nama}
+                  className="max-h-full max-w-[85%] object-contain rounded-xl shadow-2xl"
+                />
+              )}
             </div>
           </div>
 

@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { Part, formatRupiah } from "@/lib/types";
 import CategoryCardsGrid from "./CategoryCardsGrid";
+import CategoryBannerCarousel from "./CategoryBannerCarousel";
 import { orderCategories } from "@/lib/categoryOrder";
 import PartsGrid from "./PartsGrid";
 
@@ -112,6 +113,8 @@ export default function PartsPageClient({ parts }: PartsPageClientProps) {
           </div>
         )}
       </form>
+
+      <CategoryBannerCarousel parts={parts} />
 
       <CategoryCardsGrid ordered={orderCategories(parts)} />
       <PartsGrid parts={parts} selectedCategory="all" searchQuery={searchQuery} />
