@@ -117,6 +117,9 @@ export async function getAllParts(): Promise<Part[]> {
         };
       })
       .filter(({ part }) => part.nama)
+      // Hanya produk berstatus Publish yang tampil di web. Status lain
+      // (Draft, kosong, dll.) disembunyikan.
+      .filter(({ index }) => (rows[index]?.[6] || "").trim().toLowerCase() === "publish")
       .sort((a, b) => b.index - a.index)
       .map(({ part }) => part);
 

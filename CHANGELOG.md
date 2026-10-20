@@ -4,6 +4,9 @@ Semua perubahan penting pada project ini dicatat di file ini, supaya mudah melac
 
 Format: `## [versi] - tanggal` diikuti ringkasan perubahan dan commit hash terkait.
 
+## [1.4.17] - 2026-10-20
+- Produk di sheet Accessories hanya tampil di web jika statusnya Publish. Status lain (Draft, kosong, dll.) disembunyikan dari homepage, /search, dan /accessories.
+
 ## [1.4.16] - 2026-10-18
 - Ikon Aksesoris Interior diganti menjadi siluet jok motor.
 - Harga (harga terendah) dan gambar produk di Sheets diperbarui dari OMOWAY_Shopee_Database.xlsx. Link pendek tidak diubah.
