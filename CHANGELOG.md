@@ -4,6 +4,9 @@ Semua perubahan penting pada project ini dicatat di file ini, supaya mudah melac
 
 Format: `## [versi] - tanggal` diikuti ringkasan perubahan dan commit hash terkait.
 
+## [1.4.19] - 2026-10-25
+- Halaman /accessories disamakan dengan homepage: judul, badge, dan subjudul dihapus. Banner dirender lewat PartsPageClient seperti di homepage, sehingga banner tidak tampil dua kali.
+
 ## [1.4.18] - 2026-10-24
 - Banner kategori di homepage: latar belakang kini memakai gambar produk yang diperbesar dan di-blur, dengan overlay gelap. Gradien warna hanya dipakai jika tidak ada gambar.
 - Gambar produk di banner dibuat lebih kecil di mobile (40% lebar) dan ditampilkan juga di layar kecil, sebelumnya tersembunyi.
