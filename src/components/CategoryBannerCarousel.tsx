@@ -80,7 +80,32 @@ export default function CategoryBannerCarousel({ parts }: CategoryBannerCarousel
         onMouseLeave={() => setShowChevrons(false)}
       >
         {/* Main Carousel Slide - Fixed aspect ratio across all screens */}
-        <div className={`relative aspect-[16/5] rounded-2xl bg-gradient-to-br ${slide.bgGradient} overflow-hidden`}>
+        <div className={`relative aspect-[16/5] rounded-2xl overflow-hidden ${image ? "bg-gray-200" : `bg-gradient-to-br ${slide.bgGradient}`}`}>
+          {image && (
+            <>
+              {/* Background blur: gambar produk diperbesar dan di-blur berat */}
+              <img
+                src={image}
+                alt=""
+                aria-hidden="true"
+                className="absolute inset-0 w-full h-full object-cover scale-125 blur-xl"
+              />
+              {/* Blur makin kecil mendekati gambar produk (mask radial di sisi kanan) */}
+              <img
+                src={image}
+                alt=""
+                aria-hidden="true"
+                className="absolute inset-0 w-full h-full object-cover scale-125 blur-[3px]"
+                style={{
+                  maskImage: "radial-gradient(circle at 80% 50%, black 0%, transparent 55%)",
+                  WebkitMaskImage: "radial-gradient(circle at 80% 50%, black 0%, transparent 55%)",
+                }}
+              />
+              {/* Overlay gelap netral agar banner lebih gelap */}
+              <div className="absolute inset-0 bg-black/35" />
+            </>
+          )}
+
           {/* Decorative gradient circles for visual interest */}
           <div className="absolute -top-32 -right-32 w-96 h-96 bg-white/10 rounded-full blur-3xl" />
           <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-white/10 rounded-full blur-3xl" />
@@ -88,7 +113,7 @@ export default function CategoryBannerCarousel({ parts }: CategoryBannerCarousel
           {/* Content Container */}
           <div className="relative h-full flex items-center px-4 sm:px-8 lg:px-12 pb-3 sm:pb-0 z-10">
             {/* Left Content */}
-            <div className="flex-1 text-white">
+            <div className="flex-1 min-w-0 text-white">
               {/* Tag Badge */}
               <div className="inline-block bg-white/25 backdrop-blur-sm px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-[9px] sm:text-xs font-bold mb-1 sm:mb-4">
                 {slide.tag}
@@ -111,12 +136,12 @@ export default function CategoryBannerCarousel({ parts }: CategoryBannerCarousel
             </div>
 
             {/* Right Product Image */}
-            <div className="hidden sm:flex flex-1 items-center justify-end h-full py-4">
+            <div className="flex w-[40%] sm:w-auto sm:flex-1 shrink-0 items-center justify-end h-full py-2 sm:py-4">
               {image && (
                 <img
                   src={image}
                   alt={slide.part.nama}
-                  className="max-h-full max-w-[85%] object-contain rounded-xl shadow-2xl"
+                  className="max-h-full max-w-[85%] object-contain rounded-lg sm:rounded-xl shadow-2xl"
                 />
               )}
             </div>

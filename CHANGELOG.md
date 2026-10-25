@@ -4,6 +4,10 @@ Semua perubahan penting pada project ini dicatat di file ini, supaya mudah melac
 
 Format: `## [versi] - tanggal` diikuti ringkasan perubahan dan commit hash terkait.
 
+## [1.4.18] - 2026-10-24
+- Banner kategori di homepage: latar belakang kini memakai gambar produk yang diperbesar dan di-blur, dengan overlay gelap. Gradien warna hanya dipakai jika tidak ada gambar.
+- Gambar produk di banner dibuat lebih kecil di mobile (40% lebar) dan ditampilkan juga di layar kecil, sebelumnya tersembunyi.
+
 ## [1.4.17] - 2026-10-20
 - Produk di sheet Accessories hanya tampil di web jika statusnya Publish. Status lain (Draft, kosong, dll.) disembunyikan dari homepage, /search, dan /accessories.
 
