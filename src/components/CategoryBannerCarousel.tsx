@@ -1,13 +1,12 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Part, PartCategory } from "@/lib/types";
+import { Part, PartCategory, formatRupiah } from "@/lib/types";
 
 interface PromoConfig {
   category: PartCategory;
   tag: string;
   bgGradient: string;
-  discount: string;
 }
 
 const PROMO_CONFIG: PromoConfig[] = [
@@ -15,19 +14,16 @@ const PROMO_CONFIG: PromoConfig[] = [
     category: "Baterai",
     tag: "#BATTERYPROMO",
     bgGradient: "from-blue-400 via-blue-500 to-blue-600",
-    discount: "600rb",
   },
   {
     category: "Charger & Kabel",
     tag: "#CHARGERPROMO",
     bgGradient: "from-yellow-400 via-yellow-500 to-amber-600",
-    discount: "500rb",
   },
   {
     category: "Ban & Velg",
     tag: "#TIRESALE",
     bgGradient: "from-red-400 via-red-500 to-red-600",
-    discount: "1.2juta",
   },
 ];
 
@@ -193,13 +189,13 @@ export default function CategoryBannerCarousel({ parts }: CategoryBannerCarousel
               </span>
             </>
           ) : (
-            /* Subtitle + Discount */
+            /* Price */
             <div className="bg-white/20 backdrop-blur-sm rounded-lg sm:rounded-xl px-2 sm:px-6 py-0.5 sm:py-4 inline-block">
               <p className="text-[8px] sm:text-base font-medium text-white/90 mb-0 sm:mb-1 leading-tight">
-                Diskon s.d.
+                Harga
               </p>
               <p className="text-xs sm:text-3xl lg:text-4xl font-bold text-white leading-tight">
-                {slide.discount}
+                {formatRupiah(slide.part.harga)}
               </p>
             </div>
           )}

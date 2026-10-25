@@ -4,6 +4,9 @@ Semua perubahan penting pada project ini dicatat di file ini, supaya mudah melac
 
 Format: `## [versi] - tanggal` diikuti ringkasan perubahan dan commit hash terkait.
 
+## [1.4.23] - 2026-10-26
+- Kotak "Diskon s.d." di banner kategori diganti menjadi "Harga" dengan harga produk yang tampil di slide (dari data produk, bukan angka diskon tetap).
+
 ## [1.4.22] - 2026-10-25
 - Banner Channel WhatsApp dipercantik: gradien gelap ke hijau Omo, cincin hijau di belakang motor, dan watermark logo WhatsApp.
 - Ditambahkan logo WhatsApp di badge, tombol "Gabung Sekarang", dan ikon di latar.
