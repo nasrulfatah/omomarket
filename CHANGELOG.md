@@ -4,6 +4,18 @@ Semua perubahan penting pada project ini dicatat di file ini, supaya mudah melac
 
 Format: `## [versi] - tanggal` diikuti ringkasan perubahan dan commit hash terkait.
 
+## [1.4.22] - 2026-10-25
+- Banner Channel WhatsApp dipercantik: gradien gelap ke hijau Omo, cincin hijau di belakang motor, dan watermark logo WhatsApp.
+- Ditambahkan logo WhatsApp di badge, tombol "Gabung Sekarang", dan ikon di latar.
+- Informasi ditambah: deskripsi channel dan tiga kategori (Aksesoris, Modifikasi, Sparepart) di layar sedang ke atas.
+
+## [1.4.21] - 2026-10-25
+- Banner pertama di carousel kategori sekarang berisi undangan ke Channel WhatsApp "Racun Omo" (update aksesoris, modifikasi, dan sparepart untuk Omoway). Latar gelap dengan aksen hijau Omo dan foto Omoway Aurora Green. Klik banner membuka https://whatsapp.com/channel/0029VbDVLsY9sBIGIpFeQi0X di tab baru.
+- Dots navigasi dipindah keluar dari area link agar klik dot tidak membuka WhatsApp.
+
+## [1.4.20] - 2026-10-25
+- Judul produk di banner kategori sekarang bisa tampil sampai 2 baris (sebelumnya dipotong jadi 1 baris).
+
 ## [1.4.19] - 2026-10-25
 - Halaman /accessories disamakan dengan homepage: judul, badge, dan subjudul dihapus. Banner dirender lewat PartsPageClient seperti di homepage, sehingga banner tidak tampil dua kali.
 
