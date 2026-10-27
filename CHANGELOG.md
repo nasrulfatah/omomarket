@@ -4,6 +4,12 @@ Semua perubahan penting pada project ini dicatat di file ini, supaya mudah melac
 
 Format: `## [versi] - tanggal` diikuti ringkasan perubahan dan commit hash terkait.
 
+## [1.4.36] - 2026-10-28
+- Banner install tidak muncul lagi di browser Android/Chrome setelah aplikasi pernah dibuka dari layar utama (penanda `webappInstalled` di localStorage). Di iPhone/Safari belum tercakup, karena penyimpanan aplikasi layar utama terpisah dari Safari.
+
+## [1.4.35] - 2026-10-28
+- Banner install aplikasi yang ditutup sekarang muncul lagi keesokan harinya (sebelumnya tidak pernah muncul lagi).
+
 ## [1.4.34] - 2026-10-28
 - Perbaikan tag Hot: penghitungan klik membaca kolom Timestamp, bukan kolom Nama, sehingga produk yang sudah diklik belum pernah ditandai Hot.
 
