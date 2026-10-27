@@ -100,8 +100,9 @@ async function getHotProductNames(): Promise<Set<string>> {
   const rows = await getClickRows();
   const counts = new Map<string, number>();
 
-  for (const [nama] of rows) {
-    const key = (nama || "").trim().toLowerCase();
+  // Kolom: Timestamp (A), Nama (B)
+  for (const row of rows) {
+    const key = (row[1] || "").trim().toLowerCase();
     if (key) counts.set(key, (counts.get(key) || 0) + 1);
   }
 
