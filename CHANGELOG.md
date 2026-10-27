@@ -4,6 +4,24 @@ Semua perubahan penting pada project ini dicatat di file ini, supaya mudah melac
 
 Format: `## [versi] - tanggal` diikuti ringkasan perubahan dan commit hash terkait.
 
+## [1.4.32] - 2026-10-28
+- Ditambahkan web app manifest (`src/app/manifest.ts`), ikon 192 dan 512 (`public/icons/`), dan service worker minimal (`public/sw.js`) agar aplikasi bisa di-install.
+- Banner sticky di bawah khusus HP untuk install aplikasi: tombol "Install" di Android/Chrome, dan petunjuk "Tambah ke Layar Utama" di iPhone. Bisa ditutup dan tidak muncul lagi setelahnya. Tidak muncul jika aplikasi sudah terpasang.
+
+## [1.4.31] - 2026-10-28
+- Tombol panah carousel banner disembunyikan di layar kecil (di bawah 640px). Sebelumnya tombol kanan keluar sedikit dari layar HP dan memunculkan scrollbar horizontal saat di-scroll.
+
+## [1.4.30] - 2026-10-28
+- Judul dan deskripsi Open Graph serta Twitter Card diubah menjadi "Omomarket — Pusatnya Racun Omo" dan "Pusat Racun Omo: Rekomendasi aksesoris, modifikasi & part Omo terlengkap." (`src/lib/seo.ts`). Berlaku untuk semua halaman, termasuk halaman produk.
+- Halaman /catalog tetap memakai judul dan deskripsi lama.
+
+## [1.4.29] - 2026-10-28
+- Klik di area mana pun pada card produk membuka link Shopee (di tab baru). Tombol panah, dot gambar, dan tombol "Beli" tetap berfungsi sendiri.
+
+## [1.4.28] - 2026-10-28
+- Warna label New diubah menjadi kuning agak oranye (amber).
+- Warna label Recommended diubah menjadi hijau.
+
 ## [1.4.27] - 2026-10-28
 - Gambar Open Graph dan Twitter Card untuk semua halaman diganti dengan banner "Pusatnya Racun Omo" (`src/app/opengraph-image.png` dan `src/app/twitter-image.png`).
 - Gambar OG yang dibuat otomatis per halaman (root, `produk/[id]`, dan `[slug]`) dihapus, sehingga semua halaman memakai gambar yang sama.

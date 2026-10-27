@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getListingByIndex } from "@/lib/store";
+import { OG_DESCRIPTION, OG_TITLE } from "@/lib/seo";
 import OmowayImage from "@/components/OmowayImage";
 import POBenefits from "@/components/POBenefits";
 import VerifiedBadge from "@/components/VerifiedBadge";
@@ -27,6 +28,8 @@ export async function generateMetadata({
 
   return {
     openGraph: {
+      title: OG_TITLE,
+      description: OG_DESCRIPTION,
       url: productUrl,
     },
   };
