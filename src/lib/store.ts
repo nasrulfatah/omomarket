@@ -1,5 +1,5 @@
 import { randomUUID } from "crypto";
-import { getSheetData, getPartsSheetData } from "./google";
+import { getSheetData, getPartsSheetData, getClickRows } from "./google";
 import type { Listing, Part, PartCategory } from "./types";
 
 export async function getAllListings(): Promise<Listing[]> {
@@ -91,13 +91,35 @@ export async function addListing(
   return listing;
 }
 
+// Nilai di kolom "Recommended" yang dianggap ya (tidak peka huruf besar/kecil)
+const RECOMMENDED_VALUES = /^(ya|yes|true|1|x|✓)$/i;
+const HOT_PRODUCT_COUNT = 20;
+
+// 20 produk dengan jumlah klik "Beli" terbanyak, dicocokkan lewat nama produk
+async function getHotProductNames(): Promise<Set<string>> {
+  const rows = await getClickRows();
+  const counts = new Map<string, number>();
+
+  for (const [nama] of rows) {
+    const key = (nama || "").trim().toLowerCase();
+    if (key) counts.set(key, (counts.get(key) || 0) + 1);
+  }
+
+  return new Set(
+    [...counts.entries()]
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, HOT_PRODUCT_COUNT)
+      .map(([key]) => key)
+  );
+}
+
 export async function getAllParts(): Promise<Part[]> {
   try {
     const rows = await getPartsSheetData();
 
     const parts: Part[] = rows
       .map((row, index) => {
-        const [nama, hargaStr, kategori, deskripsi, gambar, shopeeLink, status, createdAt] = row;
+        const [nama, hargaStr, kategori, deskripsi, gambar, shopeeLink, status, createdAt, recommended] = row;
 
         return {
           index,
@@ -113,6 +135,8 @@ export async function getAllParts(): Promise<Part[]> {
             gambar: gambar || "",
             shopeeLink: shopeeLink || "",
             createdAt: createdAt || new Date().toISOString(),
+            recommended: RECOMMENDED_VALUES.test((recommended || "").trim()),
+            hot: false,
           },
         };
       })
@@ -123,7 +147,11 @@ export async function getAllParts(): Promise<Part[]> {
       .sort((a, b) => b.index - a.index)
       .map(({ part }) => part);
 
-    return parts;
+    const hotNames = await getHotProductNames();
+    return parts.map((part) => ({
+      ...part,
+      hot: hotNames.has(part.nama.trim().toLowerCase()),
+    }));
   } catch {
     return [];
   }

@@ -82,12 +82,26 @@ export async function getPartsSheetData(): Promise<any[][]> {
   try {
     const response = await sheets.spreadsheets.values.get({
       spreadsheetId: process.env.GOOGLE_SHEETS_ID!,
-      range: "'Accessories'!A2:H",
+      range: "'Accessories'!A2:I",
     });
 
     return response.data.values || [];
   } catch (error) {
     console.error("Error reading Accessories sheet:", error);
+    return [];
+  }
+}
+
+// Riwayat klik "Beli" (kolom: Timestamp, Nama). Tab dibuat otomatis saat klik pertama.
+export async function getClickRows(): Promise<any[][]> {
+  try {
+    const response = await sheets.spreadsheets.values.get({
+      spreadsheetId: process.env.GOOGLE_SHEETS_ID!,
+      range: "'Klik'!A2:B",
+    });
+
+    return response.data.values || [];
+  } catch {
     return [];
   }
 }

@@ -4,6 +4,21 @@ Semua perubahan penting pada project ini dicatat di file ini, supaya mudah melac
 
 Format: `## [versi] - tanggal` diikuti ringkasan perubahan dan commit hash terkait.
 
+## [1.4.27] - 2026-10-28
+- Gambar Open Graph dan Twitter Card untuk semua halaman diganti dengan banner "Pusatnya Racun Omo" (`src/app/opengraph-image.png` dan `src/app/twitter-image.png`).
+- Gambar OG yang dibuat otomatis per halaman (root, `produk/[id]`, dan `[slug]`) dihapus, sehingga semua halaman memakai gambar yang sama.
+
+## [1.4.26] - 2026-10-27
+- Label "Baru" pada produk diganti menjadi "New" (biru, ikon sparkle).
+- Tag baru "Recommended" (kuning, ikon bintang): dibaca dari kolom "Recommended" (kolom I) di sheet Accessories. Nilai Ya/Yes/TRUE/1/X menandai produk.
+- Tag baru "Hot" (merah, ikon api): 20 produk dengan klik "Beli" terbanyak. Setiap klik dicatat ke tab "Klik" lewat `POST /api/track-click`.
+
+## [1.4.25] - 2026-10-26
+- Link "Aksesoris" di navbar sekarang mengarah ke homepage (`/`), bukan `/accessories`.
+
+## [1.4.24] - 2026-10-26
+- Chip Aksesoris / Modifikasi / Sparepart di banner WhatsApp sekarang tampil juga di mobile (ukuran diperkecil).
+
 ## [1.4.23] - 2026-10-26
 - Kotak "Diskon s.d." di banner kategori diganti menjadi "Harga" dengan harga produk yang tampil di slide (dari data produk, bukan angka diskon tetap).
 
