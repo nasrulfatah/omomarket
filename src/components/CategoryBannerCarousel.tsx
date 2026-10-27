@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, type TouchEvent } from "react";
 import { Part, PartCategory, formatRupiah } from "@/lib/types";
 
 interface PromoConfig {
@@ -58,6 +58,7 @@ export default function CategoryBannerCarousel({ parts }: CategoryBannerCarousel
   const [currentIndex, setCurrentIndex] = useState(0);
   const [autoPlay, setAutoPlay] = useState(true);
   const [showChevrons, setShowChevrons] = useState(false);
+  const touchStartX = useRef<number | null>(null);
 
   useEffect(() => {
     if (!autoPlay || slides.length <= 1) return;
@@ -79,6 +80,20 @@ export default function CategoryBannerCarousel({ parts }: CategoryBannerCarousel
     setAutoPlay(false);
     setCurrentIndex((prev) => (prev - 1 + slides.length) % slides.length);
     setAutoPlay(true);
+  };
+
+  // Swipe kiri: slide berikutnya. Swipe kanan: slide sebelumnya.
+  const SWIPE_MIN_DISTANCE = 40;
+  const handleTouchStart = (e: TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+  const handleTouchEnd = (e: TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const dx = e.changedTouches[0].clientX - touchStartX.current;
+    touchStartX.current = null;
+    if (Math.abs(dx) < SWIPE_MIN_DISTANCE || slides.length <= 1) return;
+    if (dx < 0) handleNext();
+    else handlePrev();
   };
 
   const slide = slides[currentIndex];
@@ -232,6 +247,8 @@ export default function CategoryBannerCarousel({ parts }: CategoryBannerCarousel
         className="relative rounded-2xl shadow-lg"
         onMouseEnter={() => setShowChevrons(true)}
         onMouseLeave={() => setShowChevrons(false)}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
       >
         {/* Main Carousel Slide - Fixed aspect ratio across all screens */}
         {isWhatsApp ? (
