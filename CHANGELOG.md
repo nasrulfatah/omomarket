@@ -4,6 +4,9 @@ Semua perubahan penting pada project ini dicatat di file ini, supaya mudah melac
 
 Format: `## [versi] - tanggal` diikuti ringkasan perubahan dan commit hash terkait.
 
+## [1.4.34] - 2026-10-28
+- Perbaikan tag Hot: penghitungan klik membaca kolom Timestamp, bukan kolom Nama, sehingga produk yang sudah diklik belum pernah ditandai Hot.
+
 ## [1.4.33] - 2026-10-28
 - Banner carousel bisa di-swipe di HP: swipe ke kiri pindah ke banner berikutnya, swipe ke kanan ke banner sebelumnya (minimal 40px).
 
