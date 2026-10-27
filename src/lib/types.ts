@@ -200,4 +200,6 @@ export interface Part {
   gambar: string; // comma-separated URLs
   shopeeLink: string;
   createdAt: string;
+  recommended: boolean; // diset manual dari kolom "Recommended" di sheet
+  hot: boolean; // termasuk 20 produk paling banyak diklik
 }

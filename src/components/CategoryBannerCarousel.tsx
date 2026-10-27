@@ -173,11 +173,11 @@ export default function CategoryBannerCarousel({ parts }: CategoryBannerCarousel
               <p className="hidden sm:block mb-4 max-w-md text-sm lg:text-lg text-white/80">
                 Update aksesoris, modifikasi & sparepart yang paling cocok untuk motor Omoway.
               </p>
-              <div className="hidden sm:flex flex-wrap gap-2 mb-5">
+              <div className="flex flex-wrap gap-1 sm:gap-2 mb-1 sm:mb-5">
                 {["Aksesoris", "Modifikasi", "Sparepart"].map((label) => (
                   <span
                     key={label}
-                    className="rounded-full border border-accent/40 bg-accent/10 px-3 py-1 text-xs lg:text-sm font-semibold text-accent"
+                    className="rounded-full border border-accent/40 bg-accent/10 px-1.5 sm:px-3 py-px sm:py-1 text-[7px] sm:text-xs lg:text-sm font-semibold text-accent"
                   >
                     {label}
                   </span>

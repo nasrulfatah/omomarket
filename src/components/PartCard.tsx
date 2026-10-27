@@ -8,6 +8,30 @@ interface PartCardProps {
   part: Part;
 }
 
+type TagKey = "new" | "recommended" | "hot";
+
+const TAG_STYLES: Record<TagKey, string> = {
+  new: "bg-sky-500 text-white",
+  recommended: "bg-amber-400 text-black",
+  hot: "bg-red-500 text-white",
+};
+
+const SPARKLE_PATH = "M12 2l2.4 6.6L21 11l-6.6 2.4L12 20l-2.4-6.6L3 11l6.6-2.4z";
+const STAR_PATH = "M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6-4.9-4.6 6.6-.8z";
+const FLAME_PATH = "M12 2c.5 3.2 3 4.8 3 8.2A3.5 3.5 0 0 1 12 13.7a3.5 3.5 0 0 1-3.5-3.5c0-1 .3-1.9.8-2.7C10 9 11 9.6 11.6 10.4 11.4 7.2 11.3 4.8 12 2z";
+
+const TAG_ICON_PATHS: Record<TagKey, string> = {
+  new: SPARKLE_PATH,
+  recommended: STAR_PATH,
+  hot: FLAME_PATH,
+};
+
+const TAG_LABELS: Record<TagKey, string> = {
+  new: "New",
+  recommended: "Recommended",
+  hot: "Hot",
+};
+
 export default function PartCard({ part }: PartCardProps) {
   const images = (part.gambar || "").split(",").map((url) => url.trim()).filter(Boolean);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -17,6 +41,21 @@ export default function PartCard({ part }: PartCardProps) {
   const hasMultipleImages = images.length > 1;
   const isCurrentImageFailed = failedImages.has(currentImageIndex);
   const isNew = Date.now() - new Date(part.createdAt).getTime() < 14 * 24 * 60 * 60 * 1000;
+  const tags: TagKey[] = [
+    ...(isNew ? (["new"] as TagKey[]) : []),
+    ...(part.recommended ? (["recommended"] as TagKey[]) : []),
+    ...(part.hot ? (["hot"] as TagKey[]) : []),
+  ];
+
+  // Catat klik "Beli" untuk menentukan produk Hot. Tidak menunda pindah ke Shopee.
+  const handleBeliClick = () => {
+    fetch("/api/track-click", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ nama: part.nama }),
+      keepalive: true,
+    }).catch(() => {});
+  };
 
   const goToPrevious = () => {
     setCurrentImageIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
@@ -91,12 +130,20 @@ export default function PartCard({ part }: PartCardProps) {
           </div>
         )}
 
-        {/* New Badge */}
-        {isNew && (
-          <div className="absolute top-3 left-3">
-            <span className="inline-flex items-center rounded-full bg-accent-soft px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-wide text-accent-soft-text">
-              Baru
-            </span>
+        {/* Tags: New, Recommended, Hot */}
+        {tags.length > 0 && (
+          <div className="absolute top-3 left-3 flex flex-wrap gap-1.5">
+            {tags.map((tag) => (
+              <span
+                key={tag}
+                className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-wide shadow-sm ${TAG_STYLES[tag]}`}
+              >
+                <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d={TAG_ICON_PATHS[tag]} />
+                </svg>
+                {TAG_LABELS[tag]}
+              </span>
+            ))}
           </div>
         )}
       </div>
@@ -112,6 +159,7 @@ export default function PartCard({ part }: PartCardProps) {
 
           <a
             href={part.shopeeLink}
+            onClick={handleBeliClick}
             target="_blank"
             rel="noopener noreferrer"
             className="block w-full rounded-full bg-accent px-4 py-2.5 text-center text-sm font-bold text-black transition hover:bg-accent-dark"
