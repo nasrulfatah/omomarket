@@ -11,8 +11,8 @@ interface PartCardProps {
 type TagKey = "new" | "recommended" | "hot";
 
 const TAG_STYLES: Record<TagKey, string> = {
-  new: "bg-sky-500 text-white",
-  recommended: "bg-amber-400 text-black",
+  new: "bg-amber-400 text-black",
+  recommended: "bg-green-500 text-white",
   hot: "bg-red-500 text-white",
 };
 
@@ -70,7 +70,7 @@ export default function PartCard({ part }: PartCardProps) {
   };
 
   return (
-    <div className="flex flex-col rounded-2xl border border-line/70 bg-white overflow-hidden shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-accent hover:shadow-lg">
+    <div className="relative flex flex-col rounded-2xl border border-line/70 bg-white overflow-hidden shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-accent hover:shadow-lg">
       {/* Image Gallery */}
       <div className="relative w-full aspect-square bg-white overflow-hidden group">
         {isCurrentImageFailed ? (
@@ -95,7 +95,7 @@ export default function PartCard({ part }: PartCardProps) {
           <>
             <button
               onClick={goToPrevious}
-              className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition"
+              className="absolute z-10 left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition"
               aria-label="Previous image"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -104,7 +104,7 @@ export default function PartCard({ part }: PartCardProps) {
             </button>
             <button
               onClick={goToNext}
-              className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition"
+              className="absolute z-10 right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition"
               aria-label="Next image"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -116,7 +116,7 @@ export default function PartCard({ part }: PartCardProps) {
 
         {/* Image Indicators */}
         {hasMultipleImages && (
-          <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1">
+          <div className="absolute z-10 bottom-2 left-1/2 -translate-x-1/2 flex gap-1">
             {images.map((_, idx) => (
               <button
                 key={idx}
@@ -162,12 +162,22 @@ export default function PartCard({ part }: PartCardProps) {
             onClick={handleBeliClick}
             target="_blank"
             rel="noopener noreferrer"
-            className="block w-full rounded-full bg-accent px-4 py-2.5 text-center text-sm font-bold text-black transition hover:bg-accent-dark"
+            className="relative z-10 block w-full rounded-full bg-accent px-4 py-2.5 text-center text-sm font-bold text-black transition hover:bg-accent-dark"
           >
             Beli
           </a>
         </div>
       </div>
+
+      {/* Seluruh area card membuka link Shopee. Tombol di atas (z-10) tetap bisa diklik sendiri. */}
+      <a
+        href={part.shopeeLink}
+        onClick={handleBeliClick}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={part.nama}
+        className="absolute inset-0 z-0"
+      />
     </div>
   );
 }

@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import InstallPrompt from "@/components/InstallPrompt";
+import { OG_DESCRIPTION, OG_TITLE } from "@/lib/seo";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,8 +32,8 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   openGraph: {
-    title: siteTitle,
-    description: siteDescription,
+    title: OG_TITLE,
+    description: OG_DESCRIPTION,
     siteName: "Omomarket",
     locale: "id_ID",
     type: "website",
@@ -39,8 +41,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: siteTitle,
-    description: siteDescription,
+    title: OG_TITLE,
+    description: OG_DESCRIPTION,
   },
 };
 
@@ -54,6 +56,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />
+        <InstallPrompt />
       </body>
     </html>
   );

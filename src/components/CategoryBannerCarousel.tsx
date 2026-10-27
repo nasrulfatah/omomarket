@@ -272,7 +272,7 @@ export default function CategoryBannerCarousel({ parts }: CategoryBannerCarousel
             {/* Left Navigation Button - Layered on top, half outside banner */}
             <button
               onClick={handlePrev}
-              className={`absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 z-30 bg-white hover:bg-white/95 rounded-full p-3 transition-all duration-300 shadow-xl ${
+              className={`hidden sm:block absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 z-30 bg-white hover:bg-white/95 rounded-full p-3 transition-all duration-300 shadow-xl ${
                 showChevrons ? 'opacity-100 scale-100' : 'opacity-0 scale-75 pointer-events-none'
               }`}
               aria-label="Previous slide"
@@ -285,7 +285,7 @@ export default function CategoryBannerCarousel({ parts }: CategoryBannerCarousel
             {/* Right Navigation Button - Layered on top, half outside banner */}
             <button
               onClick={handleNext}
-              className={`absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 z-30 bg-white hover:bg-white/95 rounded-full p-3 transition-all duration-300 shadow-xl ${
+              className={`hidden sm:block absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 z-30 bg-white hover:bg-white/95 rounded-full p-3 transition-all duration-300 shadow-xl ${
                 showChevrons ? 'opacity-100 scale-100' : 'opacity-0 scale-75 pointer-events-none'
               }`}
               aria-label="Next slide"
