@@ -4,6 +4,9 @@ Semua perubahan penting pada project ini dicatat di file ini, supaya mudah melac
 
 Format: `## [versi] - tanggal` diikuti ringkasan perubahan dan commit hash terkait.
 
+## [1.4.33] - 2026-10-28
+- Banner carousel bisa di-swipe di HP: swipe ke kiri pindah ke banner berikutnya, swipe ke kanan ke banner sebelumnya (minimal 40px).
+
 ## [1.4.32] - 2026-10-28
 - Ditambahkan web app manifest (`src/app/manifest.ts`), ikon 192 dan 512 (`public/icons/`), dan service worker minimal (`public/sw.js`) agar aplikasi bisa di-install.
 - Banner sticky di bawah khusus HP untuk install aplikasi: tombol "Install" di Android/Chrome, dan petunjuk "Tambah ke Layar Utama" di iPhone. Bisa ditutup dan tidak muncul lagi setelahnya. Tidak muncul jika aplikasi sudah terpasang.
