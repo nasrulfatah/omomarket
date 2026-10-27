@@ -8,6 +8,11 @@ interface BeforeInstallPromptEvent extends Event {
 }
 
 const DISMISS_KEY = "installPromptDismissed";
+// Penanda bahwa aplikasi pernah dibuka dari layar utama (sudah terpasang)
+const INSTALLED_KEY = "webappInstalled";
+
+// Tanggal lokal hari ini (YYYY-MM-DD). Banner yang ditutup hari ini tidak muncul lagi, besoknya muncul lagi.
+const todayKey = () => new Date().toLocaleDateString("en-CA");
 
 // Banner sticky di bawah untuk install aplikasi di HP (khusus layar kecil)
 export default function InstallPrompt() {
@@ -23,10 +28,17 @@ export default function InstallPrompt() {
     const isStandalone =
       window.matchMedia("(display-mode: standalone)").matches ||
       (navigator as Navigator & { standalone?: boolean }).standalone === true;
-    if (isStandalone) return;
+    // Dibuka dari ikon layar utama: tandai sudah terpasang, lalu jangan tampilkan banner lagi
+    if (isStandalone) {
+      try {
+        localStorage.setItem(INSTALLED_KEY, "1");
+      } catch {}
+      return;
+    }
 
     try {
-      if (localStorage.getItem(DISMISS_KEY) === "1") return;
+      if (localStorage.getItem(INSTALLED_KEY) === "1") return;
+      if (localStorage.getItem(DISMISS_KEY) === todayKey()) return;
     } catch {}
 
     // iOS Safari tidak punya tombol install, jadi tampilkan petunjuk manual
@@ -47,7 +59,7 @@ export default function InstallPrompt() {
   const dismiss = () => {
     setVisible(false);
     try {
-      localStorage.setItem(DISMISS_KEY, "1");
+      localStorage.setItem(DISMISS_KEY, todayKey());
     } catch {}
   };
 
