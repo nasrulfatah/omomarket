@@ -15,7 +15,7 @@ const INSTALLED_KEY = "webappInstalled";
 const todayKey = () => new Date().toLocaleDateString("en-CA");
 
 // Banner sticky di bawah untuk install aplikasi di HP (khusus layar kecil)
-export default function InstallPrompt() {
+export default function InstallPrompt({ hidden = false }: { hidden?: boolean }) {
   const [deferred, setDeferred] = useState<BeforeInstallPromptEvent | null>(null);
   const [isIOS, setIsIOS] = useState(false);
   const [visible, setVisible] = useState(false);
@@ -71,7 +71,7 @@ export default function InstallPrompt() {
     dismiss();
   };
 
-  if (!visible) return null;
+  if (!visible || hidden) return null;
 
   return (
     <div className="fixed inset-x-0 bottom-0 z-50 border-t border-line/70 bg-white px-4 pt-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] shadow-[0_-4px_16px_rgba(0,0,0,0.08)] sm:hidden">
