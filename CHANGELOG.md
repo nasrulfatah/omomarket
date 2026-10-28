@@ -4,6 +4,13 @@ Semua perubahan penting pada project ini dicatat di file ini, supaya mudah melac
 
 Format: `## [versi] - tanggal` diikuti ringkasan perubahan dan commit hash terkait.
 
+## [1.4.38] - 2026-10-28
+- Popup Channel WhatsApp: jika ditutup (×) akan muncul lagi setelah 1 hari. Jika diklik CTA "Gabung" tidak akan muncul lagi. Setelah popup WhatsApp ditutup atau diklik, banner install langsung muncul (atau muncul saat halaman dibuka lagi), kecuali aplikasi sudah terpasang.
+
+## [1.4.37] - 2026-10-28
+- Popup sticky ajakan follow Channel WhatsApp "Racun Omo" (`src/components/WhatsAppChannelPopup.tsx`). Muncul di awal sesi.
+- Banner install aplikasi hanya muncul saat popup Channel WhatsApp tidak aktif. Hanya satu popup yang tampil dalam satu waktu, dengan prioritas popup WhatsApp (`src/components/StickyPopups.tsx`).
+
 ## [1.4.36] - 2026-10-28
 - Banner install tidak muncul lagi di browser Android/Chrome setelah aplikasi pernah dibuka dari layar utama (penanda `webappInstalled` di localStorage). Di iPhone/Safari belum tercakup, karena penyimpanan aplikasi layar utama terpisah dari Safari.
 
