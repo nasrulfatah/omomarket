@@ -59,7 +59,7 @@ export default function WhatsAppChannelPopup({ onOpenChange }: Props) {
           </svg>
         </div>
         <div className="min-w-0 flex-1">
-          <p className="text-sm font-bold text-black">Follow Channel Racun Omo</p>
+          <p className="text-sm font-bold text-black">Channel Racun Omoway</p>
           <p className="text-xs text-black/60">Update aksesoris & part Omo terbaru</p>
         </div>
         <a
@@ -69,7 +69,7 @@ export default function WhatsAppChannelPopup({ onOpenChange }: Props) {
           onClick={join}
           className="shrink-0 rounded-full bg-[#25D366] px-4 py-2 text-sm font-bold text-white transition hover:bg-[#1ebe5a]"
         >
-          Gabung
+          Follow
         </a>
         <button
           onClick={close}
