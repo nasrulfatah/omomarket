@@ -59,6 +59,8 @@ export default function CategoryBannerCarousel({ parts }: CategoryBannerCarousel
   const [autoPlay, setAutoPlay] = useState(true);
   const [showChevrons, setShowChevrons] = useState(false);
   const touchStartX = useRef<number | null>(null);
+  // URL gambar slide yang sudah selesai dimuat, dipakai untuk menyembunyikan skeleton
+  const [loadedImage, setLoadedImage] = useState<string | null>(null);
 
   useEffect(() => {
     if (!autoPlay || slides.length <= 1) return;
@@ -229,10 +231,18 @@ export default function CategoryBannerCarousel({ parts }: CategoryBannerCarousel
               />
             </div>
           )}
+          {image && loadedImage !== image && (
+            <div className="absolute inset-0 bg-gray-300 motion-safe:animate-pulse" />
+          )}
           {image && (
             <img
+              ref={(el) => {
+                // Gambar yang sudah ada di cache tidak memicu onLoad, jadi dicek manual
+                if (el?.complete && el.naturalWidth > 0) setLoadedImage(image);
+              }}
               src={image}
               alt={slide.kind === "product" ? slide.part.nama : ""}
+              onLoad={() => setLoadedImage(image)}
               className="max-h-full max-w-[85%] object-contain rounded-lg sm:rounded-xl shadow-2xl"
             />
           )}
