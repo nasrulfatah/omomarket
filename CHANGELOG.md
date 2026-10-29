@@ -4,6 +4,10 @@ Semua perubahan penting pada project ini dicatat di file ini, supaya mudah melac
 
 Format: `## [versi] - tanggal` diikuti ringkasan perubahan dan commit hash terkait.
 
+## [1.4.42] - 2026-10-29
+- Skeleton loading: kartu produk menampilkan placeholder abu-abu berkedip sampai gambarnya selesai dimuat (`PartCard`).
+- Skeleton halaman (`src/app/loading.tsx` dan `ProductGridSkeleton`) tampil saat data produk sedang diambil, dengan bentuk kartu yang sama seperti katalog. Animasi dimatikan untuk pengguna yang mengaktifkan pengurangan gerakan.
+
 ## [1.4.41] - 2026-10-29
 - Gambar produk dari CDN Shopee diambil dalam format WebP ukuran kecil (`@resize_w450_nl.webp`) langsung dari CDN, tanpa mengubah isi sheet. Ukurannya sekitar 21 KB, dibanding 58 KB JPEG asli. Tidak memakai kuota optimasi gambar Vercel.
 - Koneksi ke CDN Shopee dibuka lebih awal (`preconnect`). Gambar pada baris pertama katalog dimuat duluan, sisanya lazy load.

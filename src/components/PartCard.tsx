@@ -43,6 +43,7 @@ export default function PartCard({ part, priority = false }: PartCardProps) {
   const images = (part.gambar || "").split(",").map((url) => url.trim()).filter(Boolean);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [failedImages, setFailedImages] = useState<Set<number>>(new Set());
+  const [loadedSrc, setLoadedSrc] = useState<string | null>(null);
 
   const currentImage = images[currentImageIndex] || "/placeholder.jpg";
   const hasMultipleImages = images.length > 1;
@@ -87,15 +88,26 @@ export default function PartCard({ part, priority = false }: PartCardProps) {
             </svg>
           </div>
         ) : (
-          <img
-            src={toThumbnail(currentImage)}
-            alt={part.nama}
-            className="w-full h-full object-cover"
-            loading={priority ? "eager" : "lazy"}
-            fetchPriority={priority ? "high" : "auto"}
-            decoding="async"
-            onError={handleImageError}
-          />
+          <>
+            {/* Skeleton tampil sampai gambar aktif selesai dimuat */}
+            {loadedSrc !== currentImage && (
+              <div className="absolute inset-0 bg-neutral-200 motion-safe:animate-pulse" />
+            )}
+            <img
+              ref={(el) => {
+                // Gambar yang sudah ada di cache tidak memicu onLoad, jadi dicek manual
+                if (el?.complete && el.naturalWidth > 0) setLoadedSrc(currentImage);
+              }}
+              src={toThumbnail(currentImage)}
+              alt={part.nama}
+              className="absolute inset-0 w-full h-full object-cover"
+              loading={priority ? "eager" : "lazy"}
+              fetchPriority={priority ? "high" : "auto"}
+              decoding="async"
+              onLoad={() => setLoadedSrc(currentImage)}
+              onError={handleImageError}
+            />
+          </>
         )}
 
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-t from-white to-transparent" />
