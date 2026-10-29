@@ -1,12 +1,19 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import { Part, formatRupiah } from "@/lib/types";
 
 interface PartCardProps {
   part: Part;
+  // Kartu di baris pertama dimuat duluan (preload), sisanya lazy load
+  priority?: boolean;
 }
+
+// CDN Shopee menyajikan WebP berukuran kecil (±21 KB, dibanding ±58 KB JPEG asli) lewat sufiks ini
+const SHOPEE_THUMB_SUFFIX = "@resize_w450_nl.webp";
+
+const toThumbnail = (src: string) =>
+  src.includes("susercontent.com") && !src.endsWith(".webp") ? src + SHOPEE_THUMB_SUFFIX : src;
 
 type TagKey = "new" | "recommended" | "hot";
 
@@ -32,7 +39,7 @@ const TAG_LABELS: Record<TagKey, string> = {
   hot: "Hot",
 };
 
-export default function PartCard({ part }: PartCardProps) {
+export default function PartCard({ part, priority = false }: PartCardProps) {
   const images = (part.gambar || "").split(",").map((url) => url.trim()).filter(Boolean);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [failedImages, setFailedImages] = useState<Set<number>>(new Set());
@@ -81,9 +88,12 @@ export default function PartCard({ part }: PartCardProps) {
           </div>
         ) : (
           <img
-            src={currentImage}
+            src={toThumbnail(currentImage)}
             alt={part.nama}
             className="w-full h-full object-cover"
+            loading={priority ? "eager" : "lazy"}
+            fetchPriority={priority ? "high" : "auto"}
+            decoding="async"
             onError={handleImageError}
           />
         )}

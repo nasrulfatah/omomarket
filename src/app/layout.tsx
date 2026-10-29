@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { preconnect } from "react-dom";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -47,6 +48,9 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
+  // Buka koneksi ke CDN gambar Shopee lebih awal, supaya gambar kartu tidak menunggu handshake
+  preconnect("https://down-id.img.susercontent.com");
+
   return (
     <html
       lang="id"

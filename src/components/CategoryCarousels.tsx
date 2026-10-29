@@ -89,9 +89,9 @@ export default function CategoryCarousels({ parts, selectedCategory }: CategoryC
                 id={carouselId}
                 className="flex gap-3 overflow-x-auto scroll-smooth pb-2 hide-scrollbar"
               >
-                {categoryProducts.map((product) => (
+                {categoryProducts.map((product, index) => (
                   <div key={product.id} className="flex-shrink-0 w-[200px]">
-                    <PartCard part={product} />
+                    <PartCard part={product} priority={index < 2} />
                   </div>
                 ))}
               </div>

@@ -4,6 +4,17 @@ Semua perubahan penting pada project ini dicatat di file ini, supaya mudah melac
 
 Format: `## [versi] - tanggal` diikuti ringkasan perubahan dan commit hash terkait.
 
+## [1.4.41] - 2026-10-29
+- Gambar produk dari CDN Shopee diambil dalam format WebP ukuran kecil (`@resize_w450_nl.webp`) langsung dari CDN, tanpa mengubah isi sheet. Ukurannya sekitar 21 KB, dibanding 58 KB JPEG asli. Tidak memakai kuota optimasi gambar Vercel.
+- Koneksi ke CDN Shopee dibuka lebih awal (`preconnect`). Gambar pada baris pertama katalog dimuat duluan, sisanya lazy load.
+
+## [1.4.40] - 2026-10-29
+- Gambar produk lebih cepat dimuat: gambar dari CDN Shopee dan Unsplash dioptimasi lewat `next/image` (resize sesuai ukuran kartu, format WebP), dan koneksi ke CDN Shopee dibuka lebih awal (`preconnect`).
+- Gambar pada baris pertama katalog dimuat duluan (`priority`), sisanya lazy load.
+
+## [1.4.39] - 2026-10-29
+- Popup Channel WhatsApp: judul diubah menjadi "Channel Racun Omoway" dan tombol CTA diubah dari "Gabung" menjadi "Follow".
+
 ## [1.4.38] - 2026-10-28
 - Popup Channel WhatsApp: jika ditutup (×) akan muncul lagi setelah 1 hari. Jika diklik CTA "Gabung" tidak akan muncul lagi. Setelah popup WhatsApp ditutup atau diklik, banner install langsung muncul (atau muncul saat halaman dibuka lagi), kecuali aplikasi sudah terpasang.
 
