@@ -4,6 +4,9 @@ Semua perubahan penting pada project ini dicatat di file ini, supaya mudah melac
 
 Format: `## [versi] - tanggal` diikuti ringkasan perubahan dan commit hash terkait.
 
+## [1.4.43] - 2026-10-30
+- Skeleton loading untuk banner carousel: kotak abu-abu berkedip tampil di slide produk sampai gambarnya selesai dimuat (`CategoryBannerCarousel`).
+
 ## [1.4.42] - 2026-10-29
 - Skeleton loading: kartu produk menampilkan placeholder abu-abu berkedip sampai gambarnya selesai dimuat (`PartCard`).
 - Skeleton halaman (`src/app/loading.tsx` dan `ProductGridSkeleton`) tampil saat data produk sedang diambil, dengan bentuk kartu yang sama seperti katalog. Animasi dimatikan untuk pengguna yang mengaktifkan pengurangan gerakan.
