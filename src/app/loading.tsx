@@ -1,6 +1,6 @@
-import ProductGridSkeleton from "@/components/ProductGridSkeleton";
+import AccessoriesSkeleton from "@/components/AccessoriesSkeleton";
 
-// Ditampilkan Next.js saat halaman sedang mengambil data (misal dari Google Sheet)
+// Ditampilkan saat halaman utama (Aksesoris) sedang mengambil data dari Google Sheet
 export default function Loading() {
-  return <ProductGridSkeleton />;
+  return <AccessoriesSkeleton />;
 }
