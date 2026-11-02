@@ -4,6 +4,9 @@ Semua perubahan penting pada project ini dicatat di file ini, supaya mudah melac
 
 Format: `## [versi] - tanggal` diikuti ringkasan perubahan dan commit hash terkait.
 
+## [1.4.46] - 2026-11-03
+- Skeleton Aksesoris (`AccessoriesSkeleton`) tidak lagi memakai placeholder untuk bagian statis. Judul dan search bar sekarang tampil langsung, hanya bagian yang berasal dari data (banner, kategori, carousel, grid produk) yang memakai skeleton.
+
 ## [1.4.45] - 2026-11-02
 - Skeleton saat halaman utama (`/`) dimuat sekarang memakai susunan Aksesoris yang sama (`src/app/loading.tsx`). Sebelumnya masih skeleton grid lama. Skeleton grid yang tidak terpakai dihapus.
 
