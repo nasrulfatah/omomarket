@@ -21,15 +21,40 @@ export default function AccessoriesSkeleton() {
     <div className="bg-white" role="status" aria-busy="true">
       <span className="sr-only">Memuat produk...</span>
       <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-12 lg:py-8">
-        {/* Judul halaman */}
+        {/* Judul halaman (statis, tidak perlu skeleton) */}
         <div className="mb-5">
-          <div className={`h-7 w-3/4 rounded sm:w-96 lg:h-9 ${PLACEHOLDER}`} />
+          <h1 className="text-xl font-extrabold leading-tight text-black sm:text-2xl lg:text-3xl">
+            Omo Recommended Accessories
+          </h1>
         </div>
 
-        {/* Pencarian */}
+        {/* Pencarian (statis, tampil langsung tanpa skeleton) */}
         <div className="mb-6 flex gap-2">
-          <div className={`h-10 flex-1 rounded-xl ${PLACEHOLDER}`} />
-          <div className={`h-10 w-20 rounded-xl ${PLACEHOLDER}`} />
+          <div className="relative flex-1">
+            <svg
+              className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-black/40"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={2}
+              viewBox="0 0 24 24"
+            >
+              <circle cx="11" cy="11" r="7" />
+              <path strokeLinecap="round" d="M20 20l-3.5-3.5" />
+            </svg>
+            <input
+              type="text"
+              name="q"
+              placeholder="Ketik nama produk..."
+              readOnly
+              className="w-full rounded-xl border border-line/70 bg-white py-2.5 pl-10 pr-4 text-sm font-medium text-black placeholder:text-black/40"
+            />
+          </div>
+          <button
+            type="button"
+            className="rounded-xl bg-accent px-5 text-sm font-bold text-black"
+          >
+            Cari
+          </button>
         </div>
 
         {/* Banner carousel */}
