@@ -4,6 +4,9 @@ Semua perubahan penting pada project ini dicatat di file ini, supaya mudah melac
 
 Format: `## [versi] - tanggal` diikuti ringkasan perubahan dan commit hash terkait.
 
+## [1.4.51] - 2026-11-03
+- Data Google Sheet tab Accessories (`getPartsSheetData` di `src/lib/google.ts`) sekarang di-cache 60 detik memakai `unstable_cache`. Kunjungan berikutnya dalam 60 detik tidak lagi menunggu Google Sheets, sehingga loading lebih cepat. Perubahan di Sheet bisa tampil terlambat sampai 1 menit. Error tidak di-cache.
+
 ## [1.4.50] - 2026-11-03
 - Gambar yang belum terlihat di layar sekarang dimuat lazy (`loading="lazy"`): ikon kategori (`CategoryCardsGrid`), gambar slide banner (`CategoryBannerCarousel`), dan thumbnail hasil pencarian (`PartsPageClient`). Gambar yang sudah di layar tetap langsung dimuat oleh browser.
 

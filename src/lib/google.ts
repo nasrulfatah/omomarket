@@ -1,5 +1,6 @@
 import { google } from "googleapis";
 import { Readable } from "stream";
+import { unstable_cache } from "next/cache";
 
 const auth = new google.auth.GoogleAuth({
   credentials: {
@@ -78,14 +79,24 @@ export async function getSheetData(): Promise<any[][]> {
   }
 }
 
+// Data sheet disimpan di cache 60 detik supaya kunjungan berikutnya tidak menunggu Google Sheets.
+// Error tidak ikut di-cache karena dilempar keluar dari fungsi yang di-cache.
+const fetchPartsSheetRows = async (): Promise<any[][]> => {
+  const response = await sheets.spreadsheets.values.get({
+    spreadsheetId: process.env.GOOGLE_SHEETS_ID!,
+    range: "'Accessories'!A2:I",
+  });
+
+  return response.data.values || [];
+};
+
+const getCachedPartsSheetRows = unstable_cache(fetchPartsSheetRows, ["accessories-sheet-rows"], {
+  revalidate: 60,
+});
+
 export async function getPartsSheetData(): Promise<any[][]> {
   try {
-    const response = await sheets.spreadsheets.values.get({
-      spreadsheetId: process.env.GOOGLE_SHEETS_ID!,
-      range: "'Accessories'!A2:I",
-    });
-
-    return response.data.values || [];
+    return await getCachedPartsSheetRows();
   } catch (error) {
     console.error("Error reading Accessories sheet:", error);
     return [];
