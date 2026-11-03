@@ -33,6 +33,8 @@ export function CategoryIcon({ icon, label }: { icon: string; label: string }) {
       <img
         src={icon}
         alt={label}
+        loading="lazy"
+        decoding="async"
         className="h-8 w-8 object-contain mix-blend-multiply transition-transform group-hover:scale-110 sm:h-10 sm:w-10"
       />
     );
