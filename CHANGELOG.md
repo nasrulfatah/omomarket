@@ -4,6 +4,11 @@ Semua perubahan penting pada project ini dicatat di file ini, supaya mudah melac
 
 Format: `## [versi] - tanggal` diikuti ringkasan perubahan dan commit hash terkait.
 
+## [1.4.55] - 2026-11-04
+- Banner pertama (slide WhatsApp) memakai `aurora-green-transparent.webp` (600px, 25 KB) menggantikan PNG 930px 376 KB. Ini gambar yang paling sering tampil pertama saat halaman dibuka.
+- Gambar produk di banner memakai thumbnail Shopee `@resize_w900_nl.webp`, bukan gambar asli.
+- Gambar utama banner diberi `fetchPriority="high"`.
+
 ## [1.4.54] - 2026-11-03
 - Banner: gambar slide berikutnya di-preload saat slide aktif tampil, sehingga pindah slide (otomatis maupun geser manual) tidak menunggu gambar dari nol.
 - Gambar utama slide banner tidak lagi `loading="lazy"`, karena slide aktif selalu berada di layar.
