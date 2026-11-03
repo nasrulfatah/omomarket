@@ -3,7 +3,7 @@ import { PARTS_CATEGORIES, categoryToSlug } from "@/lib/types";
 import { CATEGORY_ICONS, CategoryIcon, cardClass } from "@/components/CategoryCardsGrid";
 
 // Placeholder halaman Aksesoris: judul, pencarian, banner, kategori, carousel, lalu grid produk.
-// Susunannya meniru src/app/accessories/page.tsx supaya tidak ada yang bergeser saat data masuk.
+// Susunannya meniru src/app/page.tsx supaya tidak ada yang bergeser saat data masuk.
 // Judul, pencarian, dan kotak kategori bersifat statis sehingga langsung tampil.
 const PLACEHOLDER = "bg-neutral-200 motion-safe:animate-pulse";
 
