@@ -72,6 +72,15 @@ export default function CategoryBannerCarousel({ parts }: CategoryBannerCarousel
     return () => clearInterval(interval);
   }, [autoPlay, slides.length]);
 
+  // Gambar slide berikutnya diminta lebih dulu, supaya saat gilirannya tiba sudah siap
+  useEffect(() => {
+    const next = slides[(currentIndex + 1) % slides.length];
+    if (next?.kind === "product") {
+      const preload = new Image();
+      preload.src = next.part.gambar.split(",")[0]?.trim();
+    }
+  }, [currentIndex, slides]);
+
   const handleNext = () => {
     setAutoPlay(false);
     setCurrentIndex((prev) => (prev + 1) % slides.length);
@@ -241,7 +250,6 @@ export default function CategoryBannerCarousel({ parts }: CategoryBannerCarousel
                 if (el?.complete && el.naturalWidth > 0) setLoadedImage(image);
               }}
               src={image}
-              loading="lazy"
               decoding="async"
               alt={slide.kind === "product" ? slide.part.nama : ""}
               onLoad={() => setLoadedImage(image)}

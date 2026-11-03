@@ -4,6 +4,10 @@ Semua perubahan penting pada project ini dicatat di file ini, supaya mudah melac
 
 Format: `## [versi] - tanggal` diikuti ringkasan perubahan dan commit hash terkait.
 
+## [1.4.54] - 2026-11-03
+- Banner: gambar slide berikutnya di-preload saat slide aktif tampil, sehingga pindah slide (otomatis maupun geser manual) tidak menunggu gambar dari nol.
+- Gambar utama slide banner tidak lagi `loading="lazy"`, karena slide aktif selalu berada di layar.
+
 ## [1.4.53] - 2026-11-03
 - Ditambahkan redirect permanen (301) dari `/accessories` ke `/` di `next.config.ts`, supaya link lama tidak lagi menampilkan 404.
 
