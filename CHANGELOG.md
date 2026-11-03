@@ -4,6 +4,9 @@ Semua perubahan penting pada project ini dicatat di file ini, supaya mudah melac
 
 Format: `## [versi] - tanggal` diikuti ringkasan perubahan dan commit hash terkait.
 
+## [1.4.56] - 2026-11-04
+- Skeleton abu-abu pada gambar produk di banner dihapus. Gambar sekarang fade-in (opacity 0 ke 100) saat selesai dimuat, sehingga gambar yang sudah di-cache tidak lagi menampilkan kotak skeleton.
+
 ## [1.4.55] - 2026-11-04
 - Banner pertama (slide WhatsApp) memakai `aurora-green-transparent.webp` (600px, 25 KB) menggantikan PNG 930px 376 KB. Ini gambar yang paling sering tampil pertama saat halaman dibuka.
 - Gambar produk di banner memakai thumbnail Shopee `@resize_w900_nl.webp`, bukan gambar asli.
