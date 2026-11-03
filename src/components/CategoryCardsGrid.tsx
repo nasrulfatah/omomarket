@@ -2,7 +2,7 @@ import Link from "next/link";
 import { PartCategory, categoryToSlug } from "@/lib/types";
 
 // Icon path (3D render) or a raw emoji string when no matching 3D icon exists
-const CATEGORY_ICONS: Record<PartCategory, string> = {
+export const CATEGORY_ICONS: Record<PartCategory, string> = {
   "Baterai": "/icons/categories/battery.webp",
   "Charger & Kabel": "/icons/categories/charger-cable.webp",
   "Ban & Velg": "/icons/categories/tires-wheels.svg",
@@ -23,10 +23,10 @@ const CATEGORY_ICONS: Record<PartCategory, string> = {
   "Lainnya": "/icons/categories/all.webp",
 };
 
-const cardClass =
+export const cardClass =
   "group relative overflow-hidden rounded-xl border-2 border-transparent bg-gray-50 p-3 sm:p-4 transition-all duration-300 hover:border-accent/50 hover:bg-accent/5";
 
-function CategoryIcon({ icon, label }: { icon: string; label: string }) {
+export function CategoryIcon({ icon, label }: { icon: string; label: string }) {
   const isImage = icon.startsWith("/");
   if (isImage) {
     return (
