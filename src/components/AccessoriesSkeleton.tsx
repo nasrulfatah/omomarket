@@ -1,5 +1,10 @@
+import Link from "next/link";
+import { PARTS_CATEGORIES, categoryToSlug } from "@/lib/types";
+import { CATEGORY_ICONS, CategoryIcon, cardClass } from "@/components/CategoryCardsGrid";
+
 // Placeholder halaman Aksesoris: judul, pencarian, banner, kategori, carousel, lalu grid produk.
 // Susunannya meniru src/app/accessories/page.tsx supaya tidak ada yang bergeser saat data masuk.
+// Judul, pencarian, dan kotak kategori bersifat statis sehingga langsung tampil.
 const PLACEHOLDER = "bg-neutral-200 motion-safe:animate-pulse";
 
 function CardSkeleton() {
@@ -60,16 +65,15 @@ export default function AccessoriesSkeleton() {
         {/* Banner carousel */}
         <div className={`mb-10 aspect-[16/5] w-full rounded-2xl ${PLACEHOLDER}`} />
 
-        {/* Kategori */}
+        {/* Kategori (statis, tampil langsung tanpa skeleton) */}
         <div className="mb-10 grid grid-cols-3 gap-2 sm:grid-cols-5 sm:gap-3">
-          {Array.from({ length: 10 }).map((_, i) => (
-            <div
-              key={i}
-              className="flex flex-col items-center gap-2 rounded-2xl border border-line/70 bg-white p-3"
-            >
-              <div className={`h-8 w-8 rounded-full sm:h-10 sm:w-10 ${PLACEHOLDER}`} />
-              <div className={`h-3 w-4/5 rounded ${PLACEHOLDER}`} />
-            </div>
+          {PARTS_CATEGORIES.map((category) => (
+            <Link key={category} href={`/search?kategori=${categoryToSlug(category)}`} className={cardClass}>
+              <div className="flex flex-col items-center gap-1.5 text-center sm:gap-2">
+                <CategoryIcon icon={CATEGORY_ICONS[category]} label={category} />
+                <h3 className="text-[11px] font-semibold text-black sm:text-sm">{category}</h3>
+              </div>
+            </Link>
           ))}
         </div>
 
