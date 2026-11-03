@@ -4,6 +4,9 @@ Semua perubahan penting pada project ini dicatat di file ini, supaya mudah melac
 
 Format: `## [versi] - tanggal` diikuti ringkasan perubahan dan commit hash terkait.
 
+## [1.4.48] - 2026-11-03
+- Teks statis di skeleton Aksesoris tidak lagi memakai placeholder: judul carousel "Populer" dengan tautan "Lihat Semua", dan tombol "Beli" di setiap kartu produk skeleton.
+
 ## [1.4.47] - 2026-11-03
 - Kotak kategori di skeleton Aksesoris (`AccessoriesSkeleton`) tidak lagi memakai placeholder. Kategori statis (18 kategori dari `PARTS_CATEGORIES`) tampil langsung dengan ikon dan tautannya, memakai komponen yang sama dengan `CategoryCardsGrid`.
 
