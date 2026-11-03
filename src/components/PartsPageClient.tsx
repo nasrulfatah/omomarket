@@ -89,7 +89,7 @@ export default function PartsPageClient({ parts }: PartsPageClientProps) {
                         className="flex items-center gap-3 px-4 py-3 hover:bg-neutral-50 transition"
                       >
                         <div className="h-14 w-14 flex-shrink-0 overflow-hidden rounded-md bg-neutral-100">
-                          {image && <img src={image} alt="" className="h-full w-full object-cover" />}
+                          {image && <img src={image} alt="" loading="lazy" decoding="async" className="h-full w-full object-cover" />}
                         </div>
                         <div className="min-w-0 flex-1">
                           <p className="truncate text-sm font-semibold text-black">{part.nama}</p>

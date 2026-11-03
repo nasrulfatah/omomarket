@@ -4,6 +4,9 @@ Semua perubahan penting pada project ini dicatat di file ini, supaya mudah melac
 
 Format: `## [versi] - tanggal` diikuti ringkasan perubahan dan commit hash terkait.
 
+## [1.4.50] - 2026-11-03
+- Gambar yang belum terlihat di layar sekarang dimuat lazy (`loading="lazy"`): ikon kategori (`CategoryCardsGrid`), gambar slide banner (`CategoryBannerCarousel`), dan thumbnail hasil pencarian (`PartsPageClient`). Gambar yang sudah di layar tetap langsung dimuat oleh browser.
+
 ## [1.4.49] - 2026-11-03
 - Link kategori dan "Lihat Semua" di skeleton Aksesoris diberi `prefetch={false}`. Sebelumnya setiap link memicu prefetch ke `/search` (dynamic, mengambil data Google Sheets) saat skeleton tampil, sehingga berebut koneksi dengan data halaman utama dan membuatnya lebih lambat.
 

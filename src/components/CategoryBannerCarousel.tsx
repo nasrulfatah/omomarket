@@ -241,6 +241,8 @@ export default function CategoryBannerCarousel({ parts }: CategoryBannerCarousel
                 if (el?.complete && el.naturalWidth > 0) setLoadedImage(image);
               }}
               src={image}
+              loading="lazy"
+              decoding="async"
               alt={slide.kind === "product" ? slide.part.nama : ""}
               onLoad={() => setLoadedImage(image)}
               className="max-h-full max-w-[85%] object-contain rounded-lg sm:rounded-xl shadow-2xl"
