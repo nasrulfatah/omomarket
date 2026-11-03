@@ -28,7 +28,12 @@ const PROMO_CONFIG: PromoConfig[] = [
 ];
 
 const WHATSAPP_CHANNEL_URL = "https://whatsapp.com/channel/0029VbDVLsY9sBIGIpFeQi0X";
-const WHATSAPP_MOTOR_IMAGE = "/omoway/aurora-green-transparent.png";
+const WHATSAPP_MOTOR_IMAGE = "/omoway/aurora-green-transparent.webp";
+
+// Thumbnail Shopee untuk banner: cukup besar untuk layar penuh, jauh lebih kecil dari gambar asli
+const SHOPEE_BANNER_SUFFIX = "@resize_w900_nl.webp";
+const toBannerImage = (src: string | undefined): string | undefined =>
+  src && src.includes("susercontent.com") && !src.endsWith(".webp") ? src + SHOPEE_BANNER_SUFFIX : src;
 
 function WhatsAppIcon({ className }: { className?: string }) {
   return (
@@ -77,7 +82,7 @@ export default function CategoryBannerCarousel({ parts }: CategoryBannerCarousel
     const next = slides[(currentIndex + 1) % slides.length];
     if (next?.kind === "product") {
       const preload = new Image();
-      preload.src = next.part.gambar.split(",")[0]?.trim();
+      preload.src = toBannerImage(next.part.gambar.split(",")[0]?.trim()) ?? "";
     }
   }, [currentIndex, slides]);
 
@@ -109,7 +114,7 @@ export default function CategoryBannerCarousel({ parts }: CategoryBannerCarousel
 
   const slide = slides[currentIndex];
   const isWhatsApp = slide.kind === "whatsapp";
-  const image = slide.kind === "product" ? slide.part.gambar.split(",")[0]?.trim() : undefined;
+  const image = slide.kind === "product" ? toBannerImage(slide.part.gambar.split(",")[0]?.trim()) : undefined;
 
   const slideBackground = isWhatsApp
     ? "bg-[#0b0f0a]"
@@ -250,6 +255,7 @@ export default function CategoryBannerCarousel({ parts }: CategoryBannerCarousel
                 if (el?.complete && el.naturalWidth > 0) setLoadedImage(image);
               }}
               src={image}
+              fetchPriority="high"
               decoding="async"
               alt={slide.kind === "product" ? slide.part.nama : ""}
               onLoad={() => setLoadedImage(image)}
