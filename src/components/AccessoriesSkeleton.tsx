@@ -70,7 +70,12 @@ export default function AccessoriesSkeleton() {
         {/* Kategori (statis, tampil langsung tanpa skeleton) */}
         <div className="mb-10 grid grid-cols-3 gap-2 sm:grid-cols-5 sm:gap-3">
           {PARTS_CATEGORIES.map((category) => (
-            <Link key={category} href={`/search?kategori=${categoryToSlug(category)}`} className={cardClass}>
+            <Link
+              key={category}
+              href={`/search?kategori=${categoryToSlug(category)}`}
+              prefetch={false}
+              className={cardClass}
+            >
               <div className="flex flex-col items-center gap-1.5 text-center sm:gap-2">
                 <CategoryIcon icon={CATEGORY_ICONS[category]} label={category} />
                 <h3 className="text-[11px] font-semibold text-black sm:text-sm">{category}</h3>
@@ -85,6 +90,7 @@ export default function AccessoriesSkeleton() {
             <h3 className="text-base font-semibold text-black">Populer</h3>
             <Link
               href="/search?kategori=popular"
+              prefetch={false}
               className="text-xs font-semibold text-accent-soft-text"
             >
               Lihat Semua

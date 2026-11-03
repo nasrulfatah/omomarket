@@ -4,6 +4,9 @@ Semua perubahan penting pada project ini dicatat di file ini, supaya mudah melac
 
 Format: `## [versi] - tanggal` diikuti ringkasan perubahan dan commit hash terkait.
 
+## [1.4.49] - 2026-11-03
+- Link kategori dan "Lihat Semua" di skeleton Aksesoris diberi `prefetch={false}`. Sebelumnya setiap link memicu prefetch ke `/search` (dynamic, mengambil data Google Sheets) saat skeleton tampil, sehingga berebut koneksi dengan data halaman utama dan membuatnya lebih lambat.
+
 ## [1.4.48] - 2026-11-03
 - Teks statis di skeleton Aksesoris tidak lagi memakai placeholder: judul carousel "Populer" dengan tautan "Lihat Semua", dan tombol "Beli" di setiap kartu produk skeleton.
 
