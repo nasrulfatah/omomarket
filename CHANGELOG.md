@@ -4,6 +4,9 @@ Semua perubahan penting pada project ini dicatat di file ini, supaya mudah melac
 
 Format: `## [versi] - tanggal` diikuti ringkasan perubahan dan commit hash terkait.
 
+## [1.4.53] - 2026-11-03
+- Ditambahkan redirect permanen (301) dari `/accessories` ke `/` di `next.config.ts`, supaya link lama tidak lagi menampilkan 404.
+
 ## [1.4.52] - 2026-11-03
 - Halaman `/accessories` dihapus (`src/app/accessories/page.tsx` dan `loading.tsx`) karena sudah tidak dipakai. Isinya sama dengan halaman utama (`/`). Tidak ada link yang mengarah ke `/accessories`. Akses ke `/accessories` sekarang menampilkan 404.
 
