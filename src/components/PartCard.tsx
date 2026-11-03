@@ -89,10 +89,7 @@ export default function PartCard({ part, priority = false }: PartCardProps) {
           </div>
         ) : (
           <>
-            {/* Skeleton tampil sampai gambar aktif selesai dimuat */}
-            {loadedSrc !== currentImage && (
-              <div className="absolute inset-0 bg-neutral-200 motion-safe:animate-pulse" />
-            )}
+            {/* Gambar fade-in saat selesai dimuat, tanpa skeleton. Gambar dari cache langsung tampil. */}
             <img
               ref={(el) => {
                 // Gambar yang sudah ada di cache tidak memicu onLoad, jadi dicek manual
@@ -100,10 +97,12 @@ export default function PartCard({ part, priority = false }: PartCardProps) {
               }}
               src={toThumbnail(currentImage)}
               alt={part.nama}
-              className="absolute inset-0 w-full h-full object-cover"
+              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${
+                loadedSrc === currentImage ? "opacity-100" : "opacity-0"
+              }`}
               loading={priority ? "eager" : "lazy"}
               fetchPriority={priority ? "high" : "auto"}
-              decoding="async"
+              decoding={priority ? "sync" : "async"}
               onLoad={() => setLoadedSrc(currentImage)}
               onError={handleImageError}
             />

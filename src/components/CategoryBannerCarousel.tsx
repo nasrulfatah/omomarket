@@ -245,9 +245,6 @@ export default function CategoryBannerCarousel({ parts }: CategoryBannerCarousel
               />
             </div>
           )}
-          {image && loadedImage !== image && (
-            <div className="absolute inset-0 bg-gray-300 motion-safe:animate-pulse" />
-          )}
           {image && (
             <img
               ref={(el) => {
@@ -256,10 +253,12 @@ export default function CategoryBannerCarousel({ parts }: CategoryBannerCarousel
               }}
               src={image}
               fetchPriority="high"
-              decoding="async"
+              decoding="sync"
               alt={slide.kind === "product" ? slide.part.nama : ""}
               onLoad={() => setLoadedImage(image)}
-              className="max-h-full max-w-[85%] object-contain rounded-lg sm:rounded-xl shadow-2xl"
+              className={`max-h-full max-w-[85%] object-contain rounded-lg sm:rounded-xl shadow-2xl transition-opacity duration-300 ${
+                loadedImage === image ? "opacity-100" : "opacity-0"
+              }`}
             />
           )}
         </div>
