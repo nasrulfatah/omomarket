@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { PARTS_CATEGORIES, categoryToSlug } from "@/lib/types";
+import { PARTS_CATEGORIES, PartCategory, categoryToSlug } from "@/lib/types";
 import { CATEGORY_ICONS, CategoryIcon, cardClass } from "@/components/CategoryCardsGrid";
 
 // Placeholder halaman Aksesoris: judul, pencarian, banner, kategori, carousel, lalu grid produk.
@@ -23,7 +23,7 @@ function CardSkeleton() {
   );
 }
 
-export default function AccessoriesSkeleton() {
+export default function AccessoriesSkeleton({ categoryOrder }: { categoryOrder?: PartCategory[] }) {
   return (
     <div className="bg-white" role="status" aria-busy="true">
       <span className="sr-only">Memuat produk...</span>
@@ -69,7 +69,7 @@ export default function AccessoriesSkeleton() {
 
         {/* Kategori (statis, tampil langsung tanpa skeleton) */}
         <div className="mb-10 grid grid-cols-3 gap-2 sm:grid-cols-5 sm:gap-3">
-          {PARTS_CATEGORIES.map((category) => (
+          {(categoryOrder ?? PARTS_CATEGORIES).map((category) => (
             <Link
               key={category}
               href={`/search?kategori=${categoryToSlug(category)}`}

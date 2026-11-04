@@ -1,10 +1,10 @@
-import { getAllParts } from "@/lib/store";
+import { getAllParts, getCategoryOrder } from "@/lib/store";
 import PartsPageClient from "@/components/PartsPageClient";
 
 export const dynamic = "force-dynamic";
 
 export default async function Home() {
-  const allParts = await getAllParts();
+  const [allParts, categoryOrder] = await Promise.all([getAllParts(), getCategoryOrder().catch(() => undefined)]);
 
   return (
     <div>
@@ -19,7 +19,7 @@ export default async function Home() {
           </div>
 
           {/* Category Cards + Filtered Products */}
-          <PartsPageClient parts={allParts} />
+          <PartsPageClient parts={allParts} categoryOrder={categoryOrder} />
         </div>
       </section>
     </div>

@@ -4,6 +4,10 @@ Semua perubahan penting pada project ini dicatat di file ini, supaya mudah melac
 
 Format: `## [versi] - tanggal` diikuti ringkasan perubahan dan commit hash terkait.
 
+## [1.4.57] - 2026-11-04
+- Urutan kategori (berdasarkan jumlah produk) disimpan di cache 1 hari (`getCategoryOrder` di `src/lib/store.ts`). Halaman utama dan skeleton (`src/app/loading.tsx`) memakai urutan yang sama, jadi urutan kategori tidak lagi berubah saat refresh. Urutan baru dihitung ulang setelah cache 1 hari berakhir. Error tidak ikut di-cache.
+- `/search` belum memakai urutan cache ini dan masih menghitung urutannya sendiri.
+
 ## [1.4.56] - 2026-11-04
 - Skeleton abu-abu pada gambar produk di banner dihapus. Gambar sekarang fade-in (opacity 0 ke 100) saat selesai dimuat, sehingga gambar yang sudah di-cache tidak lagi menampilkan kotak skeleton.
 
