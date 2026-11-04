@@ -2,19 +2,20 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Part, formatRupiah } from "@/lib/types";
+import { Part, PARTS_CATEGORIES, PartCategory, formatRupiah } from "@/lib/types";
 import CategoryCardsGrid from "./CategoryCardsGrid";
 import CategoryBannerCarousel from "./CategoryBannerCarousel";
-import { orderCategories } from "@/lib/categoryOrder";
 import PartsGrid from "./PartsGrid";
 
 interface PartsPageClientProps {
   parts: Part[];
+  // Urutan dari cache server; kalau belum ada, pakai urutan default
+  categoryOrder?: PartCategory[];
 }
 
 const MAX_SEARCH_RESULTS = 20;
 
-export default function PartsPageClient({ parts }: PartsPageClientProps) {
+export default function PartsPageClient({ parts, categoryOrder }: PartsPageClientProps) {
   const [searchQuery, setSearchQuery] = useState<string>("");
 
   const query = searchQuery.trim().toLowerCase();
@@ -116,7 +117,7 @@ export default function PartsPageClient({ parts }: PartsPageClientProps) {
 
       <CategoryBannerCarousel parts={parts} />
 
-      <CategoryCardsGrid ordered={orderCategories(parts)} />
+      <CategoryCardsGrid ordered={categoryOrder ?? [...PARTS_CATEGORIES]} />
       <PartsGrid parts={parts} selectedCategory="all" searchQuery={searchQuery} />
     </>
   );

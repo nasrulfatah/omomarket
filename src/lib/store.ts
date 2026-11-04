@@ -1,5 +1,7 @@
 import { randomUUID } from "crypto";
+import { unstable_cache } from "next/cache";
 import { getSheetData, getPartsSheetData, getClickRows } from "./google";
+import { orderCategories } from "./categoryOrder";
 import type { Listing, Part, PartCategory } from "./types";
 
 export async function getAllListings(): Promise<Listing[]> {
@@ -157,3 +159,15 @@ export async function getAllParts(): Promise<Part[]> {
     return [];
   }
 }
+
+// Urutan kategori (berdasarkan jumlah produk) disimpan 1 hari. Kalau data kosong karena error,
+// fungsi dilempar supaya hasilnya tidak ikut tersimpan di cache.
+const fetchCategoryOrder = async (): Promise<PartCategory[]> => {
+  const parts = await getAllParts();
+  if (parts.length === 0) throw new Error("Data produk kosong, urutan kategori tidak disimpan");
+  return orderCategories(parts);
+};
+
+export const getCategoryOrder = unstable_cache(fetchCategoryOrder, ["category-order"], {
+  revalidate: 60 * 60 * 24,
+});
